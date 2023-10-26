@@ -5,6 +5,8 @@
  */
 package pasantia_proyect;
 
+import java.security.Principal;
+
 /**
  *
  * @author A19B59953
@@ -21,9 +23,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
      */
     public AgregarEditarVerProveedor() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
-    public AgregarEditarVerProveedor(int opcion) {
+    /*public AgregarEditarVerProveedor(int opcion) {
         this.opcion = opcion;
         switch (opcion) {
             case VER:
@@ -43,7 +46,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         this.rellenarVentana();
         initComponents();
     }
-
+*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +72,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         combo_ac = new javax.swing.JComboBox<>();
         txt_credito = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,7 +82,12 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
         btn_agregar.setBackground(new java.awt.Color(51, 102, 0));
         btn_agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-añadir-40.png"))); // NOI18N
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,47 +102,71 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
         lbl_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_nombre.setText("Nombre");
-        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
+        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         lbl_telefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_telefono.setText("Telefono");
-        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         lbl_activo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_activo.setText("Esta ACTIVO");
-        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, -1, -1));
+        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
 
         lbl_credito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_credito.setText("Limite de credito");
-        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
+        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nombre.setBorder(null);
-        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 230, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 230, 10));
+        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 230, 30));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 230, 10));
 
         txt_telefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_telefono.setBorder(null);
-        jPanel1.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 230, 30));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 230, 10));
+        jPanel1.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 230, 30));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 230, 10));
 
         combo_ac.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No", " " }));
-        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, -1, -1));
+        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, -1));
 
         txt_credito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_credito.setBorder(null);
-        jPanel1.add(txt_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 230, 30));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 230, 10));
+        jPanel1.add(txt_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 30));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 230, 10));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
+        btn_regresar.setBackground(new java.awt.Color(51, 102, 0));
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-regreso-40.png"))); // NOI18N
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        // TODO add your handling code here:
+        main p = new main();
+        p.setVisible(true);
+        this.pack();
+        this.dispose();
+        
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox<String> combo_ac;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
