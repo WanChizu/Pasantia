@@ -125,7 +125,7 @@ public class proveedor_dos extends javax.swing.JFrame {
 
         combo_ac.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No", " " }));
-        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, -1, 30));
+        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
 
         txt_credito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_credito.setBorder(null);
