@@ -5,7 +5,9 @@
  */
 package pasantia_proyect;
 
+import entidades.Proveedor;
 import java.security.Principal;
+import proveedores.Actualizar;
 
 /**
  *
@@ -74,6 +76,11 @@ public class editar extends javax.swing.JFrame {
 
         btn_editar.setBackground(new java.awt.Color(51, 102, 0));
         btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-editar-40 (1).png"))); // NOI18N
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, -1, -1));
 
         btn_regresar.setBackground(new java.awt.Color(51, 102, 0));
@@ -128,6 +135,11 @@ public class editar extends javax.swing.JFrame {
         this.pack();
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        // TODO add your handling code here:
+        Actualizar actualizarProveedor = new Actualizar();
+    }//GEN-LAST:event_btn_editarActionPerformed
 
     /**
      * @param args the command line arguments

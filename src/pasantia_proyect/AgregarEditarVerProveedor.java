@@ -5,7 +5,9 @@
  */
 package pasantia_proyect;
 
+import entidades.Proveedor;
 import java.security.Principal;
+import proveedores.Agregar;
 
 /**
  *
@@ -156,7 +158,8 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        
+        Agregar agregarProveedor = new Agregar();
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
 
@@ -184,8 +187,8 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
     }
 
-    public int getOpcion() {
+    /*public int getOpcion() {
         return opcion;
-    }
+    }*/
 
 }
