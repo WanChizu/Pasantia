@@ -16,6 +16,12 @@ import proveedores.Agregar;
 public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
 
+    private final static int VER = 1 ;
+    private final static int EDITAR = 2 ;
+    private final static int AGREGAR = 3;
+   private  int opcion;
+   
+    
     /**
      * Creates new form proveedor_dos
      */
@@ -24,7 +30,12 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    /*public AgregarEditarVerProveedor(int opcion) {
+    
+  
+    
+    
+    
+    public AgregarEditarVerProveedor(int opcion) {
         this.opcion = opcion;
         switch (opcion) {
             case VER:
@@ -44,7 +55,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         this.rellenarVentana();
         initComponents();
     }
-*/
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +68,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_agregar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lbl_name = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lbl_nombre = new javax.swing.JLabel();
         lbl_telefono = new javax.swing.JLabel();
@@ -90,10 +101,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(102, 153, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("PROVEEDOR");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, -1, -1));
+        lbl_name.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_name.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_name.setText("PROVEEDOR");
+        jPanel2.add(lbl_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, -1, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 110, 10));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 74));
@@ -163,11 +174,16 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_agregarActionPerformed
 
 
+    
+    public static void main(String[] args) {
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.VER).setVisible(true);
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.AGREGAR).setVisible(true);
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.EDITAR).setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox<String> combo_ac;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
@@ -176,6 +192,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lbl_activo;
     private javax.swing.JLabel lbl_credito;
+    private javax.swing.JLabel lbl_name;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JTextField txt_credito;
@@ -190,5 +207,16 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     /*public int getOpcion() {
         return opcion;
     }*/
+
+    private void createParaVer() {
+        System.out.println("Ver");  }
+
+    private void createParaAgregar() {
+        System.out.println("agregar");}
+
+    private void createParaEditar() {
+        System.out.println("editar");
+    
+    }
 
 }

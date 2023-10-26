@@ -54,7 +54,7 @@ public class ver extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 480, 430));
 
-        btn_regresar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_regresar.setBackground(new java.awt.Color(102, 153, 0));
         btn_regresar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-regreso-40.png"))); // NOI18N
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
