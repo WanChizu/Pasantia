@@ -13,10 +13,6 @@ import java.security.Principal;
  */
 public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
-    private int opcion;
-    private final int AGREGAR = 1;
-    private final int VER = 2;
-    private final int EDITAR = 3;
 
     /**
      * Creates new form proveedor_dos
