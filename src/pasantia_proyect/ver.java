@@ -63,7 +63,13 @@ public class ver extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ver().setVisible(true);
+              //  new ver().setVisible(true);
+
+AgregarEditarVerProveedor o1= new AgregarEditarVerProveedor(10);
+AgregarEditarVerProveedor o2= new AgregarEditarVerProveedor(1);
+o2.setVisible(true);
+
+
             }
         });
     }

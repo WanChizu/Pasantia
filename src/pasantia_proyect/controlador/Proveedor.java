@@ -116,5 +116,10 @@ public class Proveedor {
 
     
     
+    public static void main(String[] args) {
+        
+        
+        Proveedor nuevoProveor=new Proveedor(1, "Liz Tejada", "8295683522", true,10000000);
+    }
     
 }
