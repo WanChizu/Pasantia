@@ -5,9 +5,10 @@
  */
 package pasantia_proyect;
 
+import Controladores.Agregar;
 import entidades.Proveedor;
 import java.security.Principal;
-import proveedores.Agregar;
+
 
 /**
  *

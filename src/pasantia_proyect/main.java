@@ -2,8 +2,7 @@ package pasantia_proyect;
 
 
 import pasantia_proyect.AgregarEditarVerProveedor;
-import pasantia_proyect.editar;
-import pasantia_proyect.ver;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -143,18 +142,11 @@ public class main extends javax.swing.JFrame {
 
     private void btn_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verActionPerformed
         // TODO add your handling code here:
-        ver see = new ver();
-        see.setVisible(true);
-        this.pack();
-        this.dispose();
+
     }//GEN-LAST:event_btn_verActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         // TODO add your handling code here:
-        editar edit = new editar();
-        edit.setVisible(true);
-        this.pack();
-        this.dispose();
     }//GEN-LAST:event_btn_editarActionPerformed
 
     /**
