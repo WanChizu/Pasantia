@@ -47,6 +47,8 @@ public class main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,7 +63,7 @@ public class main extends javax.swing.JFrame {
                 btn_añadirActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel1.add(btn_añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, -1, -1));
 
         btn_editar.setBackground(new java.awt.Color(51, 102, 0));
         btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-editar-40 (1).png"))); // NOI18N
@@ -70,7 +72,7 @@ public class main extends javax.swing.JFrame {
                 btn_editarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, -1, -1));
+        jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
 
         btn_ver.setBackground(new java.awt.Color(51, 102, 0));
         btn_ver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ver-40.png"))); // NOI18N
@@ -79,7 +81,7 @@ public class main extends javax.swing.JFrame {
                 btn_verActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
+        jPanel1.add(btn_ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 0));
 
@@ -110,6 +112,21 @@ public class main extends javax.swing.JFrame {
         jLabel4.setText("Centro Cardiorenal del Cibao");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 230));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
 
         pack();
@@ -118,19 +135,11 @@ public class main extends javax.swing.JFrame {
     private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
         // TODO add your handling code here:
         
-        AgregarEditarVerProveedor agregar = new AgregarEditarVerProveedor();
-        agregar.setVisible(true);
+        AgregarEditarVerProveedor AgregarEditarVerProveedor  = new AgregarEditarVerProveedor();
+        AgregarEditarVerProveedor.setVisible(true);
         this.pack();
         this.dispose();
     }//GEN-LAST:event_btn_añadirActionPerformed
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        // TODO add your handling code here:
-        editar edit = new editar();
-        edit.setVisible(true);
-        this.pack();
-        this.dispose();
-    }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verActionPerformed
         // TODO add your handling code here:
@@ -139,6 +148,14 @@ public class main extends javax.swing.JFrame {
         this.pack();
         this.dispose();
     }//GEN-LAST:event_btn_verActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        // TODO add your handling code here:
+        editar edit = new editar();
+        edit.setVisible(true);
+        this.pack();
+        this.dispose();
+    }//GEN-LAST:event_btn_editarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,5 +203,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

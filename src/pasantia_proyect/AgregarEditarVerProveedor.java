@@ -19,7 +19,9 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private final static int VER = 1 ;
     private final static int EDITAR = 2 ;
     private final static int AGREGAR = 3;
-   private  int opcion;
+    private  int opcion;
+   
+   
    
     
     /**
@@ -29,31 +31,38 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
-    
-  
     
     
     
-    public AgregarEditarVerProveedor(int opcion) {
+    public AgregarEditarVerProveedor(int opcion, String labelText) {
         this.opcion = opcion;
+         initComponents();
+        label.setText(labelText);
+        
         switch (opcion) {
             case VER:
                 createParaVer();
+                btnagregar.setVisible(false); 
                 break;
             case AGREGAR:
                 createParaAgregar();
+               
                 break;
             case EDITAR:
                 createParaEditar();
+                
                 break;
 
             default:
                 
                 break;
         }
+        
+        
+   
         this.rellenarVentana();
-        initComponents();
+
+      
     }
 
     /**
@@ -66,10 +75,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btn_agregar = new javax.swing.JButton();
+        btnagregar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        lbl_name = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        label = new javax.swing.JLabel();
         lbl_nombre = new javax.swing.JLabel();
         lbl_telefono = new javax.swing.JLabel();
         lbl_activo = new javax.swing.JLabel();
@@ -81,7 +90,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         combo_ac = new javax.swing.JComboBox<>();
         txt_credito = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        btn_regresar = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -89,23 +98,30 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_agregar.setBackground(new java.awt.Color(51, 102, 0));
-        btn_agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-añadir-40.png"))); // NOI18N
-        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+        btnagregar.setBackground(new java.awt.Color(51, 102, 0));
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-añadir-40.png"))); // NOI18N
+        btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarActionPerformed(evt);
+                btnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, -1));
+        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 10));
 
-        lbl_name.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbl_name.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_name.setText("PROVEEDOR");
-        jPanel2.add(lbl_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, -1, -1));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 110, 10));
+        label.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setText("Agregar Proveedor");
+        label.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                ver(evt);
+            }
+        });
+        jPanel2.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 74));
 
@@ -144,45 +160,50 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel1.add(txt_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 30));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 230, 10));
 
-        btn_regresar.setBackground(new java.awt.Color(51, 102, 0));
-        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-regreso-40.png"))); // NOI18N
-        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setBackground(new java.awt.Color(51, 102, 0));
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-regreso-40.png"))); // NOI18N
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regresarActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
         // TODO add your handling code here:
         main p = new main();
         p.setVisible(true);
         this.pack();
         this.dispose();
         
-    }//GEN-LAST:event_btn_regresarActionPerformed
+    }//GEN-LAST:event_btnregresarActionPerformed
 
-    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
         // TODO add your handling code here:
         Agregar agregarProveedor = new Agregar();
 
-    }//GEN-LAST:event_btn_agregarActionPerformed
+    }//GEN-LAST:event_btnagregarActionPerformed
+
+    private void ver(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ver
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_ver
 
 
     
     public static void main(String[] args) {
-        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.VER).setVisible(true);
-        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.AGREGAR).setVisible(true);
-        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.EDITAR).setVisible(true);
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.VER, "Ver Proveedor").setVisible(true);
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.AGREGAR, "Agregar Proveedor").setVisible(true);
+        new  AgregarEditarVerProveedor(AgregarEditarVerProveedor.EDITAR, "Editar proveedor").setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agregar;
-    private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton btnagregar;
+    private javax.swing.JButton btnregresar;
     private javax.swing.JComboBox<String> combo_ac;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -190,9 +211,9 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel label;
     private javax.swing.JLabel lbl_activo;
     private javax.swing.JLabel lbl_credito;
-    private javax.swing.JLabel lbl_name;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JTextField txt_credito;
@@ -201,6 +222,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void rellenarVentana() {
+        
 
     }
 
@@ -209,7 +231,8 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     }*/
 
     private void createParaVer() {
-        System.out.println("Ver");  }
+        System.out.println("Ver");
+    }
 
     private void createParaAgregar() {
         System.out.println("agregar");}
@@ -219,4 +242,5 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     
     }
 
+   
 }
