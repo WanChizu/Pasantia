@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pasantia_proyect.controlador;
+package Controladores;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,19 +16,17 @@ import java.sql.SQLException;
  */
 public class MyConnection {
     public static Connection getConnection(){
-    Connection con = null;
+    Connection conexion = null;
     
     try{
     Class.forName("com.mysql.cj.jdbc.Driver");
-    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Proveedor","root","irisalbanaia13");
+    conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","irisalbanaia13");
+    //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
     } catch (ClassNotFoundException | SQLException ex){
         System.out.println(ex.getMessage());
     }
-    return con;
+    return conexion;
     
     }
-
-    PreparedStatement prepareStatement(String query) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
