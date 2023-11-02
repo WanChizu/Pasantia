@@ -8,6 +8,7 @@ package Controladores;
 import entidades.Proveedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,35 +22,52 @@ public class Actualizar {
      * @param args the command line arguments
      */
  
+    private static boolean revisarProveedor(Proveedor revisarNombre) throws SQLException{
+        Connection conexion = MyConnection.getConnection();
+     if (revisarNombre.getNombre().isEmpty()) {
+        throw new SQLException("El nombre del proveedor no puede estar vacío.");
+    }
+
+    if (revisarNombre.getNombre().length() > 50) {
+        throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (50 caracteres).");
+    }
+    
+    if (revisarNombre.getNombre().length() < 5) {
+         throw new SQLException("El nombre del proveedor no supera la longitud requerida (debe ser mayor de 5 caracteres).");
+    }
+    
+        return false;     
+    }
+    
+     private static boolean revisarTelefono(Proveedor revisarTelefono) throws SQLException{
+        Connection conexion = MyConnection.getConnection();
+    if (revisarTelefono.getTelefono().length() > 12) {
+             throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
+        }
+        
+        if (revisarTelefono.getTelefono().length() < 12) {
+             throw new SQLException("El número de teléfono no supera la longitud permitida (12 caracteres).");
+        }
+
+        if (revisarTelefono.getTelefono().isEmpty()) {
+             throw new SQLException(null,"El número de teléfono no puede estar vacío.");
+        }
+        return false;
+    }
+    
+    
     public static void actProveedor(Proveedor proveedorAActualizar) throws SQLException {
         Connection conexion = MyConnection.getConnection();
-        String query = "UPDATE Proveedor SET nombre = ?, telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
+        String query = "UPDATE Proveedor SET telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
         PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         try {
-            if (proveedorAActualizar.getNombre().isEmpty()) {
-            throw new SQLException("El nombre del proveedor no puede estar vacío.");
-        }
 
-        if (proveedorAActualizar.getNombre().length() > 100) {
-            throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (100 caracteres).");
-        }
-
-        if (proveedorAActualizar.getTelefono().length() > 12) {
-            throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
-        }
-
-        if (proveedorAActualizar.getTelefono().isEmpty()) {
-            throw new SQLException("El número de teléfono no puede estar vacío.");
-        }
-
-            
             ps = conexion.prepareStatement(query);
-            ps.setString(1, proveedorAActualizar.getNombre());
-            ps.setString(2, proveedorAActualizar.getTelefono());
-            ps.setBoolean(3, proveedorAActualizar.isEstaActivo());
-            ps.setDouble(4, proveedorAActualizar.getLimiteCredito());
-            ps.setInt(5, proveedorAActualizar.getProveedorId()); // Suponiendo que proveedorId es el ID del proveedor que deseas actualizar
+            ps.setString(1, proveedorAActualizar.getTelefono());
+            ps.setBoolean(2, proveedorAActualizar.isEstaActivo());
+            ps.setDouble(3, proveedorAActualizar.getLimiteCredito());
+            ps.setInt(4, proveedorAActualizar.getProveedorId());
             ps.executeUpdate();
             } catch (SQLException ex) {
             // Manejo de la excepción
@@ -71,7 +89,7 @@ public class Actualizar {
  
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Proveedor actualizarProveedor = new Proveedor(1, "Ferreteria Domingo", "849-532-0191", true,40000);
+        Proveedor actualizarProveedor = new Proveedor(2, "Plomeria SA", "849-938-0911", false,0);
         actProveedor(actualizarProveedor);
     }
     
