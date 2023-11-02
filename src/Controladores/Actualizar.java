@@ -20,46 +20,48 @@ public class Actualizar {
     /**
      * @param args the command line arguments
      */
+    
+    private static boolean validarProveedor(Proveedor proveedor) throws SQLException {
+
+    if (proveedor.getTelefono().length() > 12) {
+        throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
+    }
+
+    if (proveedor.getTelefono().length() < 12) {
+        throw new SQLException("El número de teléfono no cumple con la longitud requerida (debe ser de 12 caracteres).");
+    }
+
+    if (proveedor.getTelefono().isEmpty()) {
+        throw new SQLException("El número de teléfono no puede estar vacío.");
+    }
+
+    return false;
+}
  
     public static void actProveedor(Proveedor proveedorAActualizar) throws SQLException {
         Connection conexion = MyConnection.getConnection();
-        String query = "UPDATE Proveedor SET nombre = ?, telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
+        String query = "UPDATE Proveedor SET telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
         PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         try {
-            if (proveedorAActualizar.getNombre().isEmpty()) {
-            throw new SQLException("El nombre del proveedor no puede estar vacío.");
-        }
 
-        if (proveedorAActualizar.getNombre().length() > 100) {
-            throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (100 caracteres).");
-        }
-
-        if (proveedorAActualizar.getTelefono().length() > 12) {
-            throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
-        }
-
-        if (proveedorAActualizar.getTelefono().isEmpty()) {
-            throw new SQLException("El número de teléfono no puede estar vacío.");
-        }
-
-            
             ps = conexion.prepareStatement(query);
-            ps.setString(1, proveedorAActualizar.getNombre());
-            ps.setString(2, proveedorAActualizar.getTelefono());
-            ps.setBoolean(3, proveedorAActualizar.isEstaActivo());
-            ps.setDouble(4, proveedorAActualizar.getLimiteCredito());
-            ps.setInt(5, proveedorAActualizar.getProveedorId()); // Suponiendo que proveedorId es el ID del proveedor que deseas actualizar
+            ps.setString(1, proveedorAActualizar.getTelefono());
+            ps.setBoolean(2, proveedorAActualizar.isEstaActivo());
+            ps.setDouble(3, proveedorAActualizar.getLimiteCredito());
+            ps.setInt(4, proveedorAActualizar.getProveedorId());
             ps.executeUpdate();
+            
+            
             } catch (SQLException ex) {
-            // Manejo de la excepción
+
             throw new SQLException("Error al actualizar proveedor: " + ex.getMessage());
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    // Manejo de la excepción al cerrar el PreparedStatement
+                    
                     throw new SQLException("Error al cerrar el PreparedStatement: " + ex.getMessage());
                 }
             }
@@ -71,7 +73,8 @@ public class Actualizar {
  
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Proveedor actualizarProveedor = new Proveedor(1, "Ferreteria Domingo", "849-532-0191", true,40000);
+        Proveedor actualizarProveedor = new Proveedor(1, "Lavanderia Rosario", "849-853-0987", true, 500);
+        validarProveedor(actualizarProveedor);
         actProveedor(actualizarProveedor);
     }
     

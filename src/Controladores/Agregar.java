@@ -20,7 +20,61 @@ public class Agregar {
     /**
      * @param args the command line arguments
      */
- //private static Connection conexion; 
+
+ 
+private static boolean validarProveedor(Proveedor proveedor) throws SQLException {
+    Connection conexion = MyConnection.getConnection();
+
+    if (proveedor.getNombre().isEmpty()) {
+        throw new SQLException("El nombre del proveedor no puede estar vacío.");
+    }
+
+    if (proveedor.getNombre().length() > 50) {
+        throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (50 caracteres).");
+    }
+
+    if (proveedor.getNombre().length() < 5) {
+        throw new SQLException("El nombre del proveedor no cumple con la longitud requerida (debe ser mayor de 5 caracteres).");
+    }
+
+    if (campoExistente(conexion, proveedor.getNombre(), "nombre")) {
+        throw new SQLException("El nombre del proveedor ya existe en la base de datos.");
+    }
+
+    if (campoExistente(conexion, proveedor.getTelefono(), "telefono")) {
+        throw new SQLException("El número de teléfono ya está registrado en la base de datos.");
+    }
+
+    if (proveedor.getTelefono().length() > 12) {
+        throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
+    }
+
+    if (proveedor.getTelefono().length() < 12) {
+        throw new SQLException("El número de teléfono no cumple con la longitud requerida (debe ser de 12 caracteres).");
+    }
+
+    if (proveedor.getTelefono().isEmpty()) {
+        throw new SQLException("El número de teléfono no puede estar vacío.");
+    }
+
+    return false;
+}
+
+
+private static boolean campoExistente(Connection conexion, String valor, String campo) throws SQLException {
+    String query = "SELECT COUNT(*) FROM Proveedor WHERE " + campo + " = ?";
+    PreparedStatement ps = conexion.prepareStatement(query);
+    ps.setString(1, valor);
+
+    ResultSet rs = ps.executeQuery();
+
+    if (rs.next()) {
+        int count = rs.getInt(1);
+        return count > 0;
+    }
+    return false;
+}
+
 
  public static int insertarProveedor(Proveedor proveedorAGuardar) throws SQLException {    
     Connection conexion = MyConnection.getConnection();
@@ -29,30 +83,7 @@ public class Agregar {
     int idProveedorInsertado = -1;
 
     try {
-        if (proveedorAGuardar.getNombre().isEmpty()) {
-            throw new SQLException("El nombre del proveedor no puede estar vacío.");
-        }
-
-        if (proveedorAGuardar.getNombre().length() > 50) {
-            throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (50 caracteres).");
-        }
-        
-        if (proveedorAGuardar.getNombre().length() < 5) {
-            throw new SQLException("El nombre del proveedor no supera la longitud requerida (debe ser mayor de 5 caracteres).");
-        }
-
-        if (proveedorAGuardar.getTelefono().length() > 12) {
-            throw new SQLException("El número de teléfono supera la longitud máxima permitida (12 caracteres).");
-        }
-        
-        if (proveedorAGuardar.getTelefono().length() < 12) {
-            throw new SQLException("El número de teléfono no supera la longitud permitida (12 caracteres).");
-        }
-
-        if (proveedorAGuardar.getTelefono().isEmpty()) {
-            throw new SQLException("El número de teléfono no puede estar vacío.");
-        }
-        
+       
         ps.setString(1, proveedorAGuardar.getNombre());
         ps.setString(2, proveedorAGuardar.getTelefono());
         ps.setBoolean(3, proveedorAGuardar.isEstaActivo());
@@ -60,7 +91,6 @@ public class Agregar {
         int filasAfectadas = ps.executeUpdate();
 
         if (filasAfectadas > 0) {
-            // Obtener el ID del proveedor insertado (si es aplicable)
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
                 idProveedorInsertado = generatedKeys.getInt(1);
@@ -85,10 +115,9 @@ public class Agregar {
  
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Proveedor nuevoProveedor = new Proveedor(0, "Ferreteria Domingo", "849-532-0191", false,0);
-        
+        Proveedor nuevoProveedor = new Proveedor(0, "Lavanderia Rosario", "849-536-0987", true, 500);
+        validarProveedor(nuevoProveedor);
         insertarProveedor(nuevoProveedor);
-    }
 
-    
+    }
 }
