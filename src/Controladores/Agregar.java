@@ -107,6 +107,7 @@ private static boolean campoExistente(Connection conexion, String valor, String 
             }
         }
     }
+    
 
     return idProveedorInsertado;
 }
