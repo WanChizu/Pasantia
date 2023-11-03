@@ -6,11 +6,13 @@
 package Controladores;
 
 import entidades.Proveedor;
+import errores.ErroresProveedores;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,14 +24,15 @@ public class Agregar {
      */
 
  
-private static boolean validarProveedor(Proveedor proveedor) throws SQLException {
+private static ArrayList<errores.ErrorGeneral> validarProveedor(Proveedor proveedor) throws SQLException {
     Connection conexion = MyConnection.getConnection();
-
+ArrayList<errores.ErrorGeneral> respuesta= new ArrayList<>();
     if (proveedor.getNombre().isEmpty()) {
         throw new SQLException("El nombre del proveedor no puede estar vacío.");
     }
 
     if (proveedor.getNombre().length() > 50) {
+        respuesta.add(ErroresProveedores.NOMBRE_MUY_LARGO);
         throw new SQLException("El nombre del proveedor supera la longitud máxima permitida (50 caracteres).");
     }
 
@@ -76,7 +79,7 @@ private static boolean campoExistente(Connection conexion, String valor, String 
 }
 
 
- public static int insertarProveedor(Proveedor proveedorAGuardar) throws SQLException {    
+ public static int insertarProveedor(Proveedor proveedorAGuardar,ArrayList<errores.ErrorGeneral> errores) throws SQLException {    
     Connection conexion = MyConnection.getConnection();
     String query = "INSERT INTO Proveedor (nombre, telefono, esta_activo, limite_credito) VALUES (?, ?, ?, ?)";
     PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -87,7 +90,7 @@ private static boolean campoExistente(Connection conexion, String valor, String 
         ps.setString(1, proveedorAGuardar.getNombre());
         ps.setString(2, proveedorAGuardar.getTelefono());
         ps.setBoolean(3, proveedorAGuardar.isEstaActivo());
-        ps.setDouble(4, proveedorAGuardar.getLimiteCredito());
+        ps.setBigDecimal(4, proveedorAGuardar.getLimiteCredito());
         int filasAfectadas = ps.executeUpdate();
 
         if (filasAfectadas > 0) {
@@ -116,9 +119,9 @@ private static boolean campoExistente(Connection conexion, String valor, String 
  
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Proveedor nuevoProveedor = new Proveedor(0, "Lavanderia Rosario", "849-536-0987", true, 500);
-        validarProveedor(nuevoProveedor);
-        insertarProveedor(nuevoProveedor);
+        Proveedor nuevoProveedor = new Proveedor(0, "Lavanderia Rosario2", "849-536-0987", true, new java.math.BigDecimal(5000));
+        ArrayList<errores.ErrorGeneral> errores=   validarProveedor(nuevoProveedor);
+        insertarProveedor(nuevoProveedor,errores);
 
     }
 }

@@ -17,9 +17,9 @@ public class Proveedor {
     private String nombre;
     private String telefono;
     private boolean estaActivo;
-    private double limiteCredito;
+    private BigDecimal limiteCredito;
     
-    public Proveedor(int proveedorId, String nombre, String telefono, boolean estaActivo, double limiteCredito) {
+    public Proveedor(int proveedorId, String nombre, String telefono, boolean estaActivo, BigDecimal limiteCredito) {
         this.proveedorId = proveedorId;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -59,11 +59,11 @@ public class Proveedor {
         this.estaActivo = estaActivo;
     }
 
-    public double getLimiteCredito() {
+    public BigDecimal getLimiteCredito() {
         return limiteCredito;
     }
 
-    public void setLimiteCredito(double limiteCredito) {
+    public void setLimiteCredito(BigDecimal limiteCredito) {
         this.limiteCredito = limiteCredito;
     }
   

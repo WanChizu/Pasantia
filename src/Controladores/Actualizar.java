@@ -48,7 +48,7 @@ public class Actualizar {
             ps = conexion.prepareStatement(query);
             ps.setString(1, proveedorAActualizar.getTelefono());
             ps.setBoolean(2, proveedorAActualizar.isEstaActivo());
-            ps.setDouble(3, proveedorAActualizar.getLimiteCredito());
+            ps.setBigDecimal(3, proveedorAActualizar.getLimiteCredito());
             ps.setInt(4, proveedorAActualizar.getProveedorId());
             ps.executeUpdate();
             
@@ -73,7 +73,7 @@ public class Actualizar {
  
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Proveedor actualizarProveedor = new Proveedor(1, "Lavanderia Rosario", "849-853-0987", true, 500);
+        Proveedor actualizarProveedor = new Proveedor(1, "Lavanderia Rosario", "849-853-0987", true, new java.math.BigDecimal(500));
         validarProveedor(actualizarProveedor);
         actProveedor(actualizarProveedor);
     }
