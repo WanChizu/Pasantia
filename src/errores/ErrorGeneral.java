@@ -34,8 +34,5 @@ private  String mensajeSolucion;
     public void setMensajeSolucion(String mensajeSolucion) {
         this.mensajeSolucion = mensajeSolucion;
     }
-
-
-
     
 }
