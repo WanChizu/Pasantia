@@ -23,15 +23,12 @@ public class Ver {
     /**
      * @param args the command line arguments
      */
-    public static Proveedor verProveedor(int codigoProveedor, String nombreProveedor, boolean activo, BigDecimal credito, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
+    public static Proveedor verProveedor(int codigoProveedor, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
         Connection conexion = MyConnection.getConnection();
-        String query = "SELECT * FROM Proveedor WHERE proveedor_id = ? AND nombre = ? AND esta_activo = ? AND limite_credito = ?";
+        String query = "SELECT * FROM Proveedor WHERE proveedor_id = ?";
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setInt(1, codigoProveedor);
-        ps.setString(2, nombreProveedor);
-        ps.setBoolean(3, activo);
-        ps.setBigDecimal(4, credito);
-
+       
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
@@ -55,13 +52,10 @@ public class Ver {
     
    public static void main(String[] args) {
     ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-    int codigoProveedor = 1;
-    String nombreProveedor = null;
-    boolean activo = true; // Puedes cambiar esto según tus necesidades
-    BigDecimal credito = null;
+    int codigoProveedor = 2;
 
     try {
-        Proveedor proveedorEncontrado = verProveedor(codigoProveedor, nombreProveedor, activo, credito, errores);
+        Proveedor proveedorEncontrado = verProveedor(codigoProveedor, errores);
 
         if (errores.isEmpty()) {
             System.out.println("Proveedor encontrado:");
