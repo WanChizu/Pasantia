@@ -23,7 +23,7 @@ public class ErroresProveedores {
     
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.", "Intenta de nuevo.");
     
-    public static ErrorGeneral PROVEEDOR_NO_ENCONTRADO = new ErrorGeneral("Código no encontrado.","");
+    public static ErrorGeneral PROVEEDOR_NO_ENCONTRADO = new ErrorGeneral("Proveedor no encontrado.","Intenta de nuevo.");
     
     public static ErrorGeneral ERROR_TABLA = new ErrorGeneral("La tabla no se pudo reflejar.","Intenta nuevamente.");
     
