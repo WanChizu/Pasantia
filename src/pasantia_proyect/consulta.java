@@ -4,7 +4,7 @@ package pasantia_proyect;
 import Controladores.Actualizar;
 import static Controladores.Actualizar.actProveedor;
 import Controladores.MyConnection;
-import Controladores.ProveedoresIndex;
+import Controladores.Proveedor.ProveedoresIndex;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Component;
 import Controladores.Ver;

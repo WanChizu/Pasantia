@@ -130,10 +130,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("Agregar Proveedor");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 ver(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
@@ -168,7 +168,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 230, 10));
 
         combo_ac.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no", "" }));
+        combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no" }));
         combo_ac.setBorder(null);
         jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 40, -1));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 230, 10));
