@@ -239,7 +239,7 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadirActionPerformed
 
     private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
-     mostrar("proveedor");
+     
     }//GEN-LAST:event_btn_actActionPerformed
 
     /**
