@@ -6,25 +6,16 @@
 package pasantia_proyect;
 
 import Controladores.Actualizar;
-import static Controladores.Actualizar.actProveedor;
 import Controladores.Agregar;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import static Controladores.Agregar.insertarProveedor;
 import Controladores.Ver;
-import static Controladores.Ver.verProveedor;
-import com.sun.glass.events.KeyEvent;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.security.Principal;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import utill.FuncionesGenerales;
 
@@ -50,11 +41,12 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public AgregarEditarVerProveedor(int opcion, int proveedorId, ArrayList<ErrorGeneral> errores) throws SQLException {
+   public AgregarEditarVerProveedor(int opcion, int proveedorId) throws SQLException {
         this.opcion = opcion;
         this.proveedorId = proveedorId;
         initComponents();
-    
+
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
 
         switch (opcion) {
             case VER:
@@ -65,21 +57,12 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 break;
             case AGREGAR:
                 createParaAgregar();
-            default:
-
                 break;
-                
-    
+            default:
+                break;
         }
-    this.rellenarVentana(proveedorId, errores);
     }
     
-   
-
-
-
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,10 +73,6 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnagregar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        lbl_titulo = new javax.swing.JLabel();
         lbl_nombre = new javax.swing.JLabel();
         lbl_telefono = new javax.swing.JLabel();
         lbl_activo = new javax.swing.JLabel();
@@ -106,6 +85,9 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         btnregresar = new javax.swing.JButton();
         tLimiteDeCredito = new javax.swing.JFormattedTextField();
         tTelefono = new javax.swing.JFormattedTextField();
+        btnagregar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lbl_titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -113,48 +95,21 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnagregar.setBackground(new java.awt.Color(51, 102, 0));
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
-        btnagregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnagregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(102, 153, 0));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 10));
-
-        lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_titulo.setText("Agregar Proveedor");
-        lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                ver(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
-        jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 74));
-
-        lbl_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_nombre.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre");
-        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        lbl_telefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_telefono.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_telefono.setText("Teléfono");
-        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
 
-        lbl_activo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lbl_activo.setText("Esta ACTIVO");
-        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+        lbl_activo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_activo.setText("Estado activo");
+        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
-        lbl_credito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_credito.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_credito.setText("Límite de crédito");
-        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
 
         txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nombre.setBorder(null);
@@ -163,15 +118,15 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 txt_nombreKeyTyped(evt);
             }
         });
-        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 230, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 230, 10));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 230, 10));
+        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 230, 30));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 230, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 230, 10));
 
-        combo_ac.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no", "" }));
+        combo_ac.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no" }));
         combo_ac.setBorder(null);
-        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 40, -1));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 230, 10));
+        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 60, 30));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 230, 10));
 
         btnregresar.setBackground(new java.awt.Color(51, 102, 0));
         btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
@@ -180,7 +135,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, -1, -1));
 
         tLimiteDeCredito.setBorder(null);
         tLimiteDeCredito.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
@@ -190,7 +145,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 tLimiteDeCreditoActionPerformed(evt);
             }
         });
-        jPanel1.add(tLimiteDeCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 240, 30));
+        jPanel1.add(tLimiteDeCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 230, 30));
 
         tTelefono.setBorder(null);
         try {
@@ -204,41 +159,53 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 tTelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(tTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 230, 30));
+        jPanel1.add(tTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
+        btnagregar.setBackground(new java.awt.Color(51, 102, 0));
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btnagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(51, 102, 0));
+
+        lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_titulo.setText("AGREGAR PROVEEDOR");
+        lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                ver(evt);
+            }
+        });
+        jPanel2.add(lbl_titulo);
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
-        // TODO add your handling code here:
-        consulta p = new consulta();
-        p.setVisible(true);
-        this.pack();
-        this.dispose();
 
+    this.setVisible(false);
+    principal p = principal.obtenerInstanciaPrincipal();
+    p.setVisible(true);
+    p.actualizarTabla();
+    
     }//GEN-LAST:event_btnregresarActionPerformed
 
-    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-
-       
-        if (opcion == AGREGAR) {
-            agregarProveedor();
-        } else if (opcion == EDITAR) {
-            editarProveedor();
-        }
-
-
-    }//GEN-LAST:event_btnagregarActionPerformed
-
     private void ver(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ver
-        // TODO add your handling code here:
-
+     
     }//GEN-LAST:event_ver
 
     private void tTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTelefonoActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_tTelefonoActionPerformed
 
     private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
@@ -246,22 +213,33 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nombreKeyTyped
 
     private void tLimiteDeCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tLimiteDeCreditoActionPerformed
-        System.out.println(FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
     }//GEN-LAST:event_tLimiteDeCreditoActionPerformed
 
-    public static void main(String[] args) throws SQLException {
-        ArrayList<ErrorGeneral> errores = null;
-        new AgregarEditarVerProveedor(AgregarEditarVerProveedor.VER,2,errores).setVisible(true);
-       new AgregarEditarVerProveedor(AgregarEditarVerProveedor.EDITAR,2,errores).setVisible(true);
-        new AgregarEditarVerProveedor(AgregarEditarVerProveedor.AGREGAR,2,errores).setVisible(true);
+    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
+        // TODO add your handling code here:
+         if (opcion == AGREGAR) {
+            agregarProveedor();
+        } else if (opcion == EDITAR) {
+            editarProveedor();
+        }
+    }//GEN-LAST:event_btnagregarActionPerformed
+
+ public static void main(String[] args) {
+    try {
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        new AgregarEditarVerProveedor(AgregarEditarVerProveedor.VER, 1).setVisible(true);
+        new AgregarEditarVerProveedor(AgregarEditarVerProveedor.EDITAR, 1).setVisible(true);
+        new AgregarEditarVerProveedor(AgregarEditarVerProveedor.AGREGAR, 2).setVisible(true);
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnregresar;
     private javax.swing.JComboBox<String> combo_ac;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -275,47 +253,44 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 
-    // Proveedor Proveedores = new Proveedor(0, "Proveedor 1", "8094631521", true, 2000.0);
-    /*public int getOpcion() {
-        return opcion;
-    }*/
+   
+    
     private void createParaVer() {
-        lbl_titulo.setText("Ver Proveedor");
-        btnagregar.setVisible(true);
+        lbl_titulo.setText("VER PROVEEDOR");
+        tTelefono.setEditable(false);
+        tLimiteDeCredito.setEditable(false);
+        txt_nombre.setEditable(false);
+        combo_ac.setEditable(false);
         btnagregar.setVisible(false);
-        tTelefono.setEnabled(false);
-        tLimiteDeCredito.setEnabled(false);
-        txt_nombre.setEnabled(false);
-        combo_ac.setEnabled(false);
+        
+        
+        Font fuente = txt_nombre.getFont();
+        float tamanoFuente = fuente.getSize() + 4; 
+        txt_nombre.setFont(fuente.deriveFont(tamanoFuente));
+        tTelefono.setFont(fuente.deriveFont(tamanoFuente));
+        tLimiteDeCredito.setFont(fuente.deriveFont(tamanoFuente));
+        combo_ac.setFont(fuente.deriveFont(tamanoFuente));
                 
-        try {
-            ArrayList<ErrorGeneral> errores = null;
-            rellenarVentana(proveedorId, errores);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        rellenarVentana(proveedorId, errores);
     }
 
     private void createParaAgregar() {
-        lbl_titulo.setText("Agregar Proveedor");
+        lbl_titulo.setText("AGREGAR PROVEEDOR");
     }
 
     private void createParaEditar() {
-        lbl_titulo.setText("Editar Proveedor");
-         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
-        try {
-            ArrayList<ErrorGeneral> errores = null;
-            rellenarVentana(proveedorId, errores);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        lbl_titulo.setText("EDITAR PROVEEDOR");
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        rellenarVentana(proveedorId, errores);
     }
 
-    private void agregarProveedor() {
+    public void agregarProveedor() {
         Object value = tLimiteDeCredito.getValue();
 
         if (value != null) {
-            Proveedor nuevoProveedor = new Proveedor(0, txt_nombre.getText(), tTelefono.getText(), combo_ac.getSelectedItem().equals("Si"), FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
+            Proveedor nuevoProveedor = new Proveedor(0, txt_nombre.getText(), tTelefono.getText(), combo_ac.getSelectedItem().equals("si"), FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
 
             try {
                 ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
@@ -334,37 +309,57 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         }
     }
     
-    private void rellenarVentana(int codigoProveedor, ArrayList<errores.ErrorGeneral> errores) throws SQLException  {
-    Proveedor proveedor = verProveedor(proveedorId, errores);
+    public void actualizarComboBoxActivo(boolean estaActivo) {
+    DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) combo_ac.getModel();
     
-    
-    if (proveedor != null) {
-       
-        txt_nombre.setText(proveedor.getNombre());
-        tTelefono.setText(proveedor.getTelefono());
-        tLimiteDeCredito.setValue(proveedor.getLimiteCredito());
-        
-  
-     
-       
+    if (estaActivo) {
+        combo_ac.setSelectedItem("si");
     } else {
-       
-        JOptionPane.showMessageDialog(this, "Error al cargar el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+        combo_ac.setSelectedItem("no");
+        
+     
+    combo_ac.revalidate();
+    combo_ac.repaint();
     }
+}
+
     
-    
+ private void rellenarVentana(int codigoProveedor, ArrayList<ErrorGeneral> errores) {
+    try {
+        Proveedor proveedor = Ver.verProveedor(proveedorId, errores);
+
+        if (proveedor != null) {
+            txt_nombre.setText(proveedor.getNombre());
+            tTelefono.setText(proveedor.getTelefono());
+            tLimiteDeCredito.setValue(proveedor.getLimiteCredito());
+            combo_ac.setSelectedItem(proveedor.isEstaActivo() ? "Si" : "No");
+            actualizarComboBoxActivo(proveedor.isEstaActivo());
+        } else {
+        
+        }
+    } catch (SQLException e) {
+      
+        e.printStackTrace(); 
+        JOptionPane.showMessageDialog(this, "Error al cargar el proveedor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
+
 
     private void editarProveedor() {
         Object value = tLimiteDeCredito.getValue();
 
     if (value != null) {
-        Proveedor proveedorAActualizar = new Proveedor(proveedorId, txt_nombre.getText(), tTelefono.getText(), combo_ac.getSelectedItem().equals("Si"), FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
+        String seleccion = (String) combo_ac.getSelectedItem();
+        boolean estaActivo = combo_ac.getSelectedItem().equals("si"); 
+        Proveedor proveedorAActualizar = new Proveedor(proveedorId, txt_nombre.getText(), tTelefono.getText(), estaActivo, FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
 
         try {
             ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
             Actualizar.actProveedor(proveedorAActualizar, errores);
-
+            
+           
+            
             JOptionPane.showMessageDialog(this, "Proveedor actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al actualizar proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -372,11 +367,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para el límite de crédito", "Error", JOptionPane.ERROR_MESSAGE);
     }
+    rellenarVentana(proveedorId, new ArrayList<>());
 }
+    
+    
+     
+
     }
-
-    
-
-    
-  
-

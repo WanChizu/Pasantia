@@ -5,10 +5,13 @@
  */
 package Controladores;
 
+
 import entidades.Proveedor;
 import errores.ErroresProveedores;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import static java.sql.DriverManager.getConnection;
+import static java.sql.DriverManager.getConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,35 +27,42 @@ public class Ver {
      * @param args the command line arguments
      */
     public static Proveedor verProveedor(int codigoProveedor, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
-        Connection conexion = MyConnection.getConnection();
-        String query = "SELECT * FROM Proveedor WHERE proveedor_id = ?";
-        PreparedStatement ps = conexion.prepareStatement(query);
-        ps.setInt(1, codigoProveedor);
-       
-        ResultSet rs = ps.executeQuery();
+    conexion con = new conexion();
+    Connection conexion = con.conectar();
+    String query = "SELECT * FROM Proveedor WHERE proveedor_id = ?";
+    PreparedStatement ps = conexion.prepareStatement(query);
+    ps.setInt(1, codigoProveedor);
 
-        if (rs.next()) {
-            int proveedorId = rs.getInt("proveedor_id");
-            String nombre = rs.getString("nombre");
-            String telefono = rs.getString("telefono");
-            boolean estaActivo = rs.getBoolean("esta_activo");
-            BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
+    ResultSet rs = ps.executeQuery();
 
-            Proveedor proveedor = new Proveedor(proveedorId, nombre, telefono, estaActivo, limiteCredito);
+    if (rs.next()) {
+        int proveedorId = rs.getInt("proveedor_id");
+        String nombre = rs.getString("nombre");
+        String telefono = rs.getString("telefono");
+        boolean estaActivo = rs.getBoolean("esta_activo");
+        BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
 
-            return proveedor;
-        } else {
-            errores.add(ErroresProveedores.PROVEEDOR_NO_ENCONTRADO);
+        Proveedor proveedor = new Proveedor(proveedorId, nombre, telefono, estaActivo, limiteCredito);
+
+        return proveedor;
+    } else {
+        // Verificar si la lista de errores es nula
+        if (errores == null) {
+            errores = new ArrayList<>();
         }
-        return null;
-       
+        errores.add(ErroresProveedores.PROVEEDOR_NO_ENCONTRADO);
     }
+    return null;
+}
+
 
     
     
    public static void main(String[] args) {
     ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
     int codigoProveedor = 2;
+    
+    
 
     try {
         Proveedor proveedorEncontrado = verProveedor(codigoProveedor, errores);

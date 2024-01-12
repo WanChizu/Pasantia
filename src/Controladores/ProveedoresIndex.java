@@ -27,7 +27,8 @@ public class ProveedoresIndex {
      */
     
 public static List<Proveedor> verProveedorDos(Integer codigoProveedor, String nombreProveedor, String telefono, boolean estaActivo, BigDecimal limiteDeCredito, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
-    Connection conexion = MyConnection.getConnection();
+    conexion con = new conexion();
+    Connection conexion = con.conectar();
     StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Proveedor WHERE 1 = 1");
 
     if (codigoProveedor != null && codigoProveedor != 0) {

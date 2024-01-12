@@ -8,6 +8,7 @@ package Controladores;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
 import errores.ErroresProveedores;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,8 @@ public class Agregar {
      */
 
     private static List<ErrorGeneral> validarProveedor(Proveedor proveedor) throws SQLException {
-        Connection conexion = MyConnection.getConnection();
+        conexion con = new conexion();
+        Connection conexion = con.conectar();
         List<ErrorGeneral> errores = new ArrayList<>();
 
         if (proveedor.getNombre().isEmpty()) {
@@ -80,7 +82,8 @@ public class Agregar {
     }
 
     public static int insertarProveedor(Proveedor proveedorAGuardar, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
-        Connection conexion = MyConnection.getConnection();
+        conexion con = new conexion();
+        Connection conexion = con.conectar();
         String query = "INSERT INTO Proveedor (nombre, telefono, esta_activo, limite_credito) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         int idProveedorInsertado = -1;

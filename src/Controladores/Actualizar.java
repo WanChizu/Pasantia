@@ -28,6 +28,18 @@ public class Actualizar {
     private static List<ErrorGeneral> validarProveedor(Proveedor proveedor) throws SQLException {
     List<ErrorGeneral> errores = new ArrayList<>();
 
+    if (proveedor.getNombre().isEmpty()) {
+        errores.add(ErroresProveedores.NOMBRE_VACIO);
+        }
+
+    if (proveedor.getNombre().length() > 50) {
+        errores.add(ErroresProveedores.NOMBRE_MUY_LARGO);
+        }
+
+    if (proveedor.getNombre().length() < 5) {
+        errores.add(ErroresProveedores.NOMBRE_MUY_CORTO);
+        }
+
 
     if (proveedor.getTelefono().length() > 12) {
         errores.add(ErroresProveedores.TELEFONO_MUY_LARGO);
@@ -48,17 +60,19 @@ public class Actualizar {
 
  
     public static void actProveedor(Proveedor proveedorAActualizar, ArrayList<errores.ErrorGeneral> errores) throws SQLException {
-        Connection conexion = MyConnection.getConnection();
-        String query = "UPDATE Proveedor SET telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
+        conexion con = new conexion();
+        Connection conexion = con.conectar();
+        String query = "UPDATE Proveedor SET nombre = ?, telefono = ?, esta_activo = ?, limite_credito = ? WHERE proveedor_id = ?";
         PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         try {
 
             ps = conexion.prepareStatement(query);
-            ps.setString(1, proveedorAActualizar.getTelefono());
-            ps.setBoolean(2, proveedorAActualizar.isEstaActivo());
-            ps.setBigDecimal(3, proveedorAActualizar.getLimiteCredito());
-            ps.setInt(4, proveedorAActualizar.getProveedorId());
+            ps.setString(1, proveedorAActualizar.getNombre());
+            ps.setString(2, proveedorAActualizar.getTelefono());
+            ps.setBoolean(3, proveedorAActualizar.isEstaActivo());
+            ps.setBigDecimal(4, proveedorAActualizar.getLimiteCredito());
+            ps.setInt(5, proveedorAActualizar.getProveedorId());
             ps.executeUpdate();
             
             
