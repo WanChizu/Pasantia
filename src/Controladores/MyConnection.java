@@ -20,8 +20,8 @@ public class MyConnection {
     
     try{
     Class.forName("com.mysql.cj.jdbc.Driver");
-    //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_proveedor","root","irisalbania13");
-    conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
+    conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_proveedor","root","irisalbania13");
+    //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
     } catch (ClassNotFoundException | SQLException ex){
         System.out.println(ex.getMessage());
     }

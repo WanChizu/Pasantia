@@ -7,7 +7,6 @@ package Controladores.Proveedor;
 
 
 import Controladores.MyConnection;
-import static Controladores.Parametros.parametros;
 import static Controladores.ParametrosGenericos.setParametros;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
