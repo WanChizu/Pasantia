@@ -48,6 +48,10 @@ public class CategoriaIndex {
                 queryBuilder.append(" AND esta_activo = ?");
                 parameters.add(estaActivo);
             }
+            
+            if (idCategoria< 0) {
+                errores.add(ErroresCategorias.ID_NEGATIVO);
+            }
 
             PreparedStatement ps = conexion.prepareStatement(queryBuilder.toString());
             setParametros(ps, parameters);
