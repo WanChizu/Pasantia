@@ -71,7 +71,7 @@ public class AgregarCategoria {
     public static void main(String[] args) {
         // TODO code application logic here
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Categoria categoriaNueva = new Categoria(0,"Prueba4",false);  
+        Categoria categoriaNueva = new Categoria(0,"Prueba5",false);  
         int idInsertado = insertarCategoria(categoriaNueva, errores);
         if (idInsertado != -1) {
             System.out.println("Categoría insertada correctamente con ID: " + idInsertado);

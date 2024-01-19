@@ -25,66 +25,68 @@ public class VerCategoria {
      */
     
      public static Categoria verCategorias(int idCategoria, ArrayList<errores.ErrorGeneral> errores) {
-    Connection conexion = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+        Connection conexion = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-    try {
-        conexion = MyConnection.getConnection();
-        String query = "SELECT * FROM categoria WHERE categoria_id = ?";
-        ps = conexion.prepareStatement(query);
-        ps.setInt(1, idCategoria);
+        try {
+            conexion = MyConnection.getConnection();
+            String query = "SELECT * FROM categoria WHERE categoria_id = ?";
+            ps = conexion.prepareStatement(query);
+            ps.setInt(1, idCategoria);
 
-        rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
-        if (rs.next()) {
-            int categoriaId = rs.getInt("categoria_id");
-            String nombreCategoria = rs.getString("nombre");
-            boolean estaActivo = rs.getBoolean("esta_activo");
+            if (rs.next()) {
+                int categoriaId = rs.getInt("categoria_id");
+                String nombreCategoria = rs.getString("nombre");
+                boolean estaActivo = rs.getBoolean("esta_activo");
 
-            Categoria categoria = new Categoria(categoriaId, nombreCategoria, estaActivo);
+                Categoria categoria = new Categoria(categoriaId, nombreCategoria, estaActivo);
 
-            return categoria;
-        } else {
-            errores.add(ErroresCategorias.CATEGORIA_NO_ENCONTRADA);
+                boolean validacionExitosa = ValidacionesCategorias.validacionesGenericasDeCategorias(categoria, errores);
+
+                if (validacionExitosa) {
+                    return categoria;
+                } else {
+
+                    errores.add(ErroresCategorias.ERROR_INESPERADO);
+                }
+            } else {
+                errores.add(ErroresCategorias.CATEGORIA_NO_ENCONTRADA);
+            }
+        } catch (SQLException ex) {
+            errores.add(ErroresCategorias.ERROR_INESPERADO);
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        errores.add(ErroresCategorias.ERROR_INESPERADO);
-        ex.printStackTrace();
+
+        return null;
     }
 
-    return null;
-}
 
     
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        
-    ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-    int codigoCategoria = 3;
-    
-    Categoria categoriaEncontrada = verCategorias(codigoCategoria, errores);
-    if (errores.isEmpty()) {
-        System.out.println("Categoria encontrada:");
-        System.out.println("Código: " + categoriaEncontrada.getCategoriaId());
-        System.out.println("Nombre: " + categoriaEncontrada.getNombreCategoria());
-        System.out.println("Activo: " + categoriaEncontrada.isEstaActivo());
-        
-    } else {
-        ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>();
-        
-        for (errores.ErrorGeneral error : errores) {
-            erroresTemporales.add(error);
-        }
-        
-        errores.addAll(erroresTemporales);
-        
-        for (errores.ErrorGeneral error : errores) {
-            System.out.println("Error: " + error.getMensajeError());
+        ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+        int codigoCategoria = 3;
+
+        Categoria categoriaEncontrada = verCategorias(codigoCategoria, errores);
+
+        if (errores.isEmpty()) {
+            System.out.println("Categoria encontrada:");
+            System.out.println("Código: " + categoriaEncontrada.getCategoriaId());
+            System.out.println("Nombre: " + categoriaEncontrada.getNombreCategoria());
+            System.out.println("Activo: " + categoriaEncontrada.isEstaActivo());
+        } else {
+            ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>(errores);
+
+            for (errores.ErrorGeneral error : erroresTemporales) {
+                System.out.println("Error: " + error.getMensajeError());
+            }
+
             errores.add(ErroresCategorias.ERROR_INESPERADO);
-            
         }
-    }
-}
 
     }
+
+}
