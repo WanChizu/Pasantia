@@ -5,13 +5,12 @@
  */
 package pasantia_proyect;
 
-import Controladores.Actualizar;
-import Controladores.Agregar;
-import Controladores.Ver;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+
+import Controladores.Proveedor.ActualizarProveedor;
+import Controladores.Proveedor.AgregarProveedor;
+import Controladores.Proveedor.VerProveedor;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,7 +37,8 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
      */
     public AgregarEditarVerProveedor() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
    public AgregarEditarVerProveedor(int opcion, int proveedorId) throws SQLException {
@@ -170,21 +170,21 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         });
         jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("AGREGAR PROVEEDOR");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 ver(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel2.add(lbl_titulo);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 60));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 70));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
 
@@ -260,7 +260,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         tTelefono.setEditable(false);
         tLimiteDeCredito.setEditable(false);
         txt_nombre.setEditable(false);
-        combo_ac.setEditable(false);
+        combo_ac.setEnabled(false);
         btnagregar.setVisible(false);
         
         
@@ -291,18 +291,21 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
         if (value != null) {
             Proveedor nuevoProveedor = new Proveedor(0, txt_nombre.getText(), tTelefono.getText(), combo_ac.getSelectedItem().equals("si"), FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
+           
+            principal pantalla = principal.obtenerInstanciaPrincipal();
+       
 
-            try {
-                ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-                int idProveedorInsertado = Agregar.insertarProveedor(nuevoProveedor, errores);
-
-                if (idProveedorInsertado != -1) {
-                    JOptionPane.showMessageDialog(this, "Proveedor agregado exitosamente con ID " + idProveedorInsertado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al agregar proveedor", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error al agregar proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+            int idProveedorInsertado = AgregarProveedor.insertarProveedor(nuevoProveedor, errores);
+            if (idProveedorInsertado != -1) {
+                JOptionPane.showMessageDialog(this, "Proveedor agregado exitosamente con ID " + idProveedorInsertado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                
+            pantalla.actualizarTabla();
+            pantalla.setVisible(true);
+            this.dispose();
+                
+            } else {
+                mostrarErrores(errores);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para el límite de crédito", "Error", JOptionPane.ERROR_MESSAGE);
@@ -325,44 +328,43 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
     
  private void rellenarVentana(int codigoProveedor, ArrayList<ErrorGeneral> errores) {
-    try {
-        Proveedor proveedor = Ver.verProveedor(proveedorId, errores);
-
-        if (proveedor != null) {
-            txt_nombre.setText(proveedor.getNombre());
-            tTelefono.setText(proveedor.getTelefono());
-            tLimiteDeCredito.setValue(proveedor.getLimiteCredito());
-            combo_ac.setSelectedItem(proveedor.isEstaActivo() ? "Si" : "No");
-            actualizarComboBoxActivo(proveedor.isEstaActivo());
-        } else {
-        
-        }
-    } catch (SQLException e) {
-      
-        e.printStackTrace(); 
-        JOptionPane.showMessageDialog(this, "Error al cargar el proveedor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+     Proveedor proveedor = VerProveedor.verProveedor(proveedorId, errores);
+     if (proveedor != null) {
+         txt_nombre.setText(proveedor.getNombre());
+         tTelefono.setText(proveedor.getTelefono());
+         tLimiteDeCredito.setValue(proveedor.getLimiteCredito());
+         combo_ac.setSelectedItem(proveedor.isEstaActivo() ? "Si" : "No");
+         actualizarComboBoxActivo(proveedor.isEstaActivo());
+     } else {
+         
+     }
 }
 
-
+    private principal pantalla;
 
     private void editarProveedor() {
         Object value = tLimiteDeCredito.getValue();
 
     if (value != null) {
         String seleccion = (String) combo_ac.getSelectedItem();
-        boolean estaActivo = combo_ac.getSelectedItem().equals("si"); 
+        boolean estaActivo = combo_ac.getSelectedItem().equals("si");
         Proveedor proveedorAActualizar = new Proveedor(proveedorId, txt_nombre.getText(), tTelefono.getText(), estaActivo, FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
+       
+        principal pantalla = principal.obtenerInstanciaPrincipal();
+       
+        
+        ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+        ActualizarProveedor.actualizarProveedor(proveedorAActualizar, errores);
 
-        try {
-            ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-            Actualizar.actProveedor(proveedorAActualizar, errores);
-            
-           
-            
+        if (errores.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Proveedor actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
+            pantalla.actualizarTabla();
+            pantalla.setVisible(true);
+            this.dispose();
+            
+        } else {
+            mostrarErrores(errores); // Muestra los errores si la actualización falla
         }
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para el límite de crédito", "Error", JOptionPane.ERROR_MESSAGE);
@@ -370,7 +372,18 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     rellenarVentana(proveedorId, new ArrayList<>());
 }
     
-    
+ private static void mostrarErrores(ArrayList<ErrorGeneral> errores) {
+        if (!errores.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Se han producido los siguientes errores:\n\n");
+
+            for (ErrorGeneral error : errores) {
+                mensaje.append("Error: ").append(error.getMensajeError()).append("\n");
+                mensaje.append("Solución: ").append(error.getMensajeSolucion()).append("\n\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensaje.toString(), "Errores", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}   
      
 
-    }

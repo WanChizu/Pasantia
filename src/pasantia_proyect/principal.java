@@ -5,7 +5,7 @@
  */
 package pasantia_proyect;
 
-import Controladores.conexion;
+import Controladores.Proveedor.MyConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +29,7 @@ public class principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         mostrar("proveedor");
         instanciaPrincipal = this;
+        this.setResizable(false);
     }
     
       public static principal obtenerInstanciaPrincipal() {
@@ -38,42 +39,50 @@ public class principal extends javax.swing.JFrame {
      public void actualizarTabla() {
         mostrar("proveedor");
     }
+     
+    private DefaultTableModel tableModel;
+
     
-    public void mostrar(String tabla){
+    public void mostrar(String tabla) {
+    
+    if (tableModel == null) {
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Id");
+        tableModel.addColumn("Nombre");
+        tableModel.addColumn("Teléfono");
+        tableModel.addColumn("Activo");
+        tableModel.addColumn("Límite de crédito");
+        Jtable.setModel(tableModel);
+        Jtable.getColumnModel().getColumn(0).setMinWidth(0);
+        Jtable.getColumnModel().getColumn(0).setMaxWidth(0);
+    } else {
+       
+        tableModel.setRowCount(0);
+    }
+
     String sql = "select * from " + tabla;
     Statement st;
-    conexion con = new conexion();
-    Connection conexion = con.conectar();
-   // System.out.println(sql);
-    DefaultTableModel table = new DefaultTableModel();
-    table.addColumn("Id");
-    table.addColumn("Nombre");
-    table.addColumn("Teléfono");
-    table.addColumn("Activo");
-    table.addColumn("Límite de crédito");
-    Jtable.setModel(table);
-    Jtable.getColumnModel().getColumn(0).setMinWidth(0);
-    Jtable.getColumnModel().getColumn(0).setMaxWidth(0);
-    
-    String [] datos = new String[5];
-    
-    try{
-    st = conexion.createStatement();
-    ResultSet rs = st.executeQuery(sql);
-    while(rs.next())
-    {
-    datos[0]=rs.getString(1);
-    datos[1]=rs.getString(2);
-    datos[2]=rs.getString(3);
-    datos[3] = rs.getInt(4) == 1 ? "si" : "no";
-    datos[4]=rs.getString(5);
-    table.addRow(datos);
+    MyConnection cc = new MyConnection();
+    Connection cn = MyConnection.getConnection();
+
+    String[] datos = new String[5];
+
+    try {
+        st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            datos[0] = rs.getString(1);
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getString(3);
+            datos[3] = rs.getInt(4) == 1 ? "si" : "no";
+            datos[4] = rs.getString(5);
+            tableModel.addRow(datos);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error" + e.toString());
     }
-    
-    }catch(SQLException e){
-    JOptionPane.showMessageDialog(null,"Error" + e.toString());
-    }
-    }
+}
     
     public int obtenerIdProveedorSeleccionado() {
     int filaSeleccionada = Jtable.getSelectedRow();
@@ -239,7 +248,7 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadirActionPerformed
 
     private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
-     
+ actualizarTabla();     
     }//GEN-LAST:event_btn_actActionPerformed
 
     /**

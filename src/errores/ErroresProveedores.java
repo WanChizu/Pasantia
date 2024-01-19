@@ -21,11 +21,14 @@ public class ErroresProveedores {
     public static ErrorGeneral TELEFONO_MUY_CORTO = new ErrorGeneral("Teléfono muy corto.","El teléfono debe tener 12 digítos.");
     public static ErrorGeneral TELEFONO_VACIO = new ErrorGeneral("El teléfono no puede estar vacío.", "Agrega un teléfono.");
     
+    public static ErrorGeneral LIMITE_CREDITO_NEGATIVO = new ErrorGeneral("El límite de crédito no puede ser negativo.","Por favor ajusta el crédito.");
+    
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.", "Intenta de nuevo.");
+    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.", "");
     
     public static ErrorGeneral PROVEEDOR_NO_ENCONTRADO = new ErrorGeneral("Proveedor no encontrado.","Intenta de nuevo.");
     
-    public static ErrorGeneral ERROR_TABLA = new ErrorGeneral("La tabla no se pudo reflejar.","Intenta nuevamente.");
+    public static ErrorGeneral NO_HUBO_CAMBIOS_FILAS = new ErrorGeneral("No hubo cambios nuevos para guardar.", "Intenta hacer un cambio si es necesario.");
     
 }
 
