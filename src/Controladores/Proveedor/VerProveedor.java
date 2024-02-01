@@ -5,7 +5,7 @@
  */
 package Controladores.Proveedor;
 
-import Controladores.Proveedor.MyConnection;
+import Controladores.MyConnection;
 import entidades.Proveedor;
 import errores.ErroresProveedores;
 import java.math.BigDecimal;

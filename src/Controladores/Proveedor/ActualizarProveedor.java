@@ -5,7 +5,7 @@
  */
 package Controladores.Proveedor;
 
-import Controladores.Proveedor.MyConnection;
+import Controladores.MyConnection;
 import static Controladores.Proveedor.ValidacionesProveedor.validacionesGenericasDeProveedores;
 import entidades.Proveedor;
 import errores.ErrorGeneral;

@@ -5,10 +5,10 @@
  */
 package Controladores.Categoria;
 
-import Controladores.Proveedor.MyConnection;
 
 import entidades.Categoria;
 import static Controladores.ParametrosGenericos.setParametros;
+import Controladores.MyConnection;
 import errores.ErrorGeneral;
 import errores.ErroresCategorias;
 import java.sql.Connection;
