@@ -43,4 +43,10 @@ public class Categoria {
     public void setEstaActivo(boolean estaActivo) {
         this.estaActivo = estaActivo;
     }
+    
+    public String toString() {
+        return  "ID: " + categoriaId +
+                "\nNombre: " + nombreCategoria +
+                "\nEsta Activo: " + estaActivo;
+    }
 }

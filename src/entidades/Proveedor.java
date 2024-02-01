@@ -67,5 +67,12 @@ public class Proveedor {
         this.limiteCredito = limiteCredito;
     }
   
+    public String toString() {
+        return  "ID: " + proveedorId +
+                "\nNombre: " + nombre +
+                "\nTeléfono: " + telefono +
+                "\nEsta Activo: " + estaActivo +
+                "\nLimite De Crédito: " + limiteCredito;
+    }
     
 }

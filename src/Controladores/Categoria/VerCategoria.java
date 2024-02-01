@@ -7,6 +7,7 @@ package Controladores.Categoria;
 
 import Controladores.MyConnection;
 import entidades.Categoria;
+import errores.ErrorGeneral;
 import errores.ErroresCategorias;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,25 +68,24 @@ public class VerCategoria {
     
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
         int codigoCategoria = 3;
 
         Categoria categoriaEncontrada = verCategorias(codigoCategoria, errores);
 
         if (errores.isEmpty()) {
-            System.out.println("Categoria encontrada:");
-            System.out.println("Código: " + categoriaEncontrada.getCategoriaId());
-            System.out.println("Nombre: " + categoriaEncontrada.getNombreCategoria());
-            System.out.println("Activo: " + categoriaEncontrada.isEstaActivo());
+            System.out.println("Categoría encontrada:");
+            System.out.println(categoriaEncontrada);
         } else {
-            ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>(errores);
+            ArrayList<ErrorGeneral> erroresTemporales = new ArrayList<>(errores);
 
-            for (errores.ErrorGeneral error : erroresTemporales) {
+            for (ErrorGeneral error : erroresTemporales) {
                 System.out.println("Error: " + error.getMensajeError());
             }
 
             errores.add(ErroresCategorias.ERROR_INESPERADO);
         }
+
 
     }
 

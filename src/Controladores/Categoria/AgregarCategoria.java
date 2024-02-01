@@ -8,7 +8,7 @@ package Controladores.Categoria;
 import Controladores.MyConnection;
 import entidades.Categoria;
 import errores.ErrorGeneral;
-import errores.ErroresProveedores;
+import errores.ErroresCategorias;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,7 +54,7 @@ public class AgregarCategoria {
             }
         }
     } catch (SQLException ex) {
-        errores.add(ErroresProveedores.ERROR_INESPERADO);
+        errores.add(ErroresCategorias.ERROR_INESPERADO);
         ex.printStackTrace();
     }
 
@@ -71,16 +71,17 @@ public class AgregarCategoria {
     public static void main(String[] args) {
         // TODO code application logic here
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Categoria categoriaNueva = new Categoria(0,"Prueba5",false);  
+        Categoria categoriaNueva = new Categoria(0, "Prueba9", false);
         int idInsertado = insertarCategoria(categoriaNueva, errores);
+
         if (idInsertado != -1) {
             System.out.println("Categoría insertada correctamente con ID: " + idInsertado);
         } else {
             for (ErrorGeneral error : errores) {
-                System.out.println("Error de validación: " + error.getMensajeError());
-                System.out.println(error.getMensajeSolucion());
+                System.out.println("Error de validación: " + error);
             }
         }
+
     }
     
 }

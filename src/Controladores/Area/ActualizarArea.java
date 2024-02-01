@@ -3,75 +3,69 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controladores.Categoria;
+package Controladores.Area;
 
 import Controladores.MyConnection;
-import entidades.Categoria;
+import entidades.Area;
 import errores.ErrorGeneral;
-import errores.ErroresCategorias;
+import errores.ErroresArea;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author Lizor
  */
-public class ActualizarCategoria {
+public class ActualizarArea {
 
     /**
      * @param args the command line arguments
      */
     
-    public static int actualizarCategoria(Categoria categoriaActualizar, ArrayList<ErrorGeneral> errores) {
+    public static int actualizarArea(Area areaActualizar, ArrayList<ErrorGeneral> errores) {
         Connection conexion = null;
         PreparedStatement ps = null;
 
         try {
             conexion = MyConnection.getConnection();
-            String query = "UPDATE categoria SET nombre = ?, esta_activo = ? WHERE categoria_id = ?";
+            String query = "UPDATE area SET nombre = ? WHERE id_area = ?";
             ps = conexion.prepareStatement(query);
 
-            boolean validacionExitosa = ValidacionesCategorias.validacionesGenericasDeCategorias(categoriaActualizar, errores);
+            boolean validacionExitosa = ValidacionesArea.validacionesGenericasDeArea(areaActualizar, errores);
 
             if (!validacionExitosa) {
                 return -1;
             }
 
-            ps.setString(1, categoriaActualizar.getNombreCategoria());
-            ps.setBoolean(2, categoriaActualizar.isEstaActivo());
-            ps.setInt(3, categoriaActualizar.getCategoriaId());
+            ps.setString(1, areaActualizar.getNombreArea());
+            ps.setInt(2, areaActualizar.getIdArea());
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas > 0) {
                 return filasAfectadas;
             }
         } catch (SQLException ex) {
-            errores.add(ErroresCategorias.ERROR_INESPERADO);
+            errores.add(ErroresArea.ERROR_INESPERADO);
             ex.printStackTrace();
         }
         return 0;
     }
-
-     
-     
+    
     public static void main(String[] args) {
         // TODO code application logic here
-      ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Categoria actualizarCategoria = new Categoria(1, "Prueba1", false);
-        actualizarCategoria(actualizarCategoria, errores);
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        Area actualizarArea = new Area(1, "Prueba");
+        actualizarArea(actualizarArea, errores);
 
         if (errores.isEmpty()) {
-            System.out.println("La categoría fue actualizada correctamente.");
+            System.out.println("La área fue actualizada correctamente:\n" + actualizarArea);
         } else {
             for (ErrorGeneral error : errores) {
-                System.out.println("Error de validación: " + error);
+                System.out.println(error);
             }
         }
-
-
     }
     
 }

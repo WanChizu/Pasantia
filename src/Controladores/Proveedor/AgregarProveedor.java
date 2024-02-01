@@ -67,19 +67,20 @@ public class AgregarProveedor {
     
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
+        
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Proveedor nuevoProveedor = new Proveedor(0, "Plomeria SA1", "849-284-9271", true, new java.math.BigDecimal(5000));
+        Proveedor nuevoProveedor = new Proveedor(0, "Prueba2", "829-938-0976", true, new java.math.BigDecimal(5000));
         int idProveedorInsertado = insertarProveedor(nuevoProveedor, errores);
+
         if (idProveedorInsertado != -1) {
             System.out.println("Proveedor insertado correctamente con ID: " + idProveedorInsertado);
-        } 
-        
-        else {
+        } else {
             for (ErrorGeneral error : errores) {
                 System.out.println("Error de validación: " + error.getMensajeError());
                 System.out.println(error.getMensajeSolucion());
             }
         }
+
         
     }
 }   

@@ -82,7 +82,7 @@ public class CategoriaIndex {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
         int codigoCategoria = 0;
         String nombreCategoria = "Prueba";
         boolean estaActivo = true;
@@ -90,16 +90,16 @@ public class CategoriaIndex {
         List<Categoria> categoriaEncontrada = indexCategoria(codigoCategoria, null, null, errores);
 
         if (!errores.isEmpty()) {
-            for (errores.ErrorGeneral error : errores) {
+            for (ErrorGeneral error : errores) {
                 System.out.println("Error: " + error.getMensajeError());
             }
         } else {
-            System.out.println("Categorias encontradas:");
+            System.out.println("Categorías encontradas:");
             for (Categoria categoria : categoriaEncontrada) {
-                System.out.println("Categoria: " + categoria.getCategoriaId() + "-" + categoria.getNombreCategoria() + "-" + categoria.isEstaActivo());
-
+                System.out.println("Categoría: " + "\n" + categoria + "\n");
             }
         }
+
     }
 
 }

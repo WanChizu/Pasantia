@@ -76,10 +76,9 @@ public class ActualizarProveedor {
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-       Proveedor actualizarProveedor = new Proveedor(1, "Lavanderia Rosario1", "849-976-0987", true, new java.math.BigDecimal(500));
-        //List<ErrorGeneral> errores = validarProveedor(actualizarProveedor);
-        actualizarProveedor(actualizarProveedor,errores);
-        
+        Proveedor actualizarProveedor = new Proveedor(1, "Lavanderia Rosario1", "849-976-0987", true, new java.math.BigDecimal(500));
+        actualizarProveedor(actualizarProveedor, errores);
+
         if (errores.isEmpty()) {
             System.out.println("Proveedor actualizado correctamente.");
         } else {
@@ -88,6 +87,7 @@ public class ActualizarProveedor {
                 System.out.println(error.getMensajeSolucion());
             }
         }
+
 }    
 }
     

@@ -35,4 +35,8 @@ private  String mensajeSolucion;
         this.mensajeSolucion = mensajeSolucion;
     }
     
+    public String toString() {
+        return "Error: " + mensajeError + "\nSolución: " + mensajeSolucion;
+    }
+    
 }

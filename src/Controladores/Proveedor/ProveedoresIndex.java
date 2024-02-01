@@ -108,26 +108,23 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
         
       
          ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-         int codigoProveedor = 1;
-         String nombreProveedor = "Lavanderia Rosario1";
-         String telefono = "849-986-0987";
-         boolean estaActivo = true;
-         BigDecimal limiteCredito = new BigDecimal("500");
+        int codigoProveedor = 1;
+        String nombreProveedor = "Lavanderia Rosario1";
+        String telefono = "849-986-0987";
+        boolean estaActivo = true;
+        BigDecimal limiteCredito = new BigDecimal("500");
 
-         List<Proveedor> proveedoresEncontrados = IndexProveedor(0, "", telefono, true, null, errores);
-         if (!errores.isEmpty()) {
-             for (errores.ErrorGeneral error : errores) {
-                 System.out.println("Error: " + error.getMensajeError());
-             }
-         } else {
-             System.out.println("Proveedores encontrados:");
-             for (Proveedor proveedor : proveedoresEncontrados) {
-                 System.out.println("Código: " + proveedor.getProveedorId());
-                 System.out.println("Nombre: " + proveedor.getNombre());
-                 System.out.println("Teléfono: " + proveedor.getTelefono());
-                 System.out.println("Activo: " + proveedor.isEstaActivo());
-                 System.out.println("Límite de crédito: " + proveedor.getLimiteCredito());
-             }
-         }
+        List<Proveedor> proveedoresEncontrados = IndexProveedor(0, "", telefono, true, null, errores);
+        if (!errores.isEmpty()) {
+            for (errores.ErrorGeneral error : errores) {
+                System.out.println("Error: " + error.getMensajeError());
+            }
+        } else {
+            System.out.println("Proveedores encontrados:");
+            for (Proveedor proveedor : proveedoresEncontrados) {
+                System.out.println(proveedor.toString());
+            }
+        }
+
     }
 }

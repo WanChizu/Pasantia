@@ -76,33 +76,22 @@ public class VerProveedor {
     
     
    public static void main(String[] args) {
-    ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
-    int codigoProveedor = 2;
+       ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+       int codigoProveedor = 2;
 
-    Proveedor proveedorEncontrado = verProveedor(codigoProveedor, errores);
-    if (errores.isEmpty()) {
-        System.out.println("Proveedor encontrado:");
-        System.out.println("Código: " + proveedorEncontrado.getProveedorId());
-        System.out.println("Nombre: " + proveedorEncontrado.getNombre());
-        System.out.println("Teléfono: " + proveedorEncontrado.getTelefono());
-        System.out.println("Activo: " + proveedorEncontrado.isEstaActivo());
-        System.out.println("Límite de crédito: " + proveedorEncontrado.getLimiteCredito());
-        
-    } else {
-        ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>();
-        
-        for (errores.ErrorGeneral error : errores) {
-            erroresTemporales.add(error);
-        }
-        
-        errores.addAll(erroresTemporales);
-        
-        for (errores.ErrorGeneral error : errores) {
-            System.out.println("Error: " + error.getMensajeError());
-            errores.add(ErroresProveedores.ERROR_INESPERADO);
-            
-        }
-    }
+       Proveedor proveedorEncontrado = verProveedor(codigoProveedor, errores);
+       if (errores.isEmpty()) {
+           System.out.println("Proveedor encontrado:");
+           System.out.println(proveedorEncontrado.toString());
+       } else {
+           ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>(errores);
+
+           for (errores.ErrorGeneral error : erroresTemporales) {
+               System.out.println("Error: " + error.getMensajeError());
+               errores.add(ErroresProveedores.ERROR_INESPERADO);
+           }
+       }
+
 }
 
 
