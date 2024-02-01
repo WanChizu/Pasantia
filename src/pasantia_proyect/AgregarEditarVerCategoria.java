@@ -7,11 +7,13 @@ package pasantia_proyect;
 
 import Controladores.Categoria.ActualizarCategoria;
 import Controladores.Categoria.AgregarCategoria;
-import static Controladores.Categoria.AgregarCategoria.insertarCategoria;
+import Controladores.Categoria.VerCategoria;
 import entidades.Categoria;
 import errores.ErrorGeneral;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +26,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     public final static int EDITAR = 2;
     public final static int VER = 3;
     int opcion;
-    int categoriaId;
+    private int categoriaId;
 
     
     /**
@@ -77,9 +79,9 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         combo = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_regreso = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -91,10 +93,10 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("AGREGAR CATEGORIA");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbl_titulover(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -143,9 +145,14 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(51, 102, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
+        btn_regreso.setBackground(new java.awt.Color(51, 102, 0));
+        btn_regreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
+        btn_regreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_regreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
 
@@ -164,21 +171,29 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnagregarActionPerformed
 
+    private void btn_regresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresoActionPerformed
+    this.setVisible(false);
+    categoriafrm c = categoriafrm.obtenerInstanciaPrincipal();
+    c.setVisible(true);
+    c.actualizarTabla();
+    }//GEN-LAST:event_btn_regresoActionPerformed
+
     public static void main(String [] args) throws SQLException {
 
     try {
-    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
-    new  AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
-    new  AgregarEditarVerCategoria( AgregarEditarVerCategoria.VER, 1).setVisible(true);
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+//    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
+    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
+//    new AgregarEditarVerCategoria( AgregarEditarVerCategoria.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
 }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_regreso;
     private javax.swing.JButton btnagregar;
     private javax.swing.JComboBox<String> combo;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
@@ -195,41 +210,111 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     private void createParaEditar() {
     
         lbl_titulo.setText("EDITAR CATEGORIA");
-        
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        rellenarVentana(categoriaId, errores);
     }
 
     private void createParaVer() {
        lbl_titulo.setText("VER CATEGORIA");
        txt_nombre.setEditable(false);
        combo.setEnabled(false);
+       
+        Font fuente = txt_nombre.getFont();
+        float tamanoFuente = fuente.getSize() + 2; 
+        txt_nombre.setFont(fuente.deriveFont(tamanoFuente));
+        combo.setFont(fuente.deriveFont(tamanoFuente));
+        
+                
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        rellenarVentana(categoriaId, errores);
     }
+    
+     private void rellenarVentana(int codigoCategoria, ArrayList<ErrorGeneral> errores) {
+    this.categoria = VerCategoria.verCategorias(codigoCategoria, errores);
+
+    if (this.categoria != null) {
+        txt_nombre.setText(this.categoria.getNombreCategoria());
+        combo.setSelectedItem(categoria.isEstaActivo() ? "Si" : "No");
+        actualizarComboBoxActivo(categoria.isEstaActivo());
+    } else {
+     
+    }
+}
 
     private void agregarCategoria() {
-    Categoria nuevaCategoria = obtenerDatosCategoria();
+    String nombreCategoria = txt_nombre.getText();
+    boolean estaActivo = combo.getSelectedItem().equals("Si");
 
-    int idCategoriaInsertada = AgregarCategoria.insertarCategoria(nuevaCategoria, new ArrayList<>());
+    Categoria nuevaCategoria = new Categoria(0, nombreCategoria, estaActivo);
+
+    categoriafrm pantalla = categoriafrm.obtenerInstanciaPrincipal();
+
+    ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+   
+    int idCategoriaInsertada = AgregarCategoria.insertarCategoria(nuevaCategoria, errores);
+
     if (idCategoriaInsertada != -1) {
         JOptionPane.showMessageDialog(this, "Categoría agregada exitosamente con ID " + idCategoriaInsertada, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        pantalla.actualizarTabla();
+        pantalla.setVisible(true);
+        this.dispose();
     } else {
-        JOptionPane.showMessageDialog(this, "No se pudo agregar la categoría. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        mostrarErrores(errores);
     }
 }
+
     
-    private Categoria obtenerDatosCategoria() {
-    
-    return new Categoria(0, txt_nombre.getText(), false);
+    public void actualizarComboBoxActivo(boolean estaActivo) {
+    DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) combo.getModel();
+
+    if (estaActivo) {
+        combo.setSelectedItem("si");
+    } else {
+        combo.setSelectedItem("no");
     }
-    
+    combo.revalidate();
+    combo.repaint();
+}
+
     private void editarCategoria() {
-    Categoria categoriaActualizada = obtenerDatosCategoria();
+    String seleccion = (String) combo.getSelectedItem();
+    boolean estaActivo = seleccion.equals("Si");
+    Categoria categoriaAActualizar = new Categoria(categoriaId, txt_nombre.getText(), estaActivo);
 
-    int filasAfectadas = ActualizarCategoria.actualizarCategoria(categoriaActualizada, new ArrayList<>());
-    if (filasAfectadas > 0) {
+    categoriafrm pantalla = categoriafrm.obtenerInstanciaPrincipal();
+    ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
+    
+    ActualizarCategoria.actualizarCategoria(categoriaAActualizar, errores);
+
+    if (errores.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Categoría actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        pantalla.actualizarTabla();
+        pantalla.setVisible(true);
+        this.dispose();
     } else {
-        {JOptionPane.showMessageDialog(this, "No se pudo actualizar la categoría. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        mostrarErrores(errores);
     }
+
+    rellenarVentana(categoriaId, new ArrayList<>());
 }
 
+
+    private static void mostrarErrores(ArrayList<ErrorGeneral> errores) {
+        if (!errores.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Se han producido los siguientes errores:\n\n");
+
+            for (ErrorGeneral error : errores) {
+                mensaje.append("Error: ").append(error.getMensajeError()).append("\n");
+                mensaje.append("Solución: ").append(error.getMensajeSolucion()).append("\n\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensaje.toString(), "Errores", JOptionPane.ERROR_MESSAGE);
+        }
     }
+    
+    private Categoria categoria;
+    
+   
 }
