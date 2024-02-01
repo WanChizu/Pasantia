@@ -18,22 +18,44 @@ import javax.swing.table.DefaultTableModel;
  * @author A19B59953
  */
 public class categoriafrm extends javax.swing.JFrame {
+    
+    private static categoriafrm instanciaPrincipal;
 
     /**
      * Creates new form categoriafrm
      */
     public categoriafrm() {
         initComponents();
+        mostrar("categoria");
+        instanciaPrincipal = this;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
     
+     public static categoriafrm obtenerInstanciaPrincipal() {
+        return instanciaPrincipal;
+    }
+     
+    private void limpiarTabla() {
+    DefaultTableModel model = (DefaultTableModel) Jtable.getModel();
+    model.setRowCount(0);
+}
+
+    public void actualizarTabla() {
+    limpiarTabla();
+    mostrar("categoria");
+    Jtable.revalidate();
+    Jtable.repaint();
+}
+
+    
     private DefaultTableModel tableModel;
     
-    public void mostrar (String categoria){
+    public void mostrar (String tabla){
     
     if (tableModel == null) {
         tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
         tableModel.addColumn("Nombre");
         tableModel.addColumn("Activo");
         Jtable.setModel(tableModel);
@@ -44,19 +66,20 @@ public class categoriafrm extends javax.swing.JFrame {
         tableModel.setRowCount(0);
     }
     
-    String sql = "select * from " + categoria;
+    String sql = "select * from " + tabla;
     Statement st;
     MyConnection cc = new MyConnection();
     Connection cn = MyConnection.getConnection();
     
-    String[] datos = new String[2];
+    String[] datos = new String[3];
 
     try {
         st = cn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
             datos[0] = rs.getString(1);
-            datos[1] = rs.getInt(2)== 1 ? "si" : "no";
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getInt(3) == 1 ? "si" : "no";
             tableModel.addRow(datos);
         }
 
@@ -65,6 +88,15 @@ public class categoriafrm extends javax.swing.JFrame {
     }
     
     }
+    
+     public int obtenerIdCategoriaSeleccionada() {
+    int filaSeleccionada = Jtable.getSelectedRow();
+    if (filaSeleccionada != -1) {
+        return Integer.parseInt(Jtable.getValueAt(filaSeleccionada, 0).toString()); 
+    } else {
+        return -1; 
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +143,7 @@ public class categoriafrm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setText("CATEGORIA");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
 
         btn_añadir.setBackground(new java.awt.Color(51, 102, 0));
         btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
@@ -155,19 +187,43 @@ public class categoriafrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
-
+ try {
+        new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, -1).setVisible(true);
+    } catch (SQLException e) {
+    }
     }//GEN-LAST:event_btn_añadirActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-
+   
+        int idCategoriaSeleccionada = obtenerIdCategoriaSeleccionada();
+    if (idCategoriaSeleccionada != -1) {
+        try {
+          
+            new AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, idCategoriaSeleccionada).setVisible(true);
+        } catch (SQLException e) {
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una categoria antes de editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+    
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void ver_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_btnActionPerformed
 
+        int idCategoriaSeleccionada = obtenerIdCategoriaSeleccionada();
+    if (idCategoriaSeleccionada != -1) {
+        try {
+            new AgregarEditarVerCategoria(AgregarEditarVerCategoria.VER, idCategoriaSeleccionada).setVisible(true);
+        } catch (SQLException e) {
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una categoria antes de ver sus datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+    
     }//GEN-LAST:event_ver_btnActionPerformed
 
     private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
-      
+    actualizarTabla();      
     }//GEN-LAST:event_btn_actActionPerformed
 
     /**
@@ -216,4 +272,6 @@ public class categoriafrm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton ver_btn;
     // End of variables declaration//GEN-END:variables
+
+    
 }

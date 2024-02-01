@@ -364,7 +364,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
             this.dispose();
             
         } else {
-            mostrarErrores(errores); // Muestra los errores si la actualización falla
+            mostrarErrores(errores); 
         }
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para el límite de crédito", "Error", JOptionPane.ERROR_MESSAGE);
