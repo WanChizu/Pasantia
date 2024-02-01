@@ -5,7 +5,7 @@
  */
 package Controladores.Categoria;
 
-import Controladores.MyConnection;
+import Controladores.Proveedor.MyConnection;
 import entidades.Categoria;
 import errores.ErrorGeneral;
 import errores.ErroresCategorias;

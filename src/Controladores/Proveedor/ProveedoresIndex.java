@@ -6,8 +6,6 @@
 package Controladores.Proveedor;
 
 
-import Controladores.MyConnection;
-import static Controladores.ParametrosGenericos.setParametros;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
 import errores.ErroresProveedores;
@@ -31,9 +29,12 @@ public class ProveedoresIndex {
     
 public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nombreProveedor, String telefono, Boolean estaActivo, BigDecimal limiteDeCredito, ArrayList<ErrorGeneral> errores) {
     List<Proveedor> proveedores = new ArrayList<>();
-    Connection conexion = MyConnection.getConnection();
+    Connection conexion = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     try {
+        conexion = MyConnection.getConnection();
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Proveedor WHERE 1 = 1");
         List<Object> parameters = new ArrayList<>();
 
@@ -62,33 +63,44 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
             parameters.add(limiteDeCredito);
         }
         
-            PreparedStatement ps = conexion.prepareStatement(queryBuilder.toString());
-            setParametros(ps, parameters);
-            ResultSet rs = ps.executeQuery();
+        ps = conexion.prepareStatement(queryBuilder.toString());
 
-
-        while (rs.next()) {
-            int proveedorId = rs.getInt("proveedor_id");
-            String nombre = rs.getString("nombre");
-            String telefonoProveedor = rs.getString("telefono");
-            boolean proveedorActivo = rs.getBoolean("esta_activo");
-            BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
-
-            Proveedor proveedor = new Proveedor(proveedorId, nombre, telefonoProveedor, proveedorActivo, limiteCredito);
-            proveedores.add(proveedor);
+       
+        for (int i = 0; i < parameters.size(); i++) {
+            ps.setObject(i + 1, parameters.get(i));
         }
-
-        if (proveedores.isEmpty()) {
-            errores.add(ErroresProveedores.PROVEEDOR_NO_ENCONTRADO);
-        }
-
-        rs.close();
-        ps.close();
+        
+         rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                int proveedorId = rs.getInt("proveedor_id");
+                String nombre = rs.getString("nombre");
+                String telefonoProveedor = rs.getString("telefono");
+                boolean proveedorActivo = rs.getBoolean("esta_activo");
+                BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
+                
+                Proveedor proveedor = new Proveedor(proveedorId, nombre, telefonoProveedor, proveedorActivo, limiteCredito);
+                proveedores.add(proveedor);
+            }
+            
+            if (proveedores.isEmpty()) {
+                errores.add(ErroresProveedores.PROVEEDOR_NO_ENCONTRADO);
+            }
+            
+            rs.close();
+        
+        
     } catch (SQLException ex) {
         errores.add(ErroresProveedores.ERROR_INESPERADO);
         ex.printStackTrace();
     } finally {
         try {
+           if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
             if (conexion != null) {
                 conexion.close();
             }
@@ -105,8 +117,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
     
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        
-      
+     
          ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
         int codigoProveedor = 1;
         String nombreProveedor = "Lavanderia Rosario1";
@@ -125,6 +136,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
                 System.out.println(proveedor.toString());
             }
         }
+}
 
-    }
+  
 }
