@@ -80,7 +80,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         btnagregar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_comentario = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -157,9 +157,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         });
         jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txt_comentario.setColumns(20);
+        txt_comentario.setRows(5);
+        jScrollPane2.setViewportView(txt_comentario);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 450, 90));
 
@@ -205,13 +205,13 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_nombre1;
     private javax.swing.JLabel lbl_nombre2;
     private javax.swing.JLabel lbl_nombre3;
     private javax.swing.JLabel lbl_nombre4;
     private javax.swing.JLabel lbl_nombre5;
     private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JTextArea txt_comentario;
     private javax.swing.JTextField txt_monto;
     // End of variables declaration//GEN-END:variables
 
