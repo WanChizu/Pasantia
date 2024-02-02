@@ -11,9 +11,9 @@ package errores;
  */
 public class ErroresArea {
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.","Intenta de nuevo.");
-    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.","");
+    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.","Agrega un digito positivo.");
     
-    public static ErrorGeneral AREA_EXISTENTE = new ErrorGeneral("Esta área ya está registrada.","");
+    public static ErrorGeneral AREA_EXISTENTE = new ErrorGeneral("Esta área ya está registrada.","Puedes intentar de nuevo con otro ID.");
     public static ErrorGeneral AREA_NO_ENCONTRADA = new ErrorGeneral("La área no fue encontrada.","Intente de nuevo.");
     
     public static ErrorGeneral NOMBRE_MUY_LARGO = new ErrorGeneral("Nombre muy largo","El nombre debe tener  menos de 50 letras.");

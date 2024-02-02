@@ -69,10 +69,10 @@ public class AgregarArea {
         
 //Que presente el codigo actual pq da 0 
         ArrayList<ErrorGeneral> errores = new ArrayList<>();        
-        Area areaNueva = new Area(0, "Despacho");
+        Area areaNueva = new Area(0, "Prueba8");
         int idInsertado = insertarArea(areaNueva, errores);
         if (idInsertado != -1) {
-            System.out.println("Área insertada correctamente:\n" + idInsertado);
+            System.out.println("Área insertada correctamente con ID: " + idInsertado);
         } else {
             for (ErrorGeneral error : errores) {
                 System.out.println(error);

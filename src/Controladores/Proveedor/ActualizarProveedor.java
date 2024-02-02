@@ -56,18 +56,7 @@ public class ActualizarProveedor {
     } catch (SQLException ex) {
         errores.add(ErroresProveedores.ERROR_INESPERADO);
         ex.printStackTrace();
-    } finally {
-        try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (conexion != null) {
-                conexion.close();
-            }
-        } catch (SQLException ex) {
-            errores.add(ErroresProveedores.ERROR_INESPERADO);
-            ex.printStackTrace();
-        }
+    
     }
     return 0;
 }
