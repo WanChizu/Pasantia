@@ -6,6 +6,7 @@
 package Controladores.Proveedor;
 
 
+import Controladores.MyConnection;
 import entidades.Proveedor;
 import errores.ErrorGeneral;
 import errores.ErroresProveedores;

@@ -27,7 +27,7 @@ public class VerArea {
      * @param args the command line arguments
      */
     
-    public static Area verAreas(int idArea, ArrayList<errores.ErrorGeneral> errores) {
+    public static Area verAreas(int areaId, ArrayList<errores.ErrorGeneral> errores) {
         Connection conexion = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -36,7 +36,7 @@ public class VerArea {
             conexion = MyConnection.getConnection();
             String query = "SELECT * FROM area WHERE id_area = ?";
             ps = conexion.prepareStatement(query);
-            ps.setInt(1, idArea);
+            ps.setInt(1, areaId);
 
             rs = ps.executeQuery();
 
@@ -44,7 +44,7 @@ public class VerArea {
                 int IdArea = rs.getInt("id_area");
                 String nombreArea = rs.getString("nombre");
                 
-                Area area = new Area(IdArea, nombreArea);
+                Area area = new Area(areaId, nombreArea);
 
                 boolean validacionExitosa = ValidacionesArea.validacionesGenericasDeArea(area, errores);
 
@@ -69,9 +69,9 @@ public class VerArea {
         // TODO code application logic here
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        int codigoArea = 3;
+        int areaId = 3;
 
-        Area areaEncontrada = verAreas(codigoArea, errores);
+        Area areaEncontrada = verAreas(areaId, errores);
 
         if (errores.isEmpty()) {
             System.out.println("Área encontrada:");

@@ -5,7 +5,7 @@
  */
 package pasantia_proyect;
 
-import Controladores.Proveedor.MyConnection;
+import Controladores.MyConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

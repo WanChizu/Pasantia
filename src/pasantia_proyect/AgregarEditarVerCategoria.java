@@ -183,7 +183,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
 //    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
-    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
+    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, 4).setVisible(true);
 //    new AgregarEditarVerCategoria( AgregarEditarVerCategoria.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
