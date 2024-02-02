@@ -24,7 +24,7 @@ public class ErroresProveedores {
     public static ErrorGeneral LIMITE_CREDITO_NEGATIVO = new ErrorGeneral("El límite de crédito no puede ser negativo.","Por favor ajusta el crédito.");
     
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.", "Intenta de nuevo.");
-    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.", "");
+    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.", "Agrega un digito positivo.");
     
     public static ErrorGeneral PROVEEDOR_NO_ENCONTRADO = new ErrorGeneral("Proveedor no encontrado.","Intenta de nuevo.");
     

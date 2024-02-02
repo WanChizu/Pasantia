@@ -12,9 +12,9 @@ package errores;
 public class ErroresCategorias {
     
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.", "Intenta de nuevo.");
-    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.", "");
+    public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.", "Agrega un digito positivo.");
     
-    public static ErrorGeneral CATEGORIA_EXISTENTE = new ErrorGeneral ("Esta categoría ya existe.","");
+    public static ErrorGeneral CATEGORIA_EXISTENTE = new ErrorGeneral ("Esta categoría ya existe.","Puedes intentar de nuevo con otro ID.");
     public static ErrorGeneral CATEGORIA_NO_ENCONTRADA = new ErrorGeneral("La categoría no fue encontrada.","Intenta de nuevo.");
     
     public static ErrorGeneral NOMBRE_MUY_LARGO = new ErrorGeneral("Nombre muy largo","El nombre debe tener  menos de 50 letras.");
