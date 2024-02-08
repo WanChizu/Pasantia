@@ -6,6 +6,7 @@
 package pasantia_proyect;
 
 import Controladores.Factura.IndexFactura;
+import entidades.Factura;
 import errores.ErrorGeneral;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,8 +33,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
-        llenarComboCategorias();
-        llenarComboProveedores();
     }
     
    
@@ -47,7 +46,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     initComponents();
     
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-   // List<Factura> facturaEncontrada = IndexFactura.IndexFactura(null, null, categoriaId, proveedorId, null, null, errores);
+   // Obtener todos los nombres de categorías y proveedores disponibles en la base de datos
+    List<String> nombresCategorias = IndexFactura.obtenerNombresCategorias();
+    List<String> nombresProveedores = IndexFactura.obtenerNombresProveedores();
 
     
     switch (opcion){
@@ -64,7 +65,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     break;
     
     }
-    //rellenarVentana(facturaEncontrada, errores);
+      rellenarVentana(nombresCategorias, nombresProveedores, errores);
     }
 
     /**
@@ -85,8 +86,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         lbl_nombre4 = new javax.swing.JLabel();
         lbl_nombre5 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
+        combo_p = new javax.swing.JComboBox<>();
         combo_c = new javax.swing.JComboBox<>();
-        combo_prov = new javax.swing.JComboBox<>();
         txt_monto = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
@@ -140,11 +141,11 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         fecha.setDateFormatString("yyyy-MMM-dd");
         jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 140, 30));
 
-        combo_c.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 30));
+        combo_p.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 30));
 
-        combo_prov.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_prov, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 310, 30));
+        combo_c.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 310, 30));
 
         txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_monto.setBorder(null);
@@ -216,7 +217,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnregresar;
     private javax.swing.JComboBox<String> combo_c;
-    private javax.swing.JComboBox<String> combo_prov;
+    private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -246,8 +247,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     lbl_titulo.setText("VER CATEGORIA");
     txt_monto.setEditable(false);
     txt_comentario.setEditable(false);
-    combo_prov.setEnabled(false);
     combo_c.setEnabled(false);
+    combo_p.setEnabled(false);
           
      ArrayList<ErrorGeneral> errores = new ArrayList<>();
     }
@@ -255,7 +256,26 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     
      
     
-     
+     private void rellenarVentana(List<String> nombresCategorias, List<String> nombresProveedores, ArrayList<ErrorGeneral> errores) {
+    if (!errores.isEmpty()) {
+        // Manejar los errores, por ejemplo, mostrar un mensaje de error al usuario
+        return;
+    }
+    
+    // Llenar el combo box de categorías con los nombres de categorías existentes
+    for (String nombreCategoria : nombresCategorias) {
+        combo_c.addItem(nombreCategoria);
+    }
+    
+    // Llenar el combo box de proveedores con los nombres de proveedores existentes
+    for (String nombreProveedor : nombresProveedores) {
+        combo_p.addItem(nombreProveedor);
+    }
+    
+    // Puedes agregar más lógica aquí si es necesario para otros componentes de la ventana
+}
+
+
      
       
    

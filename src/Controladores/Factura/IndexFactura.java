@@ -128,6 +128,66 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
         }
     }
     
+    public static List<String> obtenerNombresCategorias() {
+        List<String> nombresCategorias = new ArrayList<>();
+        Connection conexion = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conexion = MyConnection.getConnection();
+            String query = "SELECT nombre FROM categoria"; // Suponiendo que el nombre de la categoría está en el campo 'nombre'
+            ps = conexion.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nombresCategorias.add(rs.getString("nombre"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return nombresCategorias;
+    }
+
+    public static List<String> obtenerNombresProveedores() {
+        List<String> nombresProveedores = new ArrayList<>();
+        Connection conexion = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conexion = MyConnection.getConnection();
+            String query = "SELECT nombre FROM proveedor"; // Suponiendo que el nombre del proveedor está en el campo 'nombre'
+            ps = conexion.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nombresProveedores.add(rs.getString("nombre"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return nombresProveedores;
+    }
+    
    
     
     
