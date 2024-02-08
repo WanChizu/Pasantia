@@ -7,7 +7,11 @@ package Controladores;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,8 +27,10 @@ public class MyConnection {
      try {
      
       Class.forName("com.mysql.cj.jdbc.Driver");
+      
       //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_proveedor","root","irisalbania13");
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
+
      } catch (ClassNotFoundException | SQLException ex){
      
          System.out.println(ex.getMessage());
@@ -32,4 +38,6 @@ public class MyConnection {
      }
       return con;
 }
+    
+    
 }

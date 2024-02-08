@@ -5,10 +5,12 @@
  */
 package pasantia_proyect;
 
+import Controladores.Factura.IndexFactura;
+import entidades.Factura;
 import errores.ErrorGeneral;
-import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,12 +18,13 @@ import java.util.ArrayList;
  */
 public class AgregarEditarVerFactura extends javax.swing.JFrame {
     
-      
+  
+    
     public final static int AGREGAR = 1;
     public final static int EDITAR = 2;
     public final static int VER = 3;
     int opcion;
-    private int facturaId;
+    private int idFactura;
 
     /**
      * Creates new form AgregarEditarVerFactura
@@ -32,12 +35,21 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         this.setResizable(false);
     }
     
+   
+    
+    
+    
+    
     public AgregarEditarVerFactura(int opcion, int categoriaId)throws SQLException{
     this.opcion = opcion;
-    this.facturaId = facturaId;
+    this.idFactura = idFactura;
     initComponents();
     
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
+   // Obtener todos los nombres de categorías y proveedores disponibles en la base de datos
+    List<String> nombresCategorias = IndexFactura.obtenerNombresCategorias();
+    List<String> nombresProveedores = IndexFactura.obtenerNombresProveedores();
+
     
     switch (opcion){
     case AGREGAR:
@@ -53,6 +65,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     break;
     
     }
+      rellenarVentana(nombresCategorias, nombresProveedores, errores);
     }
 
     /**
@@ -73,8 +86,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         lbl_nombre4 = new javax.swing.JLabel();
         lbl_nombre5 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
+        combo_p = new javax.swing.JComboBox<>();
         combo_c = new javax.swing.JComboBox<>();
-        combo_prov = new javax.swing.JComboBox<>();
         txt_monto = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
@@ -107,37 +120,37 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
         lbl_nombre1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre1.setText("Comentario");
-        jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
         lbl_nombre2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_nombre2.setText("Id proveedor");
-        jPanel1.add(lbl_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        lbl_nombre2.setText("proveedor");
+        jPanel1.add(lbl_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         lbl_nombre3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre3.setText("Fecha");
         jPanel1.add(lbl_nombre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
 
         lbl_nombre4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_nombre4.setText("Id categoria");
-        jPanel1.add(lbl_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, -1, -1));
+        lbl_nombre4.setText("categoria");
+        jPanel1.add(lbl_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         lbl_nombre5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre5.setText("Monto");
-        jPanel1.add(lbl_nombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel1.add(lbl_nombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
         fecha.setDateFormatString("yyyy-MMM-dd");
         jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 140, 30));
 
-        combo_c.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 50, 30));
+        combo_p.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 30));
 
-        combo_prov.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_prov, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 50, 30));
+        combo_c.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 310, 30));
 
         txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_monto.setBorder(null);
-        jPanel1.add(txt_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 220, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 220, 20));
+        jPanel1.add(txt_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 220, 30));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 220, 20));
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
@@ -161,7 +174,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         txt_comentario.setRows(5);
         jScrollPane2.setViewportView(txt_comentario);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 450, 90));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 450, 80));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
 
@@ -173,7 +186,11 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_titulover
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-      
+//       if (opcion == AGREGAR) {
+//            agregarFactura();
+//        } else if (opcion == EDITAR) {
+//            editarFactura();
+//        }
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
@@ -189,17 +206,18 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     new AgregarEditarVerFactura(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
-    new AgregarEditarVerFactura(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
-    new AgregarEditarVerFactura( AgregarEditarVerCategoria.VER, 1).setVisible(true);
+    //new AgregarEditarVerFactura(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
+    //new AgregarEditarVerFactura( AgregarEditarVerCategoria.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnregresar;
     private javax.swing.JComboBox<String> combo_c;
-    private javax.swing.JComboBox<String> combo_prov;
+    private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -229,13 +247,42 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     lbl_titulo.setText("VER CATEGORIA");
     txt_monto.setEditable(false);
     txt_comentario.setEditable(false);
-    combo_prov.setEnabled(false);
     combo_c.setEnabled(false);
-    
-    
-    
-        
-                
-        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    combo_p.setEnabled(false);
+          
+     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     }
+
+    
+     
+    
+     private void rellenarVentana(List<String> nombresCategorias, List<String> nombresProveedores, ArrayList<ErrorGeneral> errores) {
+    if (!errores.isEmpty()) {
+        // Manejar los errores, por ejemplo, mostrar un mensaje de error al usuario
+        return;
+    }
+    
+    // Llenar el combo box de categorías con los nombres de categorías existentes
+    for (String nombreCategoria : nombresCategorias) {
+        combo_c.addItem(nombreCategoria);
+    }
+    
+    // Llenar el combo box de proveedores con los nombres de proveedores existentes
+    for (String nombreProveedor : nombresProveedores) {
+        combo_p.addItem(nombreProveedor);
+    }
+    
+    // Puedes agregar más lógica aquí si es necesario para otros componentes de la ventana
+}
+
+
+     
+      
+   
+
+
+
+    
+
+    
 }
