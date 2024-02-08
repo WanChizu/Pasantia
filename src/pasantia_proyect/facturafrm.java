@@ -20,6 +20,9 @@ import javax.swing.table.DefaultTableModel;
 public class facturafrm extends javax.swing.JFrame {
     
     private static facturafrm instanciaPrincipal;
+   
+
+
 
     /** Creates new form facturafrm */
     public facturafrm() {
@@ -41,21 +44,19 @@ public class facturafrm extends javax.swing.JFrame {
      private DefaultTableModel tableModel;
 
     
-    public void mostrar(String tabla) {
-    
+  public void mostrar(String tabla) {
     if (tableModel == null) {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Id");
         tableModel.addColumn("Fecha");
-        tableModel.addColumn("Id proveedor");
-        tableModel.addColumn("Id categoria");
+        tableModel.addColumn("proveedor");
+        tableModel.addColumn("categoria");
         tableModel.addColumn("Monto");
         tableModel.addColumn("Comentario");
         jTable.setModel(tableModel);
         jTable.getColumnModel().getColumn(0).setMinWidth(0);
         jTable.getColumnModel().getColumn(0).setMaxWidth(0);
     } else {
-       
         tableModel.setRowCount(0);
     }
 
@@ -64,21 +65,34 @@ public class facturafrm extends javax.swing.JFrame {
     MyConnection cc = new MyConnection();
     Connection cn = MyConnection.getConnection();
 
-    String[] datos = new String[6];
-
     try {
         st = cn.createStatement();
         ResultSet rs = st.executeQuery(sql);
-       datos[0] = rs.getString(1);
+
+        while (rs.next()) {
+            String[] datos = new String[6];
+            datos[0] = rs.getString(1);
             datos[1] = rs.getString(2);
             datos[2] = rs.getString(3);
             datos[3] = String.valueOf(rs.getInt(4));
             datos[4] = rs.getString(5);
             datos[5] = rs.getString(6);
             tableModel.addRow(datos);
+        }
 
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Error" + e.toString());
+    }
+}
+
+    
+    
+    public int obtenerIdFacturaSeleccionada() {
+    int filaSeleccionada = jTable.getSelectedRow();
+    if (filaSeleccionada != -1) {
+        return Integer.parseInt(jTable.getValueAt(filaSeleccionada, 0).toString()); 
+    } else {
+        return -1; 
     }
 }
     
@@ -198,7 +212,10 @@ public class facturafrm extends javax.swing.JFrame {
     }//GEN-LAST:event_ver_btnActionPerformed
 
     private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
-       
+         try {
+        new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, -1).setVisible(true);
+    } catch (SQLException e) {
+    }
     }//GEN-LAST:event_btn_añadirActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
@@ -251,5 +268,7 @@ public class facturafrm extends javax.swing.JFrame {
     private javax.swing.JTable jTable;
     private javax.swing.JButton ver_btn;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }
