@@ -19,6 +19,9 @@ public class Factura {
     private int proveedorId;
     private String comentario;
     private BigDecimal monto;
+    
+    private String nombreCategoria;
+    private String nombreProveedor;
 
     public Factura(int idFactura, LocalDate fecha, int categoriaId, int proveedorId, String comentario, BigDecimal monto) {
         this.idFactura = idFactura;
@@ -78,15 +81,34 @@ public class Factura {
         this.monto = monto;
     }
     
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+    
     @Override
     public String toString(){
     return "ID: " + idFactura +
            "\nFecha: " + fecha +
            "\nID de Categoría: " + categoriaId +
+           "\nNombre de la Categoria: " + nombreCategoria + 
            "\nID del Proveedor: " + proveedorId + 
+           "\nNombre del Proveedor: " + nombreProveedor + 
            "\nComentario agregado: " + comentario +
            "\nMonto: " + monto;
-           
-    }
+         
+    
+}
     
 }
