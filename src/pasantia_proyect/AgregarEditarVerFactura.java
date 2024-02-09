@@ -5,12 +5,25 @@
  */
 package pasantia_proyect;
 
-import Controladores.Factura.IndexFactura;
+import Controladores.Factura.AgregarFactura;
+import Controladores.Factura.DatabaseManager;
+import Controladores.Factura.VerFactura;
+
 import entidades.Factura;
+
 import errores.ErrorGeneral;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,13 +31,12 @@ import java.util.List;
  */
 public class AgregarEditarVerFactura extends javax.swing.JFrame {
     
-  
-    
     public final static int AGREGAR = 1;
     public final static int EDITAR = 2;
     public final static int VER = 3;
     int opcion;
-    private int idFactura;
+    private int facturaId;
+   
 
     /**
      * Creates new form AgregarEditarVerFactura
@@ -33,22 +45,18 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+       
     }
     
    
-    
-    
-    
-    
-    public AgregarEditarVerFactura(int opcion, int categoriaId)throws SQLException{
+    public AgregarEditarVerFactura(int opcion, int facturaId)throws SQLException{
     this.opcion = opcion;
-    this.idFactura = idFactura;
+    this.facturaId = facturaId;
     initComponents();
     
+    
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-   // Obtener todos los nombres de categorías y proveedores disponibles en la base de datos
-    List<String> nombresCategorias = IndexFactura.obtenerNombresCategorias();
-    List<String> nombresProveedores = IndexFactura.obtenerNombresProveedores();
+   
 
     
     switch (opcion){
@@ -65,8 +73,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     break;
     
     }
-      rellenarVentana(nombresCategorias, nombresProveedores, errores);
+ 
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,11 +150,11 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         fecha.setDateFormatString("yyyy-MMM-dd");
         jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 140, 30));
 
-        combo_p.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 30));
+        combo_p.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 220, 30));
 
-        combo_c.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 310, 30));
+        combo_c.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 220, 30));
 
         txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_monto.setBorder(null);
@@ -186,11 +195,15 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_titulover
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-//       if (opcion == AGREGAR) {
-//            agregarFactura();
-//        } else if (opcion == EDITAR) {
-//            editarFactura();
-//        }
+       if (opcion == AGREGAR) {
+           try {
+               agregarFactura();
+           } catch (SQLException ex) {
+               Logger.getLogger(AgregarEditarVerFactura.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        } else if (opcion == EDITAR) {
+            editarFactura();
+        }
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
@@ -234,55 +247,156 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void createParaAgregar() {
-    lbl_titulo.setText("AGREGAR CATEGORIA");
+    lbl_titulo.setText("AGREGAR FACTURA");
+
+    try {
+        Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
+        Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+
+        for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
+            combo_p.addItem(entry.getValue());
+        }
+
+        for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
+            combo_c.addItem(entry.getValue());
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
 
     private void createParaEditar() {
     lbl_titulo.setText("EDITAR CATEGORIA");
     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    
+    
+    try {
+        Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
+        Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+
+        for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
+            combo_p.addItem(entry.getValue());
+        }
+
+        for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
+            combo_c.addItem(entry.getValue());
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+     rellenarVentana(facturaId, errores);  
     }
 
     private void createParaVer() {
     lbl_titulo.setText("VER CATEGORIA");
-    txt_monto.setEditable(false);
-    txt_comentario.setEditable(false);
-    combo_c.setEnabled(false);
-    combo_p.setEnabled(false);
-          
-     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-    }
+    fecha.setDateFormatString("dd/MM/yyyy");
+    
+    try {
+        Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
+        Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
 
-    
-     
-    
-     private void rellenarVentana(List<String> nombresCategorias, List<String> nombresProveedores, ArrayList<ErrorGeneral> errores) {
-    if (!errores.isEmpty()) {
-        // Manejar los errores, por ejemplo, mostrar un mensaje de error al usuario
-        return;
+        for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
+            combo_p.addItem(entry.getValue());
+        }
+
+        for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
+            combo_c.addItem(entry.getValue());
+        }
+
+      
+        txt_monto.setEditable(false);
+        txt_comentario.setEditable(false);
+        combo_p.setEnabled(false);
+        combo_c.setEnabled(false);
+        fecha.setEnabled(false);
+        btnagregar.setEnabled(false);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+          
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    rellenarVentana(facturaId, errores);  
     }
     
-    // Llenar el combo box de categorías con los nombres de categorías existentes
-    for (String nombreCategoria : nombresCategorias) {
-        combo_c.addItem(nombreCategoria);
+    private void rellenarVentana(int facturaId, ArrayList<ErrorGeneral> errores) {
+    Factura factura = VerFactura.verFactura(facturaId, errores);
+
+    if (factura != null) {
+      
+        fecha.setDate(java.sql.Date.valueOf(factura.getFecha()));
+        txt_monto.setText(factura.getMonto().toString());
+        txt_comentario.setText(factura.getComentario());
+
+      
+        combo_p.setSelectedItem(factura.getProveedorId());
+        combo_c.setSelectedItem(factura.getCategoriaId());
+    } else {
+        System.out.println("Factura no encontrada para el ID: " + facturaId);
     }
-    
-    // Llenar el combo box de proveedores con los nombres de proveedores existentes
-    for (String nombreProveedor : nombresProveedores) {
-        combo_p.addItem(nombreProveedor);
-    }
-    
-    // Puedes agregar más lógica aquí si es necesario para otros componentes de la ventana
 }
 
-
-     
-      
+    
    
-
-
+    private void editarFactura() {
+       
+    }
+    
+    private void agregarFactura() throws SQLException {
+     ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    int proveedorId = obtenerIdSeleccionado(combo_p, DatabaseManager.obtenerProveedores());
+    int categoriaId = obtenerIdSeleccionado(combo_c, DatabaseManager.obtenerCategorias());
+   
+    LocalDate fechaFactura = fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    
+    String comentario = txt_comentario.getText();
+    BigDecimal monto = new BigDecimal(txt_monto.getText());
 
     
+    Factura nuevaFactura = new Factura(0, fechaFactura, categoriaId, proveedorId, comentario, monto);
 
     
+    int idFacturaInsertada = AgregarFactura.insertarFactura(nuevaFactura, errores);
+
+    if (idFacturaInsertada != -1) {
+        JOptionPane.showMessageDialog(this, "Factura agregada correctamente con ID: " + idFacturaInsertada);
+    } else {
+       
+        StringBuilder mensajeError = new StringBuilder("Error al agregar la factura. Detalles de errores:\n");
+        for (ErrorGeneral error : errores) {
+            mensajeError.append("- ").append(error.getMensajeError()).append("\n");
+        }
+        JOptionPane.showMessageDialog(this, mensajeError.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+    }  
+}
+
+private int obtenerIdSeleccionado(JComboBox<String> comboBox, Map<Integer, String> map) {
+    String selectedItem = comboBox.getSelectedItem().toString();
+    for (Map.Entry<Integer, String> entry : map.entrySet()) {
+        if (entry.getValue().equals(selectedItem)) {
+            return entry.getKey();
+        }
+    }
+    return -1; // Valor de retorno predeterminado si no se encuentra el elemento
+}
+    
+    
+    
+ private static void mostrarErrores(ArrayList<ErrorGeneral> errores) {
+        if (!errores.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Se han producido los siguientes errores:\n\n");
+
+            for (ErrorGeneral error : errores) {
+                mensaje.append("Error: ").append(error.getMensajeError()).append("\n");
+                mensaje.append("Solución: ").append(error.getMensajeSolucion()).append("\n\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensaje.toString(), "Errores", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+ 
+ 
+
+
 }

@@ -97,6 +97,8 @@ public class Factura {
         this.nombreProveedor = nombreProveedor;
     }
     
+    
+    
     @Override
     public String toString(){
     return "ID: " + idFactura +
