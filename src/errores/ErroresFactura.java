@@ -22,6 +22,10 @@ public class ErroresFactura {
     public static ErrorGeneral PROVEEDOR_NO_ENCONTRADO = new ErrorGeneral("Proveedor no encontrado.","Intenta de nuevo.");
     public static ErrorGeneral PROVEEDOR_VACIO = new ErrorGeneral("No ha específicado el ID del proveedor", "Por favor, escriba el ID indicado.");
     
+    public static ErrorGeneral AREA_NO_ENCONTRADA = new ErrorGeneral("Área no encontrada.","Intenta de nuevo.");
+    public static ErrorGeneral AREA_VACIA = new ErrorGeneral("No se ha específicado el ID del Área.","Por favor, escribe el ID indicado.");
+    
+    
     public static ErrorGeneral MONTO_NEGATIVO = new ErrorGeneral("El monto no puede ser negativo.","Por favor edite los digitos.");
     public static ErrorGeneral MONTO_VACIO = new ErrorGeneral("El monto no puede estar vacío.", "Por favor agregue un monto.");
     

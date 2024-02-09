@@ -44,7 +44,7 @@ public class AgregarFactura {
         }
         
         conexion = MyConnection.getConnection();
-        String query = "INSERT INTO factura (fecha, categoria_id, proveedor_id, comentario, monto) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO factura (fecha, categoria_id, proveedor_id, comentario, monto, id_area) VALUES (?,?,?,?,?,?)";
         
         ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         
@@ -53,6 +53,7 @@ public class AgregarFactura {
         ps.setInt(3, facturaAGuardar.getProveedorId());
         ps.setString(4, facturaAGuardar.getComentario());
         ps.setBigDecimal(5, facturaAGuardar.getMonto());
+        ps.setInt(6, facturaAGuardar.getAreaId());
         int filasAfectadas = ps.executeUpdate();
         
          if (filasAfectadas > 0) {
@@ -75,7 +76,7 @@ public class AgregarFactura {
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
 
-        Factura nuevaFactura = new Factura(0, LocalDate.now(), 1, 2, "Comentario de prueba3", new java.math.BigDecimal(5000));
+        Factura nuevaFactura = new Factura(0, LocalDate.now(), 4, 1, "Comentario de prueba4", new java.math.BigDecimal(5000), 1);
 
         int idFacturaInsertada = insertarFactura(nuevaFactura, errores);
 

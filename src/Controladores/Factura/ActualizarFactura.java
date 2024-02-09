@@ -33,7 +33,7 @@ public class ActualizarFactura {
 
         try {
             conexion = MyConnection.getConnection();
-            String query = "UPDATE factura SET fecha = ?, categoria_id = ?, proveedor_id = ?, comentario = ?, monto = ? WHERE id_factura = ?";
+            String query = "UPDATE factura SET fecha = ?, categoria_id = ?, proveedor_id = ?, comentario = ?, monto = ?, id_area = ? WHERE id_factura = ?";
             ps = conexion.prepareStatement(query);
 
             boolean validacionExitosa = validacionesGenericasDeFactura(facturaAActualizar, errores);
@@ -47,7 +47,8 @@ public class ActualizarFactura {
             ps.setInt(3, facturaAActualizar.getProveedorId());
             ps.setString(4, facturaAActualizar.getComentario());
             ps.setBigDecimal(5, facturaAActualizar.getMonto());
-            ps.setInt(6, facturaAActualizar.getIdFactura());
+            ps.setInt(6, facturaAActualizar.getAreaId());
+            ps.setInt(7, facturaAActualizar.getIdFactura());
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas > 0) {
@@ -65,7 +66,7 @@ public class ActualizarFactura {
         // TODO code application logic here
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Factura cambioFactura = new Factura(1, LocalDate.now(), 1, 1, "Prueba", new java.math.BigDecimal(5000));
+        Factura cambioFactura = new Factura(1, LocalDate.now(), 1, 1, "Prueba", new java.math.BigDecimal(5000), 2);
 
         actualizarFactura(cambioFactura, errores);
         
