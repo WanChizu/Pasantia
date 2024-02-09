@@ -29,47 +29,59 @@ public class VerFactura {
      */
     
     public static Factura verFactura(int facturaId, List<ErrorGeneral> errores) {
-        Connection conexion = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+    Connection conexion = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
-        try {
-            conexion = MyConnection.getConnection();
-            String query = "SELECT * FROM factura WHERE id_factura = ?";
-            ps = conexion.prepareStatement(query);
-            ps.setInt(1, facturaId);
+    try {
+        conexion = MyConnection.getConnection();
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.id_factura, f.fecha, f.categoria_id, f.proveedor_id, f.comentario, f.monto, f.id_area, c.nombre AS nombre_categoria, p.nombre AS nombre_proveedor, a.nombre AS nombre_area FROM factura f");
 
-            rs = ps.executeQuery();
+        queryBuilder.append(" LEFT JOIN categoria c ON f.categoria_id = c.categoria_id");
+        queryBuilder.append(" LEFT JOIN proveedor p ON f.proveedor_id = p.proveedor_id");
+        queryBuilder.append(" LEFT JOIN area a ON f.id_area = a.id_area");
+        queryBuilder.append(" WHERE f.id_factura = ?");
 
-            if (rs.next()) {
-                int idFactura = rs.getInt("id_factura");
-                java.sql.Date fechaSQL = rs.getDate("fecha");
-                LocalDate fecha = fechaSQL.toLocalDate();
-                int categoriaId = rs.getInt("categoria_id");
-                int proveedorId = rs.getInt("proveedor_id");
-                String comentario = rs.getString("comentario");
-                BigDecimal monto = rs.getBigDecimal("monto");
+        ps = conexion.prepareStatement(queryBuilder.toString());
+        ps.setInt(1, facturaId);
 
-                Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId, comentario, monto);
+        rs = ps.executeQuery();
 
-                boolean validacionExitosa = ValidacionesFactura.validacionesGenericasDeFactura(factura, errores);
+        if (rs.next()) {
+            int idFactura = rs.getInt("id_factura");
+            java.sql.Date fechaSQL = rs.getDate("fecha");
+            LocalDate fecha = fechaSQL.toLocalDate();
+            int categoriaId = rs.getInt("categoria_id");
+            int proveedorId = rs.getInt("proveedor_id");
+            String comentario = rs.getString("comentario");
+            BigDecimal monto = rs.getBigDecimal("monto");
+            int areaId = rs.getInt("id_area");
+            String nombreCategoria = rs.getString("nombre_categoria");
+            String nombreProveedor = rs.getString("nombre_proveedor");
+            String nombreArea = rs.getString("nombre_area");
 
-                if (validacionExitosa) {
-                    return factura;
-                } else {
+            Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId, comentario, monto, areaId);
+            factura.setNombreCategoria(nombreCategoria);
+            factura.setNombreProveedor(nombreProveedor);
+            factura.setNombreArea(nombreArea);
 
-                    errores.add(ErroresFactura.ERROR_INESPERADO);
-                }
+            boolean validacionExitosa = ValidacionesFactura.validacionesGenericasDeFactura(factura, errores);
+
+            if (validacionExitosa) {
+                return factura;
             } else {
-                errores.add(ErroresFactura.CATEGORIA_NO_ENCONTRADA);
+                errores.add(ErroresFactura.ERROR_INESPERADO);
             }
-        } catch (SQLException ex) {
-            errores.add(ErroresFactura.ERROR_INESPERADO);
-            ex.printStackTrace();
+        } else {
+            errores.add(ErroresFactura.CATEGORIA_NO_ENCONTRADA);
         }
-
-        return null;
+    } catch (SQLException ex) {
+        errores.add(ErroresFactura.ERROR_INESPERADO);
     }
+
+    return null;
+}
+
 
         
     public static void main(String[] args) {

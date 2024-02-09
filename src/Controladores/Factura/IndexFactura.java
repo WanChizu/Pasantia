@@ -31,21 +31,27 @@ public class IndexFactura {
      * @param args the command line arguments
      */
     
-   public static List<Factura> IndexFactura(Integer idFactura, LocalDate fecha, Integer categoriaId, Integer proveedorId, String comentario, BigDecimal monto, ArrayList<ErrorGeneral> errores) {
+public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInicio, LocalDate fechaFin, Integer categoriaId, Integer proveedorId, String comentario1, String comentario2, BigDecimal monto, Integer areaId,ArrayList<ErrorGeneral> errores) {
     List<Factura> facturas = new ArrayList<>();
     Connection conexion = null;
 
     try {
         conexion = MyConnection.getConnection();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.*, c.nombre AS nombre_categoria, p.nombre AS nombre_proveedor FROM factura f");
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.id_factura, f.fecha, f.categoria_id, f.proveedor_id, f.comentario, f.monto, f.id_area, c.nombre AS nombre_categoria, p.nombre AS nombre_proveedor, a.nombre AS nombre_area FROM factura f");
 
         queryBuilder.append(" LEFT JOIN categoria c ON f.categoria_id = c.categoria_id");
-
         queryBuilder.append(" LEFT JOIN proveedor p ON f.proveedor_id = p.proveedor_id");
+        queryBuilder.append(" LEFT JOIN area a ON f.id_area = a.id_area");
 
         queryBuilder.append(" WHERE 1 = 1");
 
         List<Object> parameters = new ArrayList<>();
+        
+        if (fechaInicio != null && fechaFin != null){
+            queryBuilder.append(" AND f.fecha BETWEEN ? AND ?");
+            parameters.add(fechaInicio);
+            parameters.add(fechaFin);
+        }
 
         if (categoriaId != null && categoriaId != 0) {
             queryBuilder.append(" AND f.categoria_id = ?");
@@ -56,10 +62,23 @@ public class IndexFactura {
             queryBuilder.append(" AND f.proveedor_id = ?");
             parameters.add(proveedorId);
         }
+        
+        if (comentario1 != null && comentario2 != null) {
+            queryBuilder.append(" AND f.comentario BETWEEN ? AND ?");
+            parameters.add("%" + comentario1 + "%");
+            parameters.add("%" + comentario2 + "%");
+        }
+
+
 
         if (monto != null) {
             queryBuilder.append(" AND f.monto = ?");
             parameters.add(monto);
+        }
+        
+        if (areaId != null && areaId != 0) {
+            queryBuilder.append(" AND f.id_area = ?");
+            parameters.add(areaId);
         }
 
         PreparedStatement ps = conexion.prepareStatement(queryBuilder.toString());
@@ -82,20 +101,22 @@ public class IndexFactura {
 }
 
 private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> facturas) throws SQLException {
-    // Obtener datos de Factura
     int idFactura = rs.getInt("id_factura");
     LocalDate fecha = rs.getDate("fecha").toLocalDate();
     int categoriaId = rs.getInt("categoria_id");
     int proveedorId = rs.getInt("proveedor_id");
     String comentario = rs.getString("comentario");
     BigDecimal monto = rs.getBigDecimal("monto");
+    int areaId = rs.getInt("id_area");
     String nombreCategoria = rs.getString("nombre_categoria");
     String nombreProveedor = rs.getString("nombre_proveedor");
+    String nombreArea = rs.getString("nombre_area");
     
     
-    Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId, comentario, monto);
+    Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId, comentario, monto, areaId);
     factura.setNombreCategoria(nombreCategoria);
     factura.setNombreProveedor(nombreProveedor);
+    factura.setNombreArea(nombreArea);
 
     facturas.add(factura);
 }
@@ -107,14 +128,17 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
          ArrayList<ErrorGeneral> errores = new ArrayList<>();
          
          int codigoFactura = 0;
-         LocalDate fecha = null;
+         LocalDate fechaInicio = null;
+         LocalDate fechaFin = null;
          int categoriaId = 0;
          int proveedorId = 0;
-         String comentario = null;
+         String comentario1 = null;
+         String comentario2 = null;
          BigDecimal monto = null;
+         int areaId = 0;
          
          
-         List<Factura> facturaEncontrada = IndexFactura(codigoFactura, fecha, categoriaId, proveedorId, comentario, monto, errores);
+         List<Factura> facturaEncontrada = IndexFactura(codigoFactura, fechaInicio, fechaFin, categoriaId, proveedorId, comentario1, comentario2, monto, areaId,errores);
 
         if (!errores.isEmpty()) {
             for (ErrorGeneral error : errores) {

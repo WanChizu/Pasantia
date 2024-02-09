@@ -30,7 +30,6 @@ public class MyConnection {
       
       //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_proveedor","root","irisalbania13");
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
-
      } catch (ClassNotFoundException | SQLException ex){
      
          System.out.println(ex.getMessage());
