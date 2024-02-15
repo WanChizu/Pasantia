@@ -164,7 +164,3 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
         }
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> e359a932c1b4449fb8bcc1870c507e78795ab3f7
