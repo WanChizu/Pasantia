@@ -66,7 +66,7 @@ public class ActualizarFactura {
         // TODO code application logic here
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
-        Factura cambioFactura = new Factura(1, LocalDate.now(), 1, 1, "Prueba", new java.math.BigDecimal(5000), 2);
+        Factura cambioFactura = new Factura(1, LocalDate.now(), 1, 1, 2, "Prueba", new java.math.BigDecimal(5000));
 
         actualizarFactura(cambioFactura, errores);
         
