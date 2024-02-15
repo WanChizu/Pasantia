@@ -5,6 +5,7 @@
  */
 package pasantia_proyect;
 
+import Controladores.Factura.ActualizarFactura;
 import Controladores.Factura.AgregarFactura;
 import Controladores.Factura.DatabaseManager;
 import Controladores.Factura.VerFactura;
@@ -24,6 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+import utill.FuncionesGenerales;
 
 /**
  *
@@ -95,14 +98,16 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         lbl_nombre4 = new javax.swing.JLabel();
         lbl_nombre5 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
-        combo_p = new javax.swing.JComboBox<>();
+        combo_a = new javax.swing.JComboBox<>();
         combo_c = new javax.swing.JComboBox<>();
-        txt_monto = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_comentario = new javax.swing.JTextArea();
+        combo_p = new javax.swing.JComboBox<>();
+        lbl_nombre6 = new javax.swing.JLabel();
+        txt_monto = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,10 +122,10 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("AGREGAR FACTURA");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbl_titulover(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 32, -1, -1));
@@ -132,8 +137,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
         lbl_nombre2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_nombre2.setText("proveedor");
-        jPanel1.add(lbl_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        lbl_nombre2.setText("Areas");
+        jPanel1.add(lbl_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
 
         lbl_nombre3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre3.setText("Fecha");
@@ -141,24 +146,20 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
         lbl_nombre4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre4.setText("categoria");
-        jPanel1.add(lbl_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel1.add(lbl_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         lbl_nombre5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_nombre5.setText("Monto");
-        jPanel1.add(lbl_nombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jPanel1.add(lbl_nombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         fecha.setDateFormatString("yyyy-MMM-dd");
         jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 140, 30));
 
-        combo_p.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 220, 30));
+        combo_a.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(combo_a, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 190, 30));
 
         combo_c.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 220, 30));
-
-        txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_monto.setBorder(null);
-        jPanel1.add(txt_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 220, 30));
+        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 220, 30));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 220, 20));
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
@@ -185,6 +186,23 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 450, 80));
 
+        combo_p.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 220, 30));
+
+        lbl_nombre6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre6.setText("proveedor");
+        jPanel1.add(lbl_nombre6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+
+        txt_monto.setBorder(null);
+        txt_monto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
+        txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_monto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_montoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 230, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
 
         pack();
@@ -202,15 +220,24 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                Logger.getLogger(AgregarEditarVerFactura.class.getName()).log(Level.SEVERE, null, ex);
            }
         } else if (opcion == EDITAR) {
-            editarFactura();
+           try {
+               editarFactura();
+           } catch (SQLException ex) {
+               Logger.getLogger(AgregarEditarVerFactura.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
-
-       
-
+    this.setVisible(false);
+    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
+    f.setVisible(true);
+    f.actualizarTabla();
     }//GEN-LAST:event_btnregresarActionPerformed
+
+    private void txt_montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_montoActionPerformed
+
+    }//GEN-LAST:event_txt_montoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +245,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     public static void main(String args[]) {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-    new AgregarEditarVerFactura(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
-    //new AgregarEditarVerFactura(AgregarEditarVerCategoria.EDITAR, 1).setVisible(true);
-    //new AgregarEditarVerFactura( AgregarEditarVerCategoria.VER, 1).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
+    //new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 6).setVisible(true);
+    //new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
       
@@ -229,6 +256,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnregresar;
+    private javax.swing.JComboBox<String> combo_a;
     private javax.swing.JComboBox<String> combo_c;
     private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
@@ -241,9 +269,10 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_nombre3;
     private javax.swing.JLabel lbl_nombre4;
     private javax.swing.JLabel lbl_nombre5;
+    private javax.swing.JLabel lbl_nombre6;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTextArea txt_comentario;
-    private javax.swing.JTextField txt_monto;
+    private javax.swing.JFormattedTextField txt_monto;
     // End of variables declaration//GEN-END:variables
 
     private void createParaAgregar() {
@@ -252,6 +281,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     try {
         Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
         Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
 
         for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
             combo_p.addItem(entry.getValue());
@@ -260,21 +290,27 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
             combo_c.addItem(entry.getValue());
         }
+        for (Map.Entry<Integer, String> entry : areas.entrySet()) {
+            combo_a.addItem(entry.getValue());
+        }
     } catch (SQLException e) {
         e.printStackTrace();
     }
+     ArrayList<ErrorGeneral> errores = new ArrayList<>();
 }
 
 
-    private void createParaEditar() {
-    lbl_titulo.setText("EDITAR CATEGORIA");
+    private void createParaEditar() throws SQLException {
+    lbl_titulo.setText("EDITAR FACTURA");
     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
-    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+   
     
     
     try {
         Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
         Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
+
 
         for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
             combo_p.addItem(entry.getValue());
@@ -283,19 +319,25 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
             combo_c.addItem(entry.getValue());
         }
+        
+         for (Map.Entry<Integer, String> entry : areas.entrySet()) {
+            combo_a.addItem(entry.getValue());
+        }
     } catch (SQLException e) {
         e.printStackTrace();
     }
+     ArrayList<ErrorGeneral> errores = new ArrayList<>();
      rellenarVentana(facturaId, errores);  
     }
 
-    private void createParaVer() {
-    lbl_titulo.setText("VER CATEGORIA");
+    private void createParaVer() throws SQLException {
+    lbl_titulo.setText("VER FACTURA");
     fecha.setDateFormatString("dd/MM/yyyy");
     
     try {
         Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
         Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
 
         for (Map.Entry<Integer, String> entry : proveedores.entrySet()) {
             combo_p.addItem(entry.getValue());
@@ -304,10 +346,14 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         for (Map.Entry<Integer, String> entry : categorias.entrySet()) {
             combo_c.addItem(entry.getValue());
         }
+         for (Map.Entry<Integer, String> entry : areas.entrySet()) {
+            combo_a.addItem(entry.getValue());
+        }
 
       
         txt_monto.setEditable(false);
         txt_comentario.setEditable(false);
+        combo_a.setEnabled(false);
         combo_p.setEnabled(false);
         combo_c.setEnabled(false);
         fecha.setEnabled(false);
@@ -320,41 +366,85 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     rellenarVentana(facturaId, errores);  
     }
     
-    private void rellenarVentana(int facturaId, ArrayList<ErrorGeneral> errores) {
+    private void rellenarVentana(int facturaId, ArrayList<ErrorGeneral> errores) throws SQLException {
     Factura factura = VerFactura.verFactura(facturaId, errores);
 
     if (factura != null) {
       
-        fecha.setDate(java.sql.Date.valueOf(factura.getFecha()));
+        fecha.setDate(java.sql.Date.valueOf(factura.getFecha().plusDays(1))); 
         txt_monto.setText(factura.getMonto().toString());
         txt_comentario.setText(factura.getComentario());
+        
 
-      
-        combo_p.setSelectedItem(factura.getProveedorId());
-        combo_c.setSelectedItem(factura.getCategoriaId());
+
+         String proveedorNombre = DatabaseManager.obtenerProveedores().get(factura.getProveedorId());
+        if (proveedorNombre != null) {
+            combo_p.setSelectedItem(proveedorNombre);
+        }
+        
+         String categoriaNombre = DatabaseManager.obtenerCategorias().get(factura.getCategoriaId());
+        if (categoriaNombre != null) {
+            combo_c.setSelectedItem(categoriaNombre);
+        }
+
+       
+        String areaNombre = DatabaseManager.obtenerAreas().get(factura.getAreaId());
+        if (areaNombre != null) {
+            combo_a.setSelectedItem(areaNombre);
+        }
     } else {
         System.out.println("Factura no encontrada para el ID: " + facturaId);
     }
 }
 
     
+   private void editarFactura() throws SQLException {
+    String montoTexto = txt_monto.getText();
+    
    
-    private void editarFactura() {
-       
+    if (montoTexto.isEmpty() || !montoTexto.matches("^\\d*\\.?\\d*$")) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido para el monto", "Error", JOptionPane.ERROR_MESSAGE);
+        return; 
     }
+
+    BigDecimal monto = new BigDecimal(montoTexto);
+
+    int categoriaId = obtenerIdSeleccionado(combo_c, DatabaseManager.obtenerCategorias());
+    int proveedorId = obtenerIdSeleccionado(combo_p, DatabaseManager.obtenerProveedores());
+    int areaId = obtenerIdSeleccionado(combo_a, DatabaseManager.obtenerAreas());
+    LocalDate fechaFactura = fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+    String comentario = txt_comentario.getText();
+    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
+
+    Factura facturaAActualizar = new Factura(facturaId, fechaFactura, categoriaId, proveedorId, areaId, comentario, monto);
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+
+    int filasAfectadas = ActualizarFactura.actualizarFactura(facturaAActualizar, errores);
+
+    if (filasAfectadas > 0) {
+        JOptionPane.showMessageDialog(this, "Factura actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        f.actualizarTabla();
+    } else {
+        mostrarErrores(errores);
+    }
+}
+
+
+
     
     private void agregarFactura() throws SQLException {
-     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-    int proveedorId = obtenerIdSeleccionado(combo_p, DatabaseManager.obtenerProveedores());
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
     int categoriaId = obtenerIdSeleccionado(combo_c, DatabaseManager.obtenerCategorias());
-   
+    int proveedorId = obtenerIdSeleccionado(combo_p, DatabaseManager.obtenerProveedores());
+    int areaId = obtenerIdSeleccionado(combo_a, DatabaseManager.obtenerAreas());
     LocalDate fechaFactura = fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     
     String comentario = txt_comentario.getText();
     BigDecimal monto = new BigDecimal(txt_monto.getText());
 
     
-    Factura nuevaFactura = new Factura(0, fechaFactura, categoriaId, proveedorId, comentario, monto);
+    Factura nuevaFactura = new Factura(0, fechaFactura, categoriaId, proveedorId, areaId, comentario, monto);
 
     
     int idFacturaInsertada = AgregarFactura.insertarFactura(nuevaFactura, errores);
@@ -369,6 +459,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, mensajeError.toString(), "Error", JOptionPane.ERROR_MESSAGE);
     }  
+     mostrarErrores(errores);
 }
 
 private int obtenerIdSeleccionado(JComboBox<String> comboBox, Map<Integer, String> map) {
@@ -378,7 +469,7 @@ private int obtenerIdSeleccionado(JComboBox<String> comboBox, Map<Integer, Strin
             return entry.getKey();
         }
     }
-    return -1; // Valor de retorno predeterminado si no se encuentra el elemento
+    return -1; 
 }
     
     

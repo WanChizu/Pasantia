@@ -76,7 +76,7 @@ public class AgregarFactura {
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
 
-        Factura nuevaFactura = new Factura(0, LocalDate.now(), 4, 1, "Comentario de prueba4", new java.math.BigDecimal(5000), 1);
+        Factura nuevaFactura = new Factura(0, LocalDate.now(), 4, 1, 1, "Comentario de prueba4", new java.math.BigDecimal(5000));
 
         int idFacturaInsertada = insertarFactura(nuevaFactura, errores);
 

@@ -50,4 +50,20 @@ public static Map<Integer, String> obtenerCategorias() throws SQLException {
     return categorias;
 }
 
+
+public static Map<Integer, String> obtenerAreas() throws SQLException {
+    Map<Integer, String> areas = new HashMap<>();
+    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement stmt = conn.prepareStatement("SELECT id_area, nombre FROM area");
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            int id = rs.getInt("id_area");
+            String nombre = rs.getString("nombre");
+            areas.put(id, nombre); 
+        }
+    }
+    return areas;
+}
+
+
 }

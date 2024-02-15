@@ -5,11 +5,13 @@
  */
 
 package pasantia_proyect;
+import Controladores.Factura.DatabaseManager;
 import Controladores.MyConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,8 +51,9 @@ public class facturafrm extends javax.swing.JFrame {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Id");
         tableModel.addColumn("Fecha");
-        tableModel.addColumn("proveedor");
-        tableModel.addColumn("categoria");
+        tableModel.addColumn("Categoria");
+        tableModel.addColumn("Proveedor");
+        tableModel.addColumn("Area");
         tableModel.addColumn("Monto");
         tableModel.addColumn("Comentario");
         jTable.setModel(tableModel);
@@ -70,13 +73,15 @@ public class facturafrm extends javax.swing.JFrame {
         ResultSet rs = st.executeQuery(sql);
 
         while (rs.next()) {
-            String[] datos = new String[6];
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
-            datos[2] = rs.getString(3);
-            datos[3] = String.valueOf(rs.getInt(4));
-            datos[4] = rs.getString(5);
-            datos[5] = rs.getString(6);
+        String[] datos = new String[7];
+        datos[0] = rs.getString(1);
+        datos[1] = rs.getString(2); 
+        datos[2] = obtenerNombreCategoria(rs.getInt(3));
+        datos[3] = obtenerNombreProveedor(rs.getInt(4)); 
+        datos[4] = obtenerNombreArea(rs.getInt(7));
+        datos[5] = rs.getString(6); 
+        datos[6] = rs.getString(5); 
+
             tableModel.addRow(datos);
         }
 
@@ -84,8 +89,7 @@ public class facturafrm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Error" + e.toString());
     }
 }
-
-    
+  
     
     public int obtenerIdFacturaSeleccionada() {
     int filaSeleccionada = jTable.getSelectedRow();
@@ -209,6 +213,16 @@ public class facturafrm extends javax.swing.JFrame {
 
     private void ver_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_btnActionPerformed
      
+    int idFacturaSeleccionada = obtenerIdFacturaSeleccionada();
+    if (idFacturaSeleccionada != -1) {
+        try {
+            new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, idFacturaSeleccionada).setVisible(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura antes de ver sus datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_ver_btnActionPerformed
 
     private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
@@ -220,6 +234,18 @@ public class facturafrm extends javax.swing.JFrame {
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
        
+     int idFacturaSeleccionada = obtenerIdFacturaSeleccionada();
+    if (idFacturaSeleccionada != -1) {
+        try {
+          
+            new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, idFacturaSeleccionada).setVisible(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura antes de editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+    
     }//GEN-LAST:event_btn_editarActionPerformed
 
     /**
@@ -269,6 +295,40 @@ public class facturafrm extends javax.swing.JFrame {
     private javax.swing.JButton ver_btn;
     // End of variables declaration//GEN-END:variables
 
-    
+    private String obtenerNombreArea(int idArea) {
+    try {
+     
+        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
+        String nombreArea = areas.get(idArea);
+        
+        return nombreArea != null ? nombreArea : "Nombre no encontrado";
+    } catch (SQLException e) {
+      
+        return "Error al obtener el nombre del área";
+    }
+}
+    private String obtenerNombreProveedor(int idProveedor) {
+    try {
+        Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();
+        String nombreProveedor = proveedores.get(idProveedor);
+        return nombreProveedor != null ? nombreProveedor : "Proveedor no encontrado";
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "Error al obtener el nombre del proveedor";
+    }
+}
+
+private String obtenerNombreCategoria(int idCategoria) {
+    try {
+        Map<Integer, String> categorias = DatabaseManager.obtenerCategorias();
+        String nombreCategoria = categorias.get(idCategoria);
+        return nombreCategoria != null ? nombreCategoria : "Categoría no encontrada";
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "Error al obtener el nombre de la categoría";
+    }
+}
+
+
 
 }

@@ -25,14 +25,14 @@ public class Factura {
     private String nombreCategoria;
     private String nombreProveedor;
 
-    public Factura(int idFactura, LocalDate fecha, int categoriaId, int proveedorId, String comentario, BigDecimal monto, int areaId) {
+    public Factura(int idFactura, LocalDate fecha, int categoriaId, int proveedorId, int areaId, String comentario, BigDecimal monto) {
         this.idFactura = idFactura;
         this.fecha = fecha;
         this.categoriaId = categoriaId;
         this.proveedorId = proveedorId;
+        this.areaId = areaId;
         this.comentario = comentario;
         this.monto = monto;
-        this.areaId = areaId;
     }
 
 

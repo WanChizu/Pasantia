@@ -60,7 +60,7 @@ public class VerFactura {
             String nombreProveedor = rs.getString("nombre_proveedor");
             String nombreArea = rs.getString("nombre_area");
 
-            Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId, comentario, monto, areaId);
+            Factura factura = new Factura(idFactura, fecha, categoriaId, proveedorId,  areaId, comentario, monto);
             factura.setNombreCategoria(nombreCategoria);
             factura.setNombreProveedor(nombreProveedor);
             factura.setNombreArea(nombreArea);
