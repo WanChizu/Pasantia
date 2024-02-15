@@ -31,7 +31,7 @@ public class IndexFactura {
     /**
      */
     
-public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInicio, LocalDate fechaFin, Integer categoriaId, Integer proveedorId, String comentario1, String comentario2, BigDecimal monto, Integer areaId,ArrayList<ErrorGeneral> errores) {
+public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInicio, LocalDate fechaFin, Integer categoriaId, Integer proveedorId, String comentario1, String comentario2, BigDecimal monto1, BigDecimal monto2, Integer areaId, ArrayList<ErrorGeneral> errores) {
     List<Factura> facturas = new ArrayList<>();
     Connection conexion = null;
 
@@ -46,10 +46,14 @@ public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInici
         queryBuilder.append(" WHERE 1 = 1");
 
         List<Object> parameters = new ArrayList<>();
-        
-        if (fechaInicio != null && fechaFin != null){
-            queryBuilder.append(" AND f.fecha BETWEEN ? AND ?");
+
+        if (fechaInicio != null) {
+            queryBuilder.append(" AND f.fecha >= ?");
             parameters.add(fechaInicio);
+        }
+
+        if (fechaFin != null) {
+            queryBuilder.append(" AND f.fecha <= ?");
             parameters.add(fechaFin);
         }
 
@@ -62,20 +66,27 @@ public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInici
             queryBuilder.append(" AND f.proveedor_id = ?");
             parameters.add(proveedorId);
         }
-        
-        if (comentario1 != null && comentario2 != null) {
-            queryBuilder.append(" AND f.comentario BETWEEN ? AND ?");
+
+        if (comentario1 != null) {
+            queryBuilder.append(" AND f.comentario LIKE ?");
             parameters.add("%" + comentario1 + "%");
+        }
+
+        if (comentario2 != null) {
+            queryBuilder.append(" AND f.comentario LIKE ?");
             parameters.add("%" + comentario2 + "%");
         }
 
-
-
-        if (monto != null) {
-            queryBuilder.append(" AND f.monto = ?");
-            parameters.add(monto);
+        if (monto1 != null) {
+            queryBuilder.append(" AND f.monto >= ?");
+            parameters.add(monto1);
         }
-        
+
+        if (monto2 != null) {
+            queryBuilder.append(" AND f.monto <= ?");
+            parameters.add(monto2);
+        }
+
         if (areaId != null && areaId != 0) {
             queryBuilder.append(" AND f.id_area = ?");
             parameters.add(areaId);
@@ -134,11 +145,12 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
          int proveedorId = 0;
          String comentario1 = null;
          String comentario2 = null;
-         BigDecimal monto = null;
+         BigDecimal monto1 = null;
+         BigDecimal monto2 = null; 
          int areaId = 0;
          
          
-         List<Factura> facturaEncontrada = IndexFactura(codigoFactura, fechaInicio, fechaFin, categoriaId, proveedorId, comentario1, comentario2, monto, areaId,errores);
+         List<Factura> facturaEncontrada = IndexFactura(codigoFactura, fechaInicio, fechaFin, categoriaId, proveedorId, comentario1, comentario2, monto1, monto2, areaId, errores);
 
         if (!errores.isEmpty()) {
             for (ErrorGeneral error : errores) {
@@ -151,4 +163,5 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
             }
         }
     }
+}
 
