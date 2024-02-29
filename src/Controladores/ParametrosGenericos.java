@@ -6,6 +6,7 @@
 package Controladores;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -33,7 +34,10 @@ public class ParametrosGenericos {
             ps.setBoolean(parameterIndex, (boolean) param);
         } else if (param instanceof BigDecimal) {
             ps.setBigDecimal(parameterIndex, (BigDecimal) param);
+        } else if (param instanceof Date) {
+            ps.setDate(parameterIndex, (Date) param);
         }
+        
     }
 }
 

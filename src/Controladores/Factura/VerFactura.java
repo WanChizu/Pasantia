@@ -92,7 +92,7 @@ public class VerFactura {
 
         Factura facturaEncontrada = verFactura(codigoFactura, errores);
         if (errores.isEmpty()) {
-            System.out.println("Proveedor encontrada:");
+            System.out.println("Factura encontrada:");
             System.out.println(facturaEncontrada.toString());
         } else {
             ArrayList<errores.ErrorGeneral> erroresTemporales = new ArrayList<>(errores);

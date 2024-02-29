@@ -13,6 +13,7 @@ import errores.ErrorGeneral;
 import errores.ErroresFactura;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,15 +47,20 @@ public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInici
         queryBuilder.append(" WHERE 1 = 1");
 
         List<Object> parameters = new ArrayList<>();
+        
+        if (idFactura != null && idFactura != 0) {
+            queryBuilder.append(" AND f.id_factura = ?");
+            parameters.add(idFactura);
+        } 
 
         if (fechaInicio != null) {
             queryBuilder.append(" AND f.fecha >= ?");
-            parameters.add(fechaInicio);
+            parameters.add(Date.valueOf(fechaInicio));
         }
 
         if (fechaFin != null) {
             queryBuilder.append(" AND f.fecha <= ?");
-            parameters.add(fechaFin);
+            parameters.add(Date.valueOf(fechaFin));
         }
 
         if (categoriaId != null && categoriaId != 0) {
@@ -139,8 +145,8 @@ private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> 
          ArrayList<ErrorGeneral> errores = new ArrayList<>();
          
          int codigoFactura = 0;
-         LocalDate fechaInicio = null;
-         LocalDate fechaFin = null;
+         LocalDate fechaInicio = LocalDate.of(2024, 2, 2);
+         LocalDate fechaFin = LocalDate.of(2024, 2, 2);
          int categoriaId = 0;
          int proveedorId = 0;
          String comentario1 = null;
