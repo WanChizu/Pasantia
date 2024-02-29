@@ -106,8 +106,6 @@ public class principal extends javax.swing.JFrame {
         btn_editar = new javax.swing.JButton();
         btn_añadir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         btn_act = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,37 +156,20 @@ public class principal extends javax.swing.JFrame {
         });
         jPanel1.add(btn_añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 580, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel2.setText("CENTRO CARDIORENAL DEL CIBAO (CERCANCI)");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_login.png"))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(51, 102, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addComponent(jLabel2)
-                .addContainerGap(107, Short.MAX_VALUE))
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap())))
+            .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 70));
 
         btn_act.setBackground(new java.awt.Color(51, 102, 0));
         btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-actualizar-40 (1).png"))); // NOI18N
@@ -291,8 +272,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_act;
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_editar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
