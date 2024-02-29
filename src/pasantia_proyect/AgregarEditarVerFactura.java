@@ -230,7 +230,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
     this.setVisible(false);
-    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
+    fac f = fac.obtenerInstanciaPrincipal();
     f.setVisible(true);
     f.actualizarTabla();
     }//GEN-LAST:event_btnregresarActionPerformed
@@ -415,7 +415,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     LocalDate fechaFactura = fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
     String comentario = txt_comentario.getText();
-    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
+    fac f = fac.obtenerInstanciaPrincipal();
 
     Factura facturaAActualizar = new Factura(facturaId, fechaFactura, categoriaId, proveedorId, areaId, comentario, monto);
     ArrayList<ErrorGeneral> errores = new ArrayList<>();

@@ -29,11 +29,11 @@ public class MyConnection {
       Class.forName("com.mysql.cj.jdbc.Driver");
       
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_proveedor","root","irisalbania13");
-<<<<<<< HEAD
+
 //      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pasantia","root","020512");
-=======
+
       
->>>>>>> e359a932c1b4449fb8bcc1870c507e78795ab3f7
+
      } catch (ClassNotFoundException | SQLException ex){
      
          System.out.println(ex.getMessage());

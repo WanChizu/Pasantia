@@ -111,7 +111,7 @@ public static List<Factura> IndexFactura(Integer idFactura, LocalDate fechaInici
     return facturas;
 }
 
-private static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> facturas) throws SQLException {
+public static void agregarUnaFacturaDesdeResultSet(ResultSet rs, List<Factura> facturas) throws SQLException {
     int idFactura = rs.getInt("id_factura");
     LocalDate fecha = rs.getDate("fecha").toLocalDate();
     int categoriaId = rs.getInt("categoria_id");
