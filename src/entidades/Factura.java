@@ -33,6 +33,7 @@ public class Factura {
         this.areaId = areaId;
         this.comentario = comentario;
         this.monto = monto;
+        
     }
 
 

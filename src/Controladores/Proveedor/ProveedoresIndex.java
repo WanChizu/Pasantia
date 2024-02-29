@@ -94,21 +94,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
     } catch (SQLException ex) {
         errores.add(ErroresProveedores.ERROR_INESPERADO);
         ex.printStackTrace();
-    } finally {
-        try {
-           if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (conexion != null) {
-                conexion.close();
-            }
-        } catch (SQLException ex) {
-            errores.add(ErroresProveedores.ERROR_INESPERADO);
-            ex.printStackTrace();
-        }
+   
     }
 
     return proveedores;
