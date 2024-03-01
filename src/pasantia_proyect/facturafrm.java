@@ -5,10 +5,8 @@
  */
 package pasantia_proyect;
 
-import Controladores.Factura.DatabaseManager;
-import Controladores.Factura.IndexFactura;
+import Controladores.DatabaseManager;
 import static Controladores.Factura.IndexFactura.IndexFactura;
-import com.toedter.calendar.JDateChooser;
 import entidades.Factura;
 import errores.ErrorGeneral;
 import java.math.BigDecimal;
@@ -27,11 +25,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author A19B59953
  */
-public class fac extends javax.swing.JFrame {
+public class facturafrm extends javax.swing.JFrame {
     
   
     
-     private static fac instanciaPrincipal; 
+     private static facturafrm instanciaPrincipal; 
     
          int idFactura = 0;
          LocalDate fechaInicio = null;
@@ -48,7 +46,7 @@ public class fac extends javax.swing.JFrame {
     /**
      * Creates new form fac
      */
-    public fac() {
+    public facturafrm() {
         initComponents();
         this.setLocationRelativeTo(null);
         instanciaPrincipal = this;
@@ -61,6 +59,14 @@ public class fac extends javax.swing.JFrame {
         } catch (SQLException ex) {
         }
         
+        combo_p.insertItemAt("", 0);
+        combo_p.setSelectedIndex(0); 
+        combo_c.insertItemAt("", 0);
+        combo_c.setSelectedIndex(0); 
+        combo_a.insertItemAt("", 0);
+        combo_a.setSelectedIndex(0); 
+
+        
        
 
 actualizarTabla(); 
@@ -68,7 +74,7 @@ actualizarTabla();
     
       
     
-     public static fac obtenerInstanciaPrincipal() {
+     public static facturafrm obtenerInstanciaPrincipal() {
         return instanciaPrincipal;
     }
       
@@ -136,7 +142,6 @@ actualizarTabla();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
@@ -167,7 +172,7 @@ actualizarTabla();
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 555));
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-factura-30.png"))); // NOI18N
@@ -178,7 +183,6 @@ actualizarTabla();
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("FACTURA");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 80, 10));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Fecha desde");
@@ -295,16 +299,16 @@ actualizarTabla();
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ver_btn)
-                                .addGap(40, 40, 40)
-                                .addComponent(btn_añadir)
-                                .addGap(40, 40, 40)
-                                .addComponent(btn_editar))
+                            .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 210, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ver_btn)
+                                        .addGap(40, 40, 40)
+                                        .addComponent(btn_añadir)
+                                        .addGap(40, 40, 40)
+                                        .addComponent(btn_editar))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -326,8 +330,7 @@ actualizarTabla();
                                             .addComponent(txt_monto2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel5)
                                             .addComponent(txt_comentario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10)))))
-                            .addComponent(jScrollPane1))
+                                            .addComponent(jLabel10))))))
                         .addGap(15, 15, 15))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -390,7 +393,7 @@ actualizarTabla();
              obtenerFiltros();
              actualizarTabla();
          } catch (SQLException ex) {
-             Logger.getLogger(fac.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(facturafrm.class.getName()).log(Level.SEVERE, null, ex);
          }
          
     }//GEN-LAST:event_btn_refrescarActionPerformed
@@ -456,20 +459,21 @@ actualizarTabla();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(fac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(facturafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(fac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(facturafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(fac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(facturafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(fac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(facturafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new fac().setVisible(true);
+                new facturafrm().setVisible(true);
             }
         });
     }
@@ -546,24 +550,6 @@ actualizarTabla();
         return fechasFiltradas;
     }
 
-    public static void f(String[] args) {
-        // Ejemplo de uso
-        List<LocalDate> todasLasFechas = new ArrayList<>();
-        todasLasFechas.add(LocalDate.of(2023, 1, 15));
-        todasLasFechas.add(LocalDate.of(2023, 2, 20));
-        todasLasFechas.add(LocalDate.of(2023, 3, 25));
-        todasLasFechas.add(LocalDate.of(2023, 4, 30));
-
-        LocalDate fechaInicio = LocalDate.of(2023, 2, 1);
-        LocalDate fechaFin = LocalDate.of(2023, 4, 1);
-
-        List<LocalDate> fechasFiltradas = filtrarPorRango(todasLasFechas, fechaInicio, fechaFin);
-
-        System.out.println("Fechas dentro del rango:");
-        for (LocalDate fecha : fechasFiltradas) {
-            System.out.println(fecha);
-        }
-    }
 
 
      
@@ -606,7 +592,6 @@ actualizarTabla();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable table;
     private javax.swing.JTextField txt_comentario;
     private javax.swing.JTextField txt_monto1;

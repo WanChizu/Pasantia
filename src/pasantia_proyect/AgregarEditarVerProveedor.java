@@ -78,10 +78,8 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         lbl_activo = new javax.swing.JLabel();
         lbl_credito = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         combo_ac = new javax.swing.JComboBox<>();
-        jSeparator4 = new javax.swing.JSeparator();
         btnregresar = new javax.swing.JButton();
         tLimiteDeCredito = new javax.swing.JFormattedTextField();
         tTelefono = new javax.swing.JFormattedTextField();
@@ -90,26 +88,28 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         lbl_titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_nombre.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre.setText("Nombre");
-        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 89, -1, -1));
 
-        lbl_telefono.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_telefono.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_telefono.setText("Teléfono");
-        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        jPanel1.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 185, -1, -1));
 
-        lbl_activo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_activo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_activo.setText("Estado activo");
-        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel1.add(lbl_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 402, -1, -1));
 
-        lbl_credito.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_credito.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_credito.setText("Límite de crédito");
-        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+        jPanel1.add(lbl_credito, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 283, -1, -1));
 
         txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nombre.setBorder(null);
@@ -118,26 +118,24 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 txt_nombreKeyTyped(evt);
             }
         });
-        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 230, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 230, 10));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 230, 10));
+        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 119, 230, 30));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 149, 230, 18));
 
-        combo_ac.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        combo_ac.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no" }));
         combo_ac.setBorder(null);
-        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 60, 30));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 230, 10));
+        jPanel1.add(combo_ac, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 397, 60, 30));
 
         btnregresar.setBackground(new java.awt.Color(51, 102, 0));
-        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, -1, -1));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, -1, -1));
 
-        tLimiteDeCredito.setBorder(null);
+        tLimiteDeCredito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         tLimiteDeCredito.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
         tLimiteDeCredito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tLimiteDeCredito.addActionListener(new java.awt.event.ActionListener() {
@@ -145,9 +143,9 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 tLimiteDeCreditoActionPerformed(evt);
             }
         });
-        jPanel1.add(tLimiteDeCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 230, 30));
+        jPanel1.add(tLimiteDeCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 314, 230, 30));
 
-        tTelefono.setBorder(null);
+        tTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         try {
             tTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-####")));
         } catch (java.text.ParseException ex) {
@@ -159,34 +157,34 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
                 tTelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(tTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, 30));
+        jPanel1.add(tTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 215, 230, 30));
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, -1));
+        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("AGREGAR PROVEEDOR");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 ver(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel2.add(lbl_titulo);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 49));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,15 +192,11 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
 
     this.setVisible(false);
-    principal p = principal.obtenerInstanciaPrincipal();
+    proveedorfrm p = proveedorfrm.obtenerInstanciaPrincipal();
     p.setVisible(true);
     p.actualizarTabla();
     
     }//GEN-LAST:event_btnregresarActionPerformed
-
-    private void ver(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ver
-     
-    }//GEN-LAST:event_ver
 
     private void tTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTelefonoActionPerformed
       
@@ -224,6 +218,10 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnagregarActionPerformed
 
+    private void ver(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ver
+
+    }//GEN-LAST:event_ver
+
  public static void main(String[] args) {
     try {
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
@@ -240,9 +238,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_ac;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lbl_activo;
     private javax.swing.JLabel lbl_credito;
     private javax.swing.JLabel lbl_nombre;
@@ -261,11 +257,11 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         tLimiteDeCredito.setEditable(false);
         txt_nombre.setEditable(false);
         combo_ac.setEnabled(false);
-        btnagregar.setVisible(false);
+        btnagregar.setEnabled(false);
         
         
         Font fuente = txt_nombre.getFont();
-        float tamanoFuente = fuente.getSize() + 4; 
+        float tamanoFuente = fuente.getSize() + 2; 
         txt_nombre.setFont(fuente.deriveFont(tamanoFuente));
         tTelefono.setFont(fuente.deriveFont(tamanoFuente));
         tLimiteDeCredito.setFont(fuente.deriveFont(tamanoFuente));
@@ -281,7 +277,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
 
     private void createParaEditar() {
         lbl_titulo.setText("EDITAR PROVEEDOR");
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
         rellenarVentana(proveedorId, errores);
     }
@@ -292,7 +288,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         if (value != null) {
             Proveedor nuevoProveedor = new Proveedor(0, txt_nombre.getText(), tTelefono.getText(), combo_ac.getSelectedItem().equals("si"), FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
            
-            principal pantalla = principal.obtenerInstanciaPrincipal();
+            proveedorfrm pantalla = proveedorfrm.obtenerInstanciaPrincipal();
        
 
             ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
@@ -340,7 +336,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
      }
 }
 
-    private principal pantalla;
+    private proveedorfrm pantalla;
 
     private void editarProveedor() {
         Object value = tLimiteDeCredito.getValue();
@@ -350,7 +346,7 @@ public class AgregarEditarVerProveedor extends javax.swing.JFrame {
         boolean estaActivo = combo_ac.getSelectedItem().equals("si");
         Proveedor proveedorAActualizar = new Proveedor(proveedorId, txt_nombre.getText(), tTelefono.getText(), estaActivo, FuncionesGenerales.getValueOf(tLimiteDeCredito.getValue()));
        
-        principal pantalla = principal.obtenerInstanciaPrincipal();
+        proveedorfrm pantalla = proveedorfrm.obtenerInstanciaPrincipal();
        
         
         ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();

@@ -5,11 +5,13 @@
  */
 package pasantia_proyect;
 
-import Controladores.MyConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import static Controladores.Proveedor.ProveedoresIndex.IndexProveedor;
+import entidades.Proveedor;
+import errores.ErrorGeneral;
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,77 +19,77 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author A19B59953
  */
-public class principal extends javax.swing.JFrame {
+public class proveedorfrm extends javax.swing.JFrame {
     
-    private static principal instanciaPrincipal;
+    private static proveedorfrm instanciaPrincipal;
+    
+    Integer codigoProveedor = 0; 
+    String nombreProveedor = null; 
+    String telefono = null; 
+    Boolean estaActivo = null; 
+    BigDecimal limiteDeCredito = null; 
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+  
+
 
     /**
      * Creates new form principal
      */
-    public principal() {
+    public proveedorfrm() {
         initComponents();
         this.setLocationRelativeTo(null);
-        mostrar("proveedor");
+        mostrar();
         instanciaPrincipal = this;
         this.setResizable(false);
     }
     
-      public static principal obtenerInstanciaPrincipal() {
+    
+      public static proveedorfrm obtenerInstanciaPrincipal() {
         return instanciaPrincipal;
     }
       
      public void actualizarTabla() {
-        mostrar("proveedor");
+        mostrar();
     }
      
-    private DefaultTableModel tableModel;
 
-    
-    public void mostrar(String tabla) {
-    
+     private DefaultTableModel tableModel;
+     
+  public void mostrar() {
+    List<Proveedor> proveedores = IndexProveedor(codigoProveedor, nombreProveedor, telefono, estaActivo, limiteDeCredito, errores);
+
     if (tableModel == null) {
         tableModel = new DefaultTableModel();
-        tableModel.addColumn("Id");
+        tableModel.addColumn("ID");
         tableModel.addColumn("Nombre");
         tableModel.addColumn("Teléfono");
         tableModel.addColumn("Activo");
         tableModel.addColumn("Límite de crédito");
-        Jtable.setModel(tableModel);
-        Jtable.getColumnModel().getColumn(0).setMinWidth(0);
-        Jtable.getColumnModel().getColumn(0).setMaxWidth(0);
+        table.setModel(tableModel);
+        table.getColumnModel().getColumn(0).setMinWidth(0);
+        table.getColumnModel().getColumn(0).setMaxWidth(0);
     } else {
-       
         tableModel.setRowCount(0);
     }
 
-    String sql = "select * from " + tabla;
-    Statement st;
-    MyConnection cc = new MyConnection();
-    Connection cn = MyConnection.getConnection();
-
-    String[] datos = new String[5];
-
-    try {
-        st = cn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()) {
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
-            datos[2] = rs.getString(3);
-            datos[3] = rs.getInt(4) == 1 ? "si" : "no";
-            datos[4] = rs.getString(5);
-            tableModel.addRow(datos);
-        }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error" + e.toString());
+    for (Proveedor proveedor : proveedores) {
+        Object[] rowData = {
+            proveedor.getProveedorId(),
+            proveedor.getNombre(),
+            proveedor.getTelefono(),
+            proveedor.isEstaActivo()? "Sí" : "No",
+            proveedor.getLimiteCredito()
+        };
+        tableModel.addRow(rowData);
     }
 }
+
+
     
     public int obtenerIdProveedorSeleccionado() {
-    int filaSeleccionada = Jtable.getSelectedRow();
+    int filaSeleccionada = table.getSelectedRow();
     if (filaSeleccionada != -1) {
-        return Integer.parseInt(Jtable.getValueAt(filaSeleccionada, 0).toString()); 
+        return Integer.parseInt(table.getValueAt(filaSeleccionada, 0).toString()); 
     } else {
         return -1; 
     }
@@ -101,20 +103,21 @@ public class principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Jtable = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         ver_btn = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
         btn_añadir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btn_act = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Jtable.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -125,62 +128,107 @@ public class principal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(Jtable);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 540, 470));
+        jScrollPane1.setViewportView(table);
 
         ver_btn.setBackground(new java.awt.Color(51, 102, 0));
-        ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ver-40.png"))); // NOI18N
+        ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-ver-30.png"))); // NOI18N
         ver_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ver_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(ver_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 580, -1, -1));
 
         btn_editar.setBackground(new java.awt.Color(51, 102, 0));
-        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png"))); // NOI18N
+        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 580, -1, -1));
 
         btn_añadir.setBackground(new java.awt.Color(51, 102, 0));
-        btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btn_añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_añadirActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 580, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 0));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("PROVEEDOR");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-empleado-30.png"))); // NOI18N
+        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel3)))
+                .addGap(32, 32, 32))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 70));
-
         btn_act.setBackground(new java.awt.Color(51, 102, 0));
-        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-actualizar-40 (1).png"))); // NOI18N
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
         btn_act.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_act, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 650));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_act)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ver_btn)
+                        .addGap(40, 40, 40)
+                        .addComponent(btn_editar)
+                        .addGap(40, 40, 40)
+                        .addComponent(btn_añadir)))
+                .addGap(25, 25, 25))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ver_btn)
+                    .addComponent(btn_editar)
+                    .addComponent(btn_añadir)
+                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -249,32 +297,35 @@ public class principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(proveedorfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(proveedorfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(proveedorfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(proveedorfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new principal().setVisible(true);
+                new proveedorfrm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTable Jtable;
     private javax.swing.JButton btn_act;
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_editar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable table;
     private javax.swing.JButton ver_btn;
     // End of variables declaration//GEN-END:variables
 }

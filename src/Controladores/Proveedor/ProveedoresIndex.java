@@ -54,7 +54,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
             parameters.add("%" + telefono + "%");
         }
 
-        if (estaActivo) {
+        if (estaActivo != null) {
             queryBuilder.append(" AND esta_activo = ?");
             parameters.add(estaActivo);
         }

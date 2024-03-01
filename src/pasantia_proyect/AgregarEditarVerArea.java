@@ -97,17 +97,17 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_titulo.setText("AGREGAR AREA");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbl_titulover(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -116,21 +116,21 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(128, 128, 128)
                 .addComponent(lbl_titulo)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(lbl_titulo)
-                .addGap(34, 34, 34))
+                .addGap(20, 20, 20))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 90));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 70));
 
-        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre1.setText("Nombre");
         jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
@@ -140,7 +140,7 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 220, 20));
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
@@ -149,7 +149,7 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, -1, -1));
 
         btn_regreso1.setBackground(new java.awt.Color(51, 102, 0));
-        btn_regreso1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
+        btn_regreso1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btn_regreso1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_regreso1ActionPerformed(evt);
@@ -214,7 +214,7 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
 
     private void createParaEditar() {
     lbl_titulo.setText("EDITAR AREA");
-    btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     rellenarVentana(id_area, errores);
     }
@@ -224,7 +224,7 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
     lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lbl_titulo.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18));
     txt_nombre.setEditable(false);
-    btnagregar.setVisible(false);
+    btnagregar.setEnabled(false);
       
     Font fuente = txt_nombre.getFont();
     float tamanoFuente = fuente.getSize() + 2; 
