@@ -32,7 +32,7 @@ public class ActualizarPago {
 
         try {
             conexion = MyConnection.getConnection();
-            String query = "UPDATE pagos SET nombre_pago = ?, id_factura = ?, id_area = ?, monto = ?, fecha_pago = ?, forma_pago = ?, estado_pago = ? WHERE id_pago= ?";
+            String query = "UPDATE pagos SET nombre_pago = ?, id_factura = ?, id_area = ?, monto = ?, fecha_pago = ?, id_forma_pago = ?, estado_pago = ? WHERE id_pago= ?";
             ps = conexion.prepareStatement(query);
 
             boolean validacionExitosa = validacionesGenericasDePagos(pagoAActualizar, errores);
@@ -46,7 +46,7 @@ public class ActualizarPago {
              ps.setInt(3, pagoAActualizar.getAreaId());
              ps.setBigDecimal(4, pagoAActualizar.getMonto());
              ps.setDate(5, java.sql.Date.valueOf(pagoAActualizar.getFecha()));
-             ps.setString(6, pagoAActualizar.getFormaPago());
+             ps.setInt(6, pagoAActualizar.getIdFormaPago());
              ps.setBoolean(7, pagoAActualizar.isEstadoPago());
              ps.setInt(8, pagoAActualizar.getIdPagos());
             int filasAfectadas = ps.executeUpdate();
@@ -68,7 +68,7 @@ public class ActualizarPago {
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
         
-        Pagos actPago = new Pagos(1, "Pago de Luz", 1, 2, new java.math.BigDecimal(5000), LocalDate.now(), "efectivo", true);
+        Pagos actPago = new Pagos(1, "Pago de Luz", 1, 2, new java.math.BigDecimal(5000), LocalDate.now(), 2, true);
         
         actualizarPago(actPago, errores);
         

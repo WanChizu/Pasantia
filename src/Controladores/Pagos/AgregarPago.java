@@ -42,7 +42,7 @@ public class AgregarPago {
         }
         
         conexion = MyConnection.getConnection();
-        String query = "INSERT INTO pagos (nombre_pago, id_factura, id_area, monto, fecha_pago, forma_pago, estado_pago) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO pagos (nombre_pago, id_factura, id_area, monto, fecha_pago, id_forma_pago, estado_pago) VALUES (?,?,?,?,?,?,?)";
         
         ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         
@@ -51,7 +51,7 @@ public class AgregarPago {
         ps.setInt(3, pagoAGuardar.getAreaId());
         ps.setBigDecimal(4,  pagoAGuardar.getMonto());
         ps.setDate(5, java.sql.Date.valueOf(pagoAGuardar.getFecha()));
-        ps.setString(6, pagoAGuardar.getFormaPago());
+        ps.setInt(6, pagoAGuardar.getIdFormaPago());
         ps.setBoolean(7, pagoAGuardar.isEstadoPago());
         int filasAfectadas = ps.executeUpdate();
         
@@ -75,7 +75,7 @@ public class AgregarPago {
         
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
         
-        Pagos nuevoPago = new Pagos(0, "Pago de Luz", 1, 2, new java.math.BigDecimal(5000), LocalDate.now(), "efectivo", false);
+        Pagos nuevoPago = new Pagos(0, "Pago de Luz", 1, 2, new java.math.BigDecimal(5000), LocalDate.now(), 1, false);
         
         int idPagoInsertado = insertarPago(nuevoPago, errores);
 
