@@ -7,7 +7,7 @@ package pasantia_proyect;
 
 import Controladores.Factura.ActualizarFactura;
 import Controladores.Factura.AgregarFactura;
-import Controladores.Factura.DatabaseManager;
+import Controladores.DatabaseManager;
 import Controladores.Factura.VerFactura;
 
 import entidades.Factura;
@@ -45,10 +45,10 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
      * Creates new form AgregarEditarVerFactura
      */
     public AgregarEditarVerFactura() {
-        initComponents();
-        setLocationRelativeTo(null);
-        this.setResizable(false);
-       
+    initComponents();
+    setLocationRelativeTo(null);
+    this.setResizable(false);
+    
     }
     
    
@@ -100,7 +100,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         fecha = new com.toedter.calendar.JDateChooser();
         combo_a = new javax.swing.JComboBox<>();
         combo_c = new javax.swing.JComboBox<>();
-        jSeparator2 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -108,14 +107,16 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         combo_p = new javax.swing.JComboBox<>();
         lbl_nombre6 = new javax.swing.JLabel();
         txt_monto = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(760, 530));
+        setPreferredSize(new java.awt.Dimension(760, 530));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -128,72 +129,55 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                 lbl_titulover(evt);
             }
         });
-        jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 32, -1, -1));
+        jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 500, 80));
-
-        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre1.setText("Comentario");
-        jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
-        lbl_nombre2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre2.setText("Areas");
-        jPanel1.add(lbl_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
 
-        lbl_nombre3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre3.setText("Fecha");
-        jPanel1.add(lbl_nombre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
 
-        lbl_nombre4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre4.setText("categoria");
-        jPanel1.add(lbl_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
-        lbl_nombre5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre5.setText("Monto");
-        jPanel1.add(lbl_nombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         fecha.setDateFormatString("yyyy-MMM-dd");
-        jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 140, 30));
 
-        combo_a.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(combo_a, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 190, 30));
+        combo_a.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        combo_c.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(combo_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 220, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 220, 20));
+        combo_c.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, -1, -1));
 
         btnregresar.setBackground(new java.awt.Color(51, 102, 0));
-        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, -1, -1));
 
         txt_comentario.setColumns(20);
         txt_comentario.setRows(5);
         jScrollPane2.setViewportView(txt_comentario);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 450, 80));
+        combo_p.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        combo_p.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(combo_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 220, 30));
-
-        lbl_nombre6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre6.setText("proveedor");
-        jPanel1.add(lbl_nombre6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        txt_monto.setBorder(null);
+        txt_monto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         txt_monto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
         txt_monto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_monto.addActionListener(new java.awt.event.ActionListener() {
@@ -201,9 +185,86 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                 txt_montoActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 230, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-dinero-20.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_nombre1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_nombre5))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_nombre3)
+                            .addComponent(lbl_nombre6)
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(combo_p, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(combo_c, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_nombre4))
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_nombre2)
+                                    .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(25, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnregresar)
+                .addGap(40, 40, 40)
+                .addComponent(btnagregar)
+                .addGap(24, 24, 24))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_nombre3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nombre6)
+                    .addComponent(lbl_nombre4)
+                    .addComponent(lbl_nombre2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo_p, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_c, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lbl_nombre5))
+                .addGap(18, 18, 18)
+                .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(lbl_nombre1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnregresar)
+                    .addComponent(btnagregar))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,7 +291,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
     this.setVisible(false);
-    fac f = fac.obtenerInstanciaPrincipal();
+    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
     f.setVisible(true);
     f.actualizarTabla();
     }//GEN-LAST:event_btnregresarActionPerformed
@@ -246,8 +307,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
-    //new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 6).setVisible(true);
-    //new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 6).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
       
@@ -260,10 +321,10 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_c;
     private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbl_nombre1;
     private javax.swing.JLabel lbl_nombre2;
     private javax.swing.JLabel lbl_nombre3;
@@ -302,7 +363,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
     private void createParaEditar() throws SQLException {
     lbl_titulo.setText("EDITAR FACTURA");
-    btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
    
     
     
@@ -415,7 +476,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     LocalDate fechaFactura = fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
     String comentario = txt_comentario.getText();
-    fac f = fac.obtenerInstanciaPrincipal();
+    facturafrm f = facturafrm.obtenerInstanciaPrincipal();
 
     Factura facturaAActualizar = new Factura(facturaId, fechaFactura, categoriaId, proveedorId, areaId, comentario, monto);
     ArrayList<ErrorGeneral> errores = new ArrayList<>();

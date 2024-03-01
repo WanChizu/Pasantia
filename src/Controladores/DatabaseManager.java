@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controladores.Factura;
+package Controladores;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +32,7 @@ public class DatabaseManager {
         while (rs.next()) {
             int id = rs.getInt("proveedor_id");
             String nombre = rs.getString("nombre");
-            proveedores.put(id, nombre); // Aquí intercambiamos el ID y el nombre
+            proveedores.put(id, nombre); 
         }
     }
     return proveedores;
@@ -44,7 +46,7 @@ public static Map<Integer, String> obtenerCategorias() throws SQLException {
         while (rs.next()) {
             int id = rs.getInt("categoria_id");
             String nombre = rs.getString("nombre");
-            categorias.put(id, nombre); // Aquí intercambiamos el ID y el nombre
+            categorias.put(id, nombre); 
         }
     }
     return categorias;
@@ -64,6 +66,21 @@ public static Map<Integer, String> obtenerAreas() throws SQLException {
     }
     return areas;
 }
+
+public static List<Integer> obtenerIdsFactura() throws SQLException {
+        List<Integer> idsFactura = new ArrayList<>();
+        
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT id_factura FROM factura");
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id_factura");
+                idsFactura.add(id);
+            }
+        }
+
+        return idsFactura;
+    }
 
 
 }

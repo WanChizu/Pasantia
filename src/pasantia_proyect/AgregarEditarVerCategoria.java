@@ -87,7 +87,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,13 +117,13 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
                 .addGap(34, 34, 34))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 90));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 400, 90));
 
-        lbl_nombre.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre.setText("Activo");
         jPanel1.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
-        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_nombre1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre1.setText("Nombre");
         jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
@@ -131,28 +131,28 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
         txt_nombre.setBorder(null);
         jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 220, 30));
 
-        combo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        combo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
-        jPanel1.add(combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+        jPanel1.add(combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 220, 20));
 
         btnagregar.setBackground(new java.awt.Color(51, 102, 0));
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, -1, -1));
+        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, -1, -1));
 
         btn_regreso.setBackground(new java.awt.Color(51, 102, 0));
-        btn_regreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
+        btn_regreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btn_regreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_regresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_regreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
+        jPanel1.add(btn_regreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
 
@@ -182,9 +182,9 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
 
     try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-//    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
+    new AgregarEditarVerCategoria(AgregarEditarVerCategoria.AGREGAR, 1).setVisible(true);
     new AgregarEditarVerCategoria(AgregarEditarVerCategoria.EDITAR, 4).setVisible(true);
-//    new AgregarEditarVerCategoria( AgregarEditarVerCategoria.VER, 1).setVisible(true);
+    new AgregarEditarVerCategoria( AgregarEditarVerCategoria.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
 }
@@ -210,7 +210,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     private void createParaEditar() {
     
         lbl_titulo.setText("EDITAR CATEGORIA");
-        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png")));
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
         rellenarVentana(categoriaId, errores);
     }
@@ -219,6 +219,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
        lbl_titulo.setText("VER CATEGORIA");
        txt_nombre.setEditable(false);
        combo.setEnabled(false);
+       btnagregar.setEnabled(false);
        
         Font fuente = txt_nombre.getFont();
         float tamanoFuente = fuente.getSize() + 2; 
@@ -248,7 +249,7 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
 
     Categoria nuevaCategoria = new Categoria(0, nombreCategoria, estaActivo);
 
-    categoriafrm pantalla = categoriafrm.obtenerInstanciaPrincipal();
+    categoriafrm c = categoriafrm.obtenerInstanciaPrincipal();
 
     ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
    
@@ -257,8 +258,8 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     if (idCategoriaInsertada != -1) {
         JOptionPane.showMessageDialog(this, "Categoría agregada exitosamente con ID " + idCategoriaInsertada, "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        pantalla.actualizarTabla();
-        pantalla.setVisible(true);
+        c.actualizarTabla();
+        c.setVisible(true);
         this.dispose();
     } else {
         mostrarErrores(errores);
@@ -283,15 +284,15 @@ public class AgregarEditarVerCategoria extends javax.swing.JFrame {
     boolean estaActivo = seleccion.equals("Si");
     Categoria categoriaAActualizar = new Categoria(categoriaId, txt_nombre.getText(), estaActivo);
 
-    categoriafrm pantalla = categoriafrm.obtenerInstanciaPrincipal();
+    categoriafrm c = categoriafrm.obtenerInstanciaPrincipal();
     ArrayList<errores.ErrorGeneral> errores = new ArrayList<>();
     
     ActualizarCategoria.actualizarCategoria(categoriaAActualizar, errores);
 
     if (errores.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Categoría actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        pantalla.actualizarTabla();
-        pantalla.setVisible(true);
+        c.actualizarTabla();
+        c.setVisible(true);
         this.dispose();
     } else {
         mostrarErrores(errores);

@@ -5,12 +5,19 @@
  */
 package pasantia_proyect;
 
+import static Controladores.Area.AreaIndex.indexArea;
 import Controladores.MyConnection;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import entidades.Area;
+import errores.ErrorGeneral;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,13 +27,17 @@ import javax.swing.table.DefaultTableModel;
 public class areafrm extends javax.swing.JFrame {
     
     private static areafrm instanciaPrincipal;
+    private Integer idArea = 0; 
+    private String nombre = null; 
+    private ArrayList<ErrorGeneral> errores = new ArrayList<>(); 
+    
 
     /**
      * Creates new form areafrm
      */
     public areafrm() {
         initComponents();
-        mostrar("area");
+        mostrar();
         instanciaPrincipal = this;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -39,51 +50,40 @@ public class areafrm extends javax.swing.JFrame {
     }
      
      public void actualizarTabla() {
-     mostrar("area");
+     mostrar();
 }
+     private DefaultTableModel tableModel;
     
-    private DefaultTableModel tableModel;
-    
-    public void mostrar (String tabla){
-    
+    public void mostrar() {
+    List<Area> areas = indexArea(idArea, nombre, errores);
+
     if (tableModel == null) {
         tableModel = new DefaultTableModel();
-        tableModel.addColumn("ID");
-        tableModel.addColumn("Nombre");
-        jTable.setModel(tableModel);
-        jTable.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        tableModel.addColumn("ID Área");
+        tableModel.addColumn("Nombre Área");
+        table.setModel(tableModel);
+        table.getColumnModel().getColumn(0).setMinWidth(0);
+        table.getColumnModel().getColumn(0).setMaxWidth(0);
     } else {
-       
         tableModel.setRowCount(0);
     }
-    
-    String sql = "select * from " + tabla;
-    Statement st;
-    MyConnection cc = new MyConnection();
-    Connection cn = MyConnection.getConnection();
-    
-    String[] datos = new String[2];
 
-    try {
-        st = cn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()) {
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
-            tableModel.addRow(datos);
-        }
+    for (Area area : areas) {
+        Object[] rowData = {
+            area.getIdArea(),
+            area.getNombreArea()
+        };
+        tableModel.addRow(rowData);
+    }
+}
 
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error" + e.toString());
-    }
-    
-    }
+  
+
     
      public int obtenerIdAreaSeleccionada() {
-    int filaSeleccionada = jTable.getSelectedRow();
+    int filaSeleccionada = table.getSelectedRow();
     if (filaSeleccionada != -1) {
-        return Integer.parseInt(jTable.getValueAt(filaSeleccionada, 0).toString()); 
+        return Integer.parseInt(table.getValueAt(filaSeleccionada, 0).toString()); 
     } else {
         return -1; 
     }
@@ -100,14 +100,14 @@ public class areafrm extends javax.swing.JFrame {
 
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         btn_act = new javax.swing.JButton();
         ver_btn = new javax.swing.JButton();
         btn_añadir = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -115,16 +115,8 @@ public class areafrm extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel2.setText("AREA");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/c.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
-
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -135,45 +127,81 @@ public class areafrm extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 450, 440));
+        jScrollPane1.setViewportView(table);
 
         btn_act.setBackground(new java.awt.Color(51, 102, 0));
-        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-actualizar-40 (1).png"))); // NOI18N
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-refrescar-30.png"))); // NOI18N
         btn_act.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_act, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
 
         ver_btn.setBackground(new java.awt.Color(51, 102, 0));
-        ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ver-40.png"))); // NOI18N
+        ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-ver-30.png"))); // NOI18N
         ver_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ver_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(ver_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, -1, -1));
 
         btn_añadir.setBackground(new java.awt.Color(51, 102, 0));
-        btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconagregar.png"))); // NOI18N
+        btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btn_añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_añadirActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 530, -1, -1));
 
         btn_editar.setBackground(new java.awt.Color(51, 102, 0));
-        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconeditar.png"))); // NOI18N
+        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("AREA");
+        jPanel2.add(jLabel2);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_act)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ver_btn)
+                        .addGap(40, 40, 40)
+                        .addComponent(btn_añadir)
+                        .addGap(40, 40, 40)
+                        .addComponent(btn_editar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_act)
+                    .addComponent(ver_btn)
+                    .addComponent(btn_añadir)
+                    .addComponent(btn_editar)))
+        );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 600));
 
@@ -256,11 +284,11 @@ public class areafrm extends javax.swing.JFrame {
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_editar;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable;
+    private javax.swing.JTable table;
     private javax.swing.JButton ver_btn;
     // End of variables declaration//GEN-END:variables
 }
