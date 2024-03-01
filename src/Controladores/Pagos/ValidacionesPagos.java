@@ -8,6 +8,7 @@ package Controladores.Pagos;
 import Controladores.MyConnection;
 import entidades.Area;
 import entidades.Factura;
+import entidades.FormaPago;
 import entidades.Pagos;
 import errores.ErrorGeneral;
 import errores.ErroresPagos;
@@ -45,9 +46,11 @@ public class ValidacionesPagos {
     }
     
     
+    
     public static boolean validacionesGenericasDePagos(Pagos pagos, List<ErrorGeneral> errores){
         Factura factura = new Factura(0, LocalDate.now(), 0, 0, 0, "", new java.math.BigDecimal(0));
         Area area = new Area(0, "");
+        FormaPago fp = new FormaPago(0,"");
         
          if (pagos.getMonto().compareTo(BigDecimal.ZERO) < 0) {
             errores.add(ErroresPagos.MONTO_NEGATIVO);
@@ -66,13 +69,10 @@ public class ValidacionesPagos {
             errores.add(ErroresPagos.ID_NEGATIVO);
         }
          
-         if (pagos.getFormaPago().length() > 20) {
-            errores.add(ErroresPagos.FORMA_PAGO_LARGO);
+         if (pagos.getIdFormaPago() < 0) {
+            errores.add(ErroresPagos.ID_NEGATIVO);
         }
          
-         if (pagos.getFormaPago().length() < 5) {
-            errores.add(ErroresPagos.FORMA_PAGO_CORTO);
-        }
     
         return errores.isEmpty();
     }
@@ -91,9 +91,5 @@ public class ValidacionesPagos {
         }
         return false;
     }     
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+
 }

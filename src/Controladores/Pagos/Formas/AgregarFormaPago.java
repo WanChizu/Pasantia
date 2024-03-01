@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controladores.Area;
+package Controladores.Pagos.Formas;
 
 import Controladores.MyConnection;
-import entidades.Area;
+import Controladores.Pagos.ValidacionesPagos;
+import entidades.FormaPago;
 import errores.ErrorGeneral;
-import errores.ErroresArea;
+import errores.ErroresPagos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,57 +21,57 @@ import java.util.ArrayList;
  *
  * @author Lizor
  */
-public class AgregarArea {
+public class AgregarFormaPago {
 
     /**
      * @param args the command line arguments
      */
     
-     public static int insertarArea(Area areaAGuardar, ArrayList<ErrorGeneral> errores) {
+     public static int insertarFP(FormaPago FPAGuardar, ArrayList<ErrorGeneral> errores) {
         Connection conexion = null;
         PreparedStatement ps = null;
-        int idAreaInsertada = -1;
+        int idFPInsertada = -1;
 
         try {
-            errores.addAll(ValidacionesArea.validarArea(areaAGuardar));
+            errores.addAll(ValidacionesFormaPago.validarFormaPago(FPAGuardar));
 
             if (!errores.isEmpty()) {
-                return idAreaInsertada;
+                return idFPInsertada;
             }
 
             conexion = MyConnection.getConnection();
-            String query = "INSERT INTO area (nombre) VALUES (?)";
+            String query = "INSERT INTO forma_pago (nombre_forma) VALUES (?)";
             ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            agregarCamposAlInsert(ps, areaAGuardar);
+            agregarCamposAlInsert(ps, FPAGuardar);
 
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas > 0) {
                 ResultSet generatedKeys = ps.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    idAreaInsertada = generatedKeys.getInt(1);
+                    idFPInsertada = generatedKeys.getInt(1);
                 }
             }
         } catch (SQLException ex) {
-            errores.add(ErroresArea.ERROR_INESPERADO);
+            errores.add(ErroresPagos.ERROR_INESPERADO);
             ex.printStackTrace();
         }
-        return idAreaInsertada;
+        return idFPInsertada;
     }
 
-    private static void agregarCamposAlInsert(PreparedStatement ps, Area areaAGuardar) throws SQLException {
-        ps.setString(1, areaAGuardar.getNombreArea());
+    private static void agregarCamposAlInsert(PreparedStatement ps, FormaPago FPAGuardar) throws SQLException {
+        ps.setString(1, FPAGuardar.getNombreFormaPago());
 
     }
     
     public static void main(String[] args) {
-        // TODO code application logic here  
+        // TODO code application logic here
         ArrayList<ErrorGeneral> errores = new ArrayList<>();        
-        Area areaNueva = new Area(0, "Prueba8");
-        int idInsertado = insertarArea(areaNueva, errores);
+        FormaPago FPNuevo = new FormaPago(0, "Tarjeta");
+        int idInsertado = insertarFP(FPNuevo, errores);
         if (idInsertado != -1) {
-            System.out.println("Área insertada correctamente con ID: " + idInsertado);
+            System.out.println("Forma de pago insertada correctamente con ID: " + idInsertado);
         } else {
             for (ErrorGeneral error : errores) {
                 System.out.println(error);
@@ -78,4 +79,6 @@ public class AgregarArea {
         }
     }
     
-}
+        
+    }
+    

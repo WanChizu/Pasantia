@@ -13,6 +13,11 @@ public class ErroresPagos {
     
     public static ErrorGeneral PAGO_EXISTENTE = new ErrorGeneral("Este pago ya esta registrado.", "Intente de nuevo con un ID diferente");
     public static ErrorGeneral PAGO_NO_ENCONTRADO = new ErrorGeneral("El pago no fue encontrado.","Por favor, intenta de nuevo.");
+    public static ErrorGeneral FORMA_PAGO_EXISTENTE = new ErrorGeneral("Este tipo de pago ya es existente.","Por favor, intenta de nuevo.");
+    
+    public static ErrorGeneral NOMBRE_MUY_LARGO = new ErrorGeneral("Nombre muy largo","El nombre debe tener  menos de 50 letras.");
+    public static ErrorGeneral NOMBRE_MUY_CORTO = new ErrorGeneral("Nombre muy corto", "El nombre debe tener mas de 5 letras.");
+    public static ErrorGeneral NOMBRE_VACIO = new ErrorGeneral("Nombre está vacío","Debes agregar un nombre.");
     
     public static ErrorGeneral ERROR_INESPERADO = new ErrorGeneral("Error inesperado.","Intenta de nuevo.");
     public static ErrorGeneral ID_NEGATIVO = new ErrorGeneral("El ID no puede ser negativo.","Agrega un digito positivo.");

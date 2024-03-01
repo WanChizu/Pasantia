@@ -19,19 +19,20 @@ public class Pagos {
     private int areaId;
     private BigDecimal monto;
     private LocalDate fecha;
-    private String formaPago;
+    private int idFormaPago;
     private boolean estadoPago;
     
+    private String nombreFormaPago;
     private String nombreArea;  
 
-    public Pagos(int idPagos, String nombrePago ,int idFactura, int areaId, BigDecimal monto, LocalDate fecha, String formaPago, boolean estadoPago) {
+    public Pagos(int idPagos, String nombrePago ,int idFactura, int areaId, BigDecimal monto, LocalDate fecha, int idFormaPago, boolean estadoPago) {
         this.idPagos = idPagos;
         this.nombrePago = nombrePago;
         this.idFactura = idFactura;
         this.areaId = areaId;
         this.monto = monto;
         this.fecha = fecha;
-        this.formaPago = formaPago;
+        this.idFormaPago = idFormaPago;
         this.estadoPago = estadoPago;
     }
 
@@ -92,13 +93,23 @@ public class Pagos {
         this.fecha = fecha;
     }
 
-    public String getFormaPago() {
-        return formaPago;
+    public int getIdFormaPago() {
+        return idFormaPago;
     }
 
-    public void setFormaPago(String formaPago) {
-        this.formaPago = formaPago;
+    public void setIdFormaPago(int idFormaPago) {
+        this.idFormaPago = idFormaPago;
     }
+
+    public String getNombreFormaPago() {
+        return nombreFormaPago;
+    }
+
+    public void setNombreFormaPago(String nombreFormaPago) {
+        this.nombreFormaPago = nombreFormaPago;
+    }
+
+
 
     public boolean isEstadoPago() {
         return estadoPago;
@@ -119,7 +130,7 @@ public class Pagos {
            "\nNombre del Área: " + nombreArea + 
            "\nMonto: " + monto +
            "\nFecha: " + fecha + 
-           "\nForma del pago: " + formaPago +
+           "\nForma del pago: " + nombreFormaPago +
            "\nEstado del pago: " + estadoPago;  
         
     }

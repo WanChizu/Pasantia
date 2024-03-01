@@ -35,9 +35,10 @@ public class VerPago {
 
     try {
         conexion = MyConnection.getConnection();
-        StringBuilder queryBuilder = new StringBuilder("SELECT p.id_pago, p.nombre_pago, p.id_factura, p.id_area, p.monto, p.fecha_pago, p.forma_pago, p.estado_pago, a.nombre AS nombre_area FROM pagos p");
+        StringBuilder queryBuilder = new StringBuilder("SELECT p.id_pago, p.nombre_pago, p.id_factura, p.id_area, p.monto, p.fecha_pago, p.id_forma_pago, p.estado_pago, a.nombre AS nombre_area, f.nombre_forma FROM pagos p");
 
         queryBuilder.append(" LEFT JOIN area a ON p.id_area = a.id_area");
+        queryBuilder.append(" LEFT JOIN forma_pago f ON p.id_forma_pago = f.id_forma_pago");
         queryBuilder.append(" WHERE p.id_pago = ?");
 
         ps = conexion.prepareStatement(queryBuilder.toString());
@@ -52,12 +53,14 @@ public class VerPago {
             int areaId = rs.getInt("id_area");
             BigDecimal monto = rs.getBigDecimal("monto");
             LocalDate fechaPago = rs.getDate("fecha_pago").toLocalDate();
-            String formaPago = rs.getString("forma_pago");
+            int idFormaPago = rs.getInt("id_forma_pago");
             boolean estadoPago = rs.getBoolean("estado_pago");
             String nombreArea = rs.getString("nombre_area");
+            String nombreFormaPago = rs.getString("nombre_forma");
 
-            Pagos pago = new Pagos(idPago, nombrePago, idFactura, areaId, monto, fechaPago, formaPago, estadoPago);
+            Pagos pago = new Pagos(idPago, nombrePago, idFactura, areaId, monto, fechaPago, idFormaPago, estadoPago);
             pago.setNombreArea(nombreArea);
+            pago.setNombreFormaPago(nombreFormaPago);
 
             boolean validacionExitosa = ValidacionesPagos.validacionesGenericasDePagos(pago, errores);
 
@@ -71,15 +74,11 @@ public class VerPago {
         }
     } catch (SQLException ex) {
         errores.add(ErroresPagos.ERROR_INESPERADO);
-    
     }
 
     return null;
 }
 
-
-    
-    
     public static void main(String[] args) {
         // TODO code application logic here
         
