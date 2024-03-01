@@ -33,7 +33,7 @@ public class ValidacionesProveedor {
         
         if(validacionesGenericasDeProveedores(proveedor, errores)){
             
-        }
+        
        
         if (proveedorExistente(conexion, proveedor.getNombre(), "nombre")) {
             errores.add(ErroresProveedores.NOMBRE_EXISTENTE);
@@ -46,7 +46,7 @@ public class ValidacionesProveedor {
         if (proveedor.getProveedorId() < 0) {
             errores.add(ErroresCategorias.ID_NEGATIVO);
         }
-        
+      }
         return errores;
     }
    

@@ -46,6 +46,7 @@ public class ValidacionesPagos {
     }
     
     
+    
     public static boolean validacionesGenericasDePagos(Pagos pagos, List<ErrorGeneral> errores){
         Factura factura = new Factura(0, LocalDate.now(), 0, 0, 0, "", new java.math.BigDecimal(0));
         Area area = new Area(0, "");
@@ -90,9 +91,5 @@ public class ValidacionesPagos {
         }
         return false;
     }     
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+
 }
