@@ -66,21 +66,56 @@ public static Map<Integer, String> obtenerAreas() throws SQLException {
     }
     return areas;
 }
-
-public static List<Integer> obtenerIdsFactura() throws SQLException {
-        List<Integer> idsFactura = new ArrayList<>();
-        
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement("SELECT id_factura FROM factura");
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                int id = rs.getInt("id_factura");
-                idsFactura.add(id);
-            }
+public static Map<Integer, String> obtenerFormaPagos() throws SQLException {
+    Map<Integer, String> fp = new HashMap<>();
+    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement stmt = conn.prepareStatement("SELECT id_forma_pago, nombre_forma FROM forma_pago");
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            int id = rs.getInt("id_forma_pago");
+            String nombre = rs.getString("nombre_forma");
+            fp.put(id, nombre); 
         }
-
-        return idsFactura;
     }
+    return fp;
+}
+
+public static Map<Integer, String> obtenerIdsYComentariosFactura() throws SQLException {
+    Map<Integer, String> idsYComentarios = new HashMap<>();
+    
+    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement stmt = conn.prepareStatement("SELECT id_factura, comentario FROM factura");
+         ResultSet rs = stmt.executeQuery()) {
+        
+        while (rs.next()) {
+            int id = rs.getInt("id_factura");
+            String comentario = rs.getString("comentario");
+            idsYComentarios.put(id, comentario);
+        }
+    }
+    
+    return idsYComentarios;
+}
+
+public static Map<Integer, String> obtenerEstadoPago() throws SQLException {
+    Map<Integer, String> idEstadoPago = new HashMap<>();
+    
+    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement stmt = conn.prepareStatement("SELECT id_pago, estado_pago FROM pagos");
+         ResultSet rs = stmt.executeQuery()) {
+        
+        while (rs.next()) {
+            int id = rs.getInt("id_pago");
+            int estado = rs.getInt("estado_pago");
+            String estadoStr = (estado == 1) ? "Activo" : "Inactivo";
+            idEstadoPago.put(id, estadoStr);
+        }
+    }
+    
+    return idEstadoPago;
+}
+
+
 
 
 }

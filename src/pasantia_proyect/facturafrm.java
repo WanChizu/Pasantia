@@ -140,7 +140,6 @@ actualizarTabla();
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
@@ -165,6 +164,8 @@ actualizarTabla();
         jLabel5 = new javax.swing.JLabel();
         txt_monto2 = new javax.swing.JTextField();
         txt_comentario = new javax.swing.JTextField();
+        btn_act = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,17 +173,27 @@ actualizarTabla();
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 555));
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-factura-30.png"))); // NOI18N
-        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 40));
+        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("FACTURA");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Fecha desde");
@@ -235,7 +246,7 @@ actualizarTabla();
         ));
         jScrollPane1.setViewportView(table);
 
-        btn_refrescar.setBackground(new java.awt.Color(51, 102, 0));
+        btn_refrescar.setBackground(new java.awt.Color(28, 49, 68));
         btn_refrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
         btn_refrescar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +254,7 @@ actualizarTabla();
             }
         });
 
-        ver_btn.setBackground(new java.awt.Color(51, 102, 0));
+        ver_btn.setBackground(new java.awt.Color(28, 49, 68));
         ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-ver-30.png"))); // NOI18N
         ver_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +262,7 @@ actualizarTabla();
             }
         });
 
-        btn_añadir.setBackground(new java.awt.Color(51, 102, 0));
+        btn_añadir.setBackground(new java.awt.Color(28, 49, 68));
         btn_añadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btn_añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,7 +270,7 @@ actualizarTabla();
             }
         });
 
-        btn_editar.setBackground(new java.awt.Color(51, 102, 0));
+        btn_editar.setBackground(new java.awt.Color(28, 49, 68));
         btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +278,7 @@ actualizarTabla();
             }
         });
 
-        btn_limpiar.setBackground(new java.awt.Color(51, 102, 0));
+        btn_limpiar.setBackground(new java.awt.Color(28, 49, 68));
         btn_limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-limpiar-20.png"))); // NOI18N
         btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,12 +293,28 @@ actualizarTabla();
 
         txt_comentario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btn_act.setBackground(new java.awt.Color(28, 49, 68));
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
+        btn_act.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actActionPerformed(evt);
+            }
+        });
+
+        btn_volver.setBackground(new java.awt.Color(28, 49, 68));
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-volver-20.png"))); // NOI18N
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -304,12 +331,6 @@ actualizarTabla();
                                 .addGap(0, 210, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(ver_btn)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btn_añadir)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btn_editar))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btn_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -319,26 +340,36 @@ actualizarTabla();
                                             .addComponent(combo_p, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel2))
-                                        .addGap(40, 40, 40)
+                                        .addGap(30, 30, 30)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txt_monto1)
                                             .addComponent(jLabel4)
                                             .addComponent(combo_a, 0, 170, Short.MAX_VALUE)
                                             .addComponent(jLabel9))
-                                        .addGap(40, 40, 40)
+                                        .addGap(30, 30, 30)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txt_monto2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel5)
                                             .addComponent(txt_comentario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10))))))
-                        .addGap(15, 15, 15))))
+                                            .addComponent(jLabel10)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_volver)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_act)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ver_btn)
+                                .addGap(40, 40, 40)
+                                .addComponent(btn_añadir)
+                                .addGap(40, 40, 40)
+                                .addComponent(btn_editar)))
+                        .addGap(25, 25, 25))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel2)
@@ -373,14 +404,17 @@ actualizarTabla();
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_refrescar)
                     .addComponent(btn_limpiar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_añadir)
-                    .addComponent(btn_editar)
-                    .addComponent(ver_btn))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btn_añadir)
+                        .addComponent(btn_editar)
+                        .addComponent(ver_btn))
+                    .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, -1));
@@ -405,7 +439,6 @@ actualizarTabla();
         try {
             new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, idFacturaSeleccionada).setVisible(true);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura antes de ver sus datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -426,7 +459,6 @@ actualizarTabla();
           
             new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, idFacturaSeleccionada).setVisible(true);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura antes de editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -440,6 +472,17 @@ actualizarTabla();
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
     
     }//GEN-LAST:event_btn_limpiarActionPerformed
+
+    private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_btn_actActionPerformed
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        mainfrm m = new mainfrm();
+        m.setVisible(true);
+        m.pack();
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -570,16 +613,17 @@ actualizarTabla();
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_act;
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_refrescar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JComboBox<String> combo_a;
     private javax.swing.JComboBox<String> combo_c;
     private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
     private com.toedter.calendar.JDateChooser fecha1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

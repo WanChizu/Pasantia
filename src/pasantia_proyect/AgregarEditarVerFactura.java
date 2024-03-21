@@ -46,9 +46,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
      */
     public AgregarEditarVerFactura() {
     initComponents();
-    setLocationRelativeTo(null);
-    this.setResizable(false);
-    
     }
     
    
@@ -56,7 +53,8 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     this.opcion = opcion;
     this.facturaId = facturaId;
     initComponents();
-    
+    setLocationRelativeTo(null);
+    this.setResizable(false);
     
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
    
@@ -107,17 +105,14 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
         combo_p = new javax.swing.JComboBox<>();
         lbl_nombre6 = new javax.swing.JLabel();
         txt_monto = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(760, 530));
-        setPreferredSize(new java.awt.Dimension(760, 530));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +124,23 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                 lbl_titulover(evt);
             }
         });
-        jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lbl_titulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbl_titulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         lbl_nombre1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre1.setText("Comentario");
@@ -152,7 +163,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
         combo_c.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        btnagregar.setBackground(new java.awt.Color(51, 102, 0));
+        btnagregar.setBackground(new java.awt.Color(28, 49, 68));
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +171,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
             }
         });
 
-        btnregresar.setBackground(new java.awt.Color(51, 102, 0));
+        btnregresar.setBackground(new java.awt.Color(28, 49, 68));
         btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,8 +197,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-dinero-20.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,15 +205,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_nombre1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_nombre5))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,21 +221,27 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_nombre2)
                                     .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(25, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnregresar)
-                .addGap(40, 40, 40)
-                .addComponent(btnagregar)
-                .addGap(24, 24, 24))
+                        .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_nombre5)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnagregar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnregresar))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_nombre1)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(lbl_nombre3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -248,16 +254,14 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
                     .addComponent(combo_c, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(lbl_nombre5))
+                .addComponent(lbl_nombre5)
                 .addGap(18, 18, 18)
                 .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(lbl_nombre1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnregresar)
                     .addComponent(btnagregar))
@@ -306,9 +310,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     public static void main(String args[]) {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-    new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
-    new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 6).setVisible(true);
-    new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
+    //new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 1).setVisible(true);
+    //new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
       
@@ -321,7 +325,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_c;
     private javax.swing.JComboBox<String> combo_p;
     private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -355,7 +358,6 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
             combo_a.addItem(entry.getValue());
         }
     } catch (SQLException e) {
-        e.printStackTrace();
     }
      ArrayList<ErrorGeneral> errores = new ArrayList<>();
 }

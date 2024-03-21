@@ -39,7 +39,7 @@ public class ValidacionesPagos {
             
         }
         
-         if (PagoExistente(conexion, pagos.getIdFactura())) {
+         if (PagoExistente(conexion, pagos.getIdPagos())) {
              errores.add(ErroresPagos.PAGO_EXISTENTE);
          }
         return errores;

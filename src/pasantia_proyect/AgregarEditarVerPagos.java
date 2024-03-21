@@ -6,13 +6,23 @@
 package pasantia_proyect;
 
 import Controladores.DatabaseManager;
+import Controladores.Pagos.ActualizarPago;
+import Controladores.Pagos.AgregarPago;
 import Controladores.Pagos.VerPago;
 import entidades.Pagos;
 import errores.ErrorGeneral;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,20 +34,21 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     public final static int VER = 3;
     int opcion;
     private int pagoId;
+    
     /**
      * Creates new form AgregarEditarVerPagos
      */
     public AgregarEditarVerPagos() {
         initComponents();
-        setLocationRelativeTo(null);
-        this.setResizable(false);
     }
     
     public AgregarEditarVerPagos(int opcion, int pagoId)throws SQLException{
     this.opcion = opcion;
     this.pagoId = pagoId;
     initComponents();
-    
+     this.setResizable(false);
+     setLocationRelativeTo(null);
+     
     
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
    
@@ -89,7 +100,8 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
         txt_nombre = new javax.swing.JTextField();
         combo_estado = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,7 +124,7 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(229, 229, 229)
+                .addGap(25, 25, 25)
                 .addComponent(lbl_titulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -174,7 +186,7 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
         txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         combo_estado.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        combo_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo", " " }));
+        combo_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,78 +194,91 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnregresar)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnagregar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_nombre6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_nombre3)
+                    .addComponent(lbl_nombre6)
+                    .addComponent(lbl_nombre5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_nombre2)
                         .addGap(10, 10, 10)
-                        .addComponent(combo_f, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(lbl_nombre5)
-                        .addGap(10, 10, 10)
-                        .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_nombre3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_nombre4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_nombre8)
-                        .addGap(10, 10, 10)
-                        .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_nombre7)
-                        .addGap(10, 10, 10)
-                        .addComponent(combo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_f, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(20, 20, 20)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(lbl_nombre8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(lbl_nombre7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(combo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(20, 20, 20)
+                                    .addComponent(lbl_nombre4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnagregar)
+                                    .addGap(25, 25, 25)
+                                    .addComponent(btnregresar))))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_nombre3)
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre4)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre2)
-                    .addComponent(combo_f, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lbl_nombre3)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbl_nombre4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(lbl_nombre6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_nombre7)
+                        .addComponent(combo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbl_nombre5)
-                    .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre8)
-                    .addComponent(lbl_nombre7)
-                    .addComponent(combo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_nombre6))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnregresar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(30, 30, 30))
+                    .addComponent(combo_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_nombre8)
+                        .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_nombre2)
+                            .addComponent(combo_f, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(btnregresar))
+                    .addComponent(btnagregar))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -263,12 +288,28 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_titulover
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
-    
+
+    this.setVisible(false);
+    pagosfrm p = pagosfrm.obtenerInstanciaPrincipal();
+    p.setVisible(true);
+    p.actualizarTabla();
+        
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-       
-        
+    if (opcion == AGREGAR) {
+        try {
+            agregarPago();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarEditarVerPagos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } else if (opcion == EDITAR) {
+        try {
+            editarPago();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarEditarVerPagos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }//GEN-LAST:event_btnagregarActionPerformed
 
     /**
@@ -277,115 +318,114 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     public static void main(String args[]) {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-//    new AgregarEditarVerPagos(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
-//    new AgregarEditarVerPagos(AgregarEditarVerFactura.EDITAR, 1).setVisible(true);
-  new AgregarEditarVerPagos(AgregarEditarVerFactura.VER, 1).setVisible(true);
+  // new AgregarEditarVerPagos(AgregarEditarVerPagos.AGREGAR,1).setVisible(true);
+ new AgregarEditarVerPagos(AgregarEditarVerPagos.EDITAR, 5).setVisible(true);
+  new AgregarEditarVerPagos(AgregarEditarVerPagos.VER, 5).setVisible(true);
     }catch (SQLException e) {
     }
     }
     
-    private void createParaAgregar() {
-    lbl_titulo.setText("AGREGAR FACTURA");
-
+    private void createParaAgregar() throws SQLException {
     try {
-        List<Integer> facturas = DatabaseManager.obtenerIdsFactura();
+       
         Map<Integer, String> areas = DatabaseManager.obtenerAreas();
-
-        for (Integer id : facturas) {
-            combo_f.addItem(id.toString());
-        }
-
+        Map<Integer, String> idsYComentarios = DatabaseManager.obtenerIdsYComentariosFactura();
+        Map<Integer, String> fp = DatabaseManager.obtenerFormaPagos();
+        
         for (Map.Entry<Integer, String> entry : areas.entrySet()) {
             combo_a.addItem(entry.getValue());
         }
+        
+        for (Map.Entry<Integer, String> entry : idsYComentarios.entrySet()) {
+            combo_f.addItem(entry.getValue());
+        }
+
+        for (Map.Entry<Integer, String> entry : fp.entrySet()) {
+            combo_pago.addItem(entry.getValue());
+        }
     } catch (SQLException e) {
+      ArrayList<ErrorGeneral> errores = new ArrayList<>();
     }
-     ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    
 }
 
 
     private void createParaEditar() throws SQLException {
-    lbl_titulo.setText("EDITAR FACTURA");
+    lbl_titulo.setText("EDITAR PAGO");
     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
    
-    
-    
-    try {
-        List<Integer> facturas = DatabaseManager.obtenerIdsFactura();
-        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
-
-
-        for (Integer id : facturas) {
-            combo_f.addItem(id.toString());
-        }
-        
-         for (Map.Entry<Integer, String> entry : areas.entrySet()) {
-            combo_a.addItem(entry.getValue());
-        }
-    } catch (SQLException e) {
-    }
      ArrayList<ErrorGeneral> errores = new ArrayList<>();
-//     rellenarVentana(facturaId, errores);  
+     rellenarVentana(pagoId, errores);  
     }
 
     private void createParaVer() throws SQLException {
-    lbl_titulo.setText("VER FACTURA");
     fecha.setDateFormatString("dd/MM/yyyy");
+    lbl_titulo.setText("VER PAGO");
     
-    try {
-        List<Integer> facturas = DatabaseManager.obtenerIdsFactura();
-        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
-
-        for (Integer id : facturas) {
-            combo_f.addItem(id.toString());
-        }
-
-         for (Map.Entry<Integer, String> entry : areas.entrySet()) {
-            combo_a.addItem(entry.getValue());
-        }
-
-      
-        txt_monto.setEditable(false);
-      
-        txt_nombre.setEditable(false);
-       
+     
+        txt_monto.setEnabled(false);
+        txt_nombre.setEnabled(false);
         combo_a.setEnabled(false);
         combo_f.setEnabled(false);
         combo_estado.setEnabled(false);
         combo_pago.setEnabled(false);
         fecha.setEnabled(false);
         btnagregar.setEnabled(false);
-    } catch (SQLException e) {
-    }
+
           
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     rellenarVentana(pagoId, errores);  
     }
     
-    private void rellenarVentana(int pagoId, ArrayList<ErrorGeneral> errores) throws SQLException {
+   private void rellenarVentana(int pagoId, ArrayList<ErrorGeneral> errores) throws SQLException {
     Pagos pago = VerPago.verPago(pagoId, errores);
 
     if (pago != null) {
-      
-        fecha.setDate(java.sql.Date.valueOf(pago.getFecha().plusDays(1))); 
+        fecha.setDate(java.sql.Date.valueOf(pago.getFecha()));
         txt_monto.setText(pago.getMonto().toString());
         txt_nombre.setText(pago.getNombrePago());
-        
-        List<Integer> idsFactura = DatabaseManager.obtenerIdsFactura();
-        
-        for (Integer id : idsFactura) {
-            combo_f.addItem(id.toString());
-        }
-        
-   
-         String areaNombre = DatabaseManager.obtenerAreas().get(pago.getAreaId());
-        if (areaNombre != null) {
-            combo_a.setSelectedItem(areaNombre);
-        }
+        combo_estado.setSelectedIndex(pago.isEstadoPago() ? 0 : 1);
     } else {
         System.out.println("Factura no encontrada para el ID: " + pagoId);
+        return;
+    }
+
+    try {
+        Map<Integer, String> areas = DatabaseManager.obtenerAreas();
+        Map<Integer, String> idsYComentarios = DatabaseManager.obtenerIdsYComentariosFactura();
+        Map<Integer, String> fp = DatabaseManager.obtenerFormaPagos();
+        
+        // Limpiar combos antes de agregar nuevos elementos
+        combo_a.removeAllItems();
+        combo_f.removeAllItems();
+        combo_pago.removeAllItems();
+
+        for (Map.Entry<Integer, String> entry : areas.entrySet()) {
+            combo_a.addItem(entry.getValue());
+            if (entry.getKey() == pago.getAreaId()) {
+                combo_a.setSelectedItem(entry.getValue());
+            }
+        }
+        
+        for (Map.Entry<Integer, String> entry : idsYComentarios.entrySet()) {
+            combo_f.addItem(entry.getValue());
+            if (entry.getKey() == pago.getIdFactura()) {
+                combo_f.setSelectedItem(entry.getValue());
+            }
+        }
+
+        for (Map.Entry<Integer, String> entry : fp.entrySet()) {
+            combo_pago.addItem(entry.getValue());
+            if (entry.getKey() == pago.getIdFormaPago()) {
+                combo_pago.setSelectedItem(entry.getValue());
+            }
+        }
+    } catch (SQLException e) {
+        // Manejar excepciones
     }
 }
+
+
     
     
     
@@ -411,4 +451,106 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     private javax.swing.JTextField txt_monto;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
+
+    private void agregarPago() throws SQLException {
+   try {
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        int facturaId = obtenerIdSeleccionado(combo_f, DatabaseManager.obtenerIdsYComentariosFactura());
+        int formaPago = obtenerIdSeleccionado(combo_pago, DatabaseManager.obtenerFormaPagos());
+        int areaId = obtenerIdSeleccionado(combo_a, DatabaseManager.obtenerAreas());
+        
+        
+        java.util.Date utilDate = fecha.getDate();
+        Instant instant = utilDate.toInstant();
+        LocalDate fechaPago = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        boolean estadoPago = obtenerEstadoPago(combo_estado.getSelectedIndex());
+        
+        String nombre = txt_nombre.getText();
+        BigDecimal monto = new BigDecimal(txt_monto.getText());
+        
+        Pagos nuevoPago = new Pagos(0, nombre, facturaId, areaId, monto, fechaPago, formaPago, estadoPago);
+        pagosfrm pantalla = pagosfrm.obtenerInstanciaPrincipal();
+        
+        int idPagoInsertado = AgregarPago.insertarPago(nuevoPago, errores);
+     
+        if (idPagoInsertado != -1) {
+            JOptionPane.showMessageDialog(this, "Pago agregado correctamente con ID: " + idPagoInsertado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        mostrarErrores(errores);
+        pantalla.actualizarTabla();
+        pantalla.setVisible(true);
+        this.dispose();
+    } catch (NullPointerException | DateTimeException ex) {
+       
+        System.err.println("Error al obtener la fecha: " + ex.getMessage());
+    }
+    
+    
+}
+
+   private boolean obtenerEstadoPago(int selectedIndex) {
+    // Convertir el valor del JComboBox al formato de la base de datos
+    return selectedIndex == 0; // 0 para "Activo", 1 para "Inactivo"
+}
+
+    private void editarPago() throws SQLException {
+     try {
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        int facturaId = obtenerIdSeleccionado(combo_f, DatabaseManager.obtenerIdsYComentariosFactura());
+        int formaPago = obtenerIdSeleccionado(combo_pago, DatabaseManager.obtenerFormaPagos());
+        int areaId = obtenerIdSeleccionado(combo_a, DatabaseManager.obtenerAreas());
+        
+       
+        java.util.Date utilDate = fecha.getDate();
+        Instant instant = utilDate.toInstant();
+        LocalDate fechaPago = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        
+       boolean estadoPago = obtenerEstadoPago(combo_estado.getSelectedIndex());
+        
+        String nombre = txt_nombre.getText();
+        BigDecimal monto = new BigDecimal(txt_monto.getText());
+       
+        Pagos pagoActualizado = new Pagos(pagoId, nombre, facturaId, areaId, monto, fechaPago, formaPago, estadoPago);
+        pagosfrm pantalla = pagosfrm.obtenerInstanciaPrincipal();
+       
+        int filasAfectadas = ActualizarPago.actualizarPago(pagoActualizado, errores);
+        
+        if (filasAfectadas > 0) {
+            JOptionPane.showMessageDialog(this, "Pago actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            mostrarErrores(errores);
+        }
+        pantalla.actualizarTabla();
+        pantalla.setVisible(true);
+        this.dispose();
+    } catch (NullPointerException | DateTimeException ex) {
+        System.err.println("Error al obtener la fecha: " + ex.getMessage());
+    }
+    }
+    
+     private static void mostrarErrores(ArrayList<ErrorGeneral> errores) {
+        if (!errores.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Se han producido los siguientes errores:\n\n");
+
+            for (ErrorGeneral error : errores) {
+                mensaje.append("Error: ").append(error.getMensajeError()).append("\n");
+                mensaje.append("Solución: ").append(error.getMensajeSolucion()).append("\n\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensaje.toString(), "Errores", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     
+     private int obtenerIdSeleccionado(JComboBox<String> comboBox, Map<Integer, String> map) {
+    String selectedItem = comboBox.getSelectedItem().toString();
+    for (Map.Entry<Integer, String> entry : map.entrySet()) {
+        if (entry.getValue().equals(selectedItem)) {
+            return entry.getKey();
+        }
+    }
+    return -1; 
+}
+
 }

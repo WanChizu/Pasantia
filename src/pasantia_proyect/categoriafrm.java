@@ -103,14 +103,16 @@ public class categoriafrm extends javax.swing.JFrame {
         btn_editar = new javax.swing.JButton();
         btn_ver = new javax.swing.JButton();
         btn_agregar = new javax.swing.JButton();
-        btn_refrescar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        btn_act = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
+        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
+        jPanel2.setPreferredSize(new java.awt.Dimension(356, 55));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,14 +123,14 @@ public class categoriafrm extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(247, 247, 247)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20))
         );
@@ -146,7 +148,7 @@ public class categoriafrm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table);
 
-        btn_editar.setBackground(new java.awt.Color(0, 102, 0));
+        btn_editar.setBackground(new java.awt.Color(28, 49, 68));
         btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +156,7 @@ public class categoriafrm extends javax.swing.JFrame {
             }
         });
 
-        btn_ver.setBackground(new java.awt.Color(0, 102, 0));
+        btn_ver.setBackground(new java.awt.Color(28, 49, 68));
         btn_ver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-ver-30.png"))); // NOI18N
         btn_ver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +164,7 @@ public class categoriafrm extends javax.swing.JFrame {
             }
         });
 
-        btn_agregar.setBackground(new java.awt.Color(0, 102, 0));
+        btn_agregar.setBackground(new java.awt.Color(28, 49, 68));
         btn_agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,11 +172,19 @@ public class categoriafrm extends javax.swing.JFrame {
             }
         });
 
-        btn_refrescar.setBackground(new java.awt.Color(0, 102, 0));
-        btn_refrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-refrescar-30.png"))); // NOI18N
-        btn_refrescar.addActionListener(new java.awt.event.ActionListener() {
+        btn_volver.setBackground(new java.awt.Color(28, 49, 68));
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-volver-20.png"))); // NOI18N
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_refrescarActionPerformed(evt);
+                btn_volverActionPerformed(evt);
+            }
+        });
+
+        btn_act.setBackground(new java.awt.Color(28, 49, 68));
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
+        btn_act.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actActionPerformed(evt);
             }
         });
 
@@ -182,12 +192,14 @@ public class categoriafrm extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_refrescar)
+                        .addComponent(btn_volver)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_act)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ver)
                         .addGap(39, 39, 39)
@@ -201,15 +213,17 @@ public class categoriafrm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_editar)
-                    .addComponent(btn_ver)
-                    .addComponent(btn_agregar)
-                    .addComponent(btn_refrescar))
-                .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btn_editar)
+                        .addComponent(btn_ver)
+                        .addComponent(btn_agregar))
+                    .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(25, 25, 25))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 500));
@@ -249,9 +263,16 @@ public class categoriafrm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btn_verActionPerformed
 
-    private void btn_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refrescarActionPerformed
-     actualizarTabla();  
-    }//GEN-LAST:event_btn_refrescarActionPerformed
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        mainfrm m = new mainfrm();
+        m.setVisible(true);
+        m.pack();
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_btn_actActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,10 +310,11 @@ public class categoriafrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_act;
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_refrescar;
     private javax.swing.JButton btn_ver;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -36,8 +36,7 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
      */
     public AgregarEditarVerArea() {
         initComponents();
-        setLocationRelativeTo(null);
-        this.setResizable(false);
+      
     }
     
     
@@ -45,7 +44,8 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
     this.opcion = opcion;
     this.id_area = id_area;
     initComponents();
-    
+    setLocationRelativeTo(null);
+    this.setResizable(false);
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
     
     switch (opcion){
@@ -78,10 +78,9 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
         lbl_nombre1 = new javax.swing.JLabel();
-        txt_nombre = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         btnagregar = new javax.swing.JButton();
         btn_regreso1 = new javax.swing.JButton();
+        txt_nombre = new javax.swing.JTextField();
 
         btn_regreso.setBackground(new java.awt.Color(51, 102, 0));
         btn_regreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconregreso.png"))); // NOI18N
@@ -92,12 +91,13 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 450));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
+        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,32 +132,30 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
 
         lbl_nombre1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lbl_nombre1.setText("Nombre");
-        jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+        jPanel1.add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
-        txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_nombre.setBorder(null);
-        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 220, 30));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 220, 20));
-
-        btnagregar.setBackground(new java.awt.Color(51, 102, 0));
+        btnagregar.setBackground(new java.awt.Color(28, 49, 68));
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-añadir-30.png"))); // NOI18N
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, -1, -1));
+        jPanel1.add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, -1, -1));
 
-        btn_regreso1.setBackground(new java.awt.Color(51, 102, 0));
+        btn_regreso1.setBackground(new java.awt.Color(28, 49, 68));
         btn_regreso1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-volver-30.png"))); // NOI18N
         btn_regreso1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_regreso1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_regreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
+        jPanel1.add(btn_regreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
+        txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 200, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,7 +200,6 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
     private javax.swing.JButton btnagregar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbl_nombre1;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTextField txt_nombre;
