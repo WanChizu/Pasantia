@@ -5,10 +5,14 @@
  */
 package pasantia_proyect;
 
+import Controladores.DatabaseManager;
+import Controladores.Pagos.ActualizarPago;
+import Controladores.Pagos.Formas.ActualizarFormaPago;
 import Controladores.Pagos.Formas.AgregarFormaPago;
 import Controladores.Pagos.Formas.VerFormaPago;
 import Controladores.Pagos.VerPago;
 import entidades.FormaPago;
+import entidades.Pagos;
 import errores.ErrorGeneral;
 import java.awt.Font;
 import java.sql.SQLException;
@@ -23,6 +27,7 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
     
     public final static int AGREGAR = 1;
     public final static int VER = 2;
+    public final static int EDITAR = 3;
     int opcion;
     private int id_pago;
    
@@ -47,9 +52,9 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
     case AGREGAR:
     createParaAgregar();
     break;
-//    case EDITAR:
-//    createParaEditar();
-//    break;
+    case EDITAR:
+    createParaEditar();
+    break;
     case VER:
     createParaVer();
     break;
@@ -92,10 +97,10 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
         lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_titulo.setText("AGREGAR FORMA DE PAGO");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbl_titulover(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel2.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 29, -1, -1));
@@ -136,10 +141,9 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(lbl_nombre1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_nombre1)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,11 +174,18 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_titulover
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-     agregarPago();
+     if (opcion == AGREGAR) {
+            agregarPago();
+        } else if (opcion == EDITAR) {
+            editarPago();
+        }
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btn_regreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regreso1ActionPerformed
-      
+    this.setVisible(false);
+    forma_pagofrm a = forma_pagofrm.obtenerInstanciaPrincipal();
+    a.setVisible(true);
+    a.actualizarTabla();      
     }//GEN-LAST:event_btn_regreso1ActionPerformed
 
     /**
@@ -184,7 +195,7 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
      try {
         ArrayList<ErrorGeneral> errores = new ArrayList<>();
         new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.VER, 1).setVisible(true);
-//        new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.EDITAR, 1).setVisible(true);
+       new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.EDITAR, 1).setVisible(true);
         new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.AGREGAR, 2).setVisible(true);
     } catch (SQLException e) {
     }   
@@ -235,6 +246,25 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
         }
 }
    
+ private void editarPago() {
+    String nombreFormaPago = txt_nombre.getText();
+
+    int idFormaPago = id_pago;
+
+    FormaPago formaPagoActualizar = new FormaPago(idFormaPago, nombreFormaPago);
+    ArrayList<ErrorGeneral> errores = new ArrayList<>();
+    int filasAfectadas = ActualizarFormaPago.actualizarFP(formaPagoActualizar, errores);
+    if (filasAfectadas > 0) {
+        JOptionPane.showMessageDialog(this, "Forma de pago actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+      
+    } else {
+        
+        mostrarErrores(errores);
+    }
+}
+
+
+   
    private static void mostrarErrores(ArrayList<ErrorGeneral> errores) {
         if (!errores.isEmpty()) {
             StringBuilder mensaje = new StringBuilder("Se han producido los siguientes errores:\n\n");
@@ -262,4 +292,11 @@ public class AgregarEditarVerFormaPago extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
+
+    private void createParaEditar() {
+       lbl_titulo.setText("EDITAR FORMA DE PAGO");
+        btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
+        ArrayList<ErrorGeneral> errores = new ArrayList<>();
+        rellenarVentana(id_pago, errores);
+    }
 }

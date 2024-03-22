@@ -46,8 +46,10 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     this.opcion = opcion;
     this.pagoId = pagoId;
     initComponents();
-     this.setResizable(false);
-     setLocationRelativeTo(null);
+    fecha.setDateFormatString("dd/MM/yyyy");
+    this.setResizable(false);
+    setLocationRelativeTo(null);
+   
      
     
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
@@ -318,9 +320,9 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     public static void main(String args[]) {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-  // new AgregarEditarVerPagos(AgregarEditarVerPagos.AGREGAR,1).setVisible(true);
+   new AgregarEditarVerPagos(AgregarEditarVerPagos.AGREGAR,1).setVisible(true);
  new AgregarEditarVerPagos(AgregarEditarVerPagos.EDITAR, 5).setVisible(true);
-  new AgregarEditarVerPagos(AgregarEditarVerPagos.VER, 5).setVisible(true);
+  new AgregarEditarVerPagos(AgregarEditarVerPagos.VER, 7).setVisible(true);
     }catch (SQLException e) {
     }
     }
@@ -353,13 +355,11 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
     private void createParaEditar() throws SQLException {
     lbl_titulo.setText("EDITAR PAGO");
     btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img//icons//icons8-editar-30.png")));
-   
      ArrayList<ErrorGeneral> errores = new ArrayList<>();
      rellenarVentana(pagoId, errores);  
     }
 
     private void createParaVer() throws SQLException {
-    fecha.setDateFormatString("dd/MM/yyyy");
     lbl_titulo.setText("VER PAGO");
     
      
@@ -395,7 +395,6 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
         Map<Integer, String> idsYComentarios = DatabaseManager.obtenerIdsYComentariosFactura();
         Map<Integer, String> fp = DatabaseManager.obtenerFormaPagos();
         
-        // Limpiar combos antes de agregar nuevos elementos
         combo_a.removeAllItems();
         combo_f.removeAllItems();
         combo_pago.removeAllItems();
@@ -421,7 +420,7 @@ public class AgregarEditarVerPagos extends javax.swing.JFrame {
             }
         }
     } catch (SQLException e) {
-        // Manejar excepciones
+        
     }
 }
 

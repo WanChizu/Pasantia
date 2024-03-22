@@ -18,15 +18,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
-import utill.FuncionesGenerales;
 
 /**
  *
@@ -55,7 +51,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
     this.setResizable(false);
-    
+    fecha.setDateFormatString("dd/MM/yyyy");
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
    
 
@@ -310,9 +306,9 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
     public static void main(String args[]) {
       try {
     ArrayList<ErrorGeneral> errores = new ArrayList<>();
-    //new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.AGREGAR, 1).setVisible(true);
     new AgregarEditarVerFactura(AgregarEditarVerFactura.EDITAR, 1).setVisible(true);
-    //new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
+    new AgregarEditarVerFactura(AgregarEditarVerFactura.VER, 1).setVisible(true);
     }catch (SQLException e) {
     }
       
@@ -395,7 +391,7 @@ public class AgregarEditarVerFactura extends javax.swing.JFrame {
 
     private void createParaVer() throws SQLException {
     lbl_titulo.setText("VER FACTURA");
-    fecha.setDateFormatString("dd/MM/yyyy");
+   
     
     try {
         Map<Integer, String> proveedores = DatabaseManager.obtenerProveedores();

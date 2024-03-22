@@ -38,6 +38,8 @@ public class categoriafrm extends javax.swing.JFrame {
         mostrar();
         instanciaPrincipal = this;
         this.setResizable(false);
+        combo_ac.insertItemAt("", 0);
+        combo_ac.setSelectedIndex(0); 
     }
     
     public static categoriafrm obtenerInstanciaPrincipal() {
@@ -83,7 +85,18 @@ public class categoriafrm extends javax.swing.JFrame {
         return -1; 
     }
 }
-   
+   private void obtenerFiltros() {
+    nombre = txt_nombre.getText().trim();
+}
+     
+     private void limpiarTabla() {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0); 
+}
+     private void limpiarFiltros() {
+        txt_nombre.setText("");
+        nombre = null;
+    }
 
 
     /**
@@ -105,6 +118,12 @@ public class categoriafrm extends javax.swing.JFrame {
         btn_agregar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
         btn_act = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        btn_refrescar = new javax.swing.JButton();
+        txt_nombre = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        combo_ac = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -116,7 +135,7 @@ public class categoriafrm extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CATEGORIA");
+        jLabel1.setText("CATEGORIAS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -173,7 +192,7 @@ public class categoriafrm extends javax.swing.JFrame {
         });
 
         btn_volver.setBackground(new java.awt.Color(28, 49, 68));
-        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-volver-20.png"))); // NOI18N
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-volver-30 (1).png"))); // NOI18N
         btn_volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_volverActionPerformed(evt);
@@ -181,12 +200,45 @@ public class categoriafrm extends javax.swing.JFrame {
         });
 
         btn_act.setBackground(new java.awt.Color(28, 49, 68));
-        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-refrescar-30 (1).png"))); // NOI18N
         btn_act.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actActionPerformed(evt);
             }
         });
+
+        btn_limpiar.setBackground(new java.awt.Color(28, 49, 68));
+        btn_limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-limpiar-20.png"))); // NOI18N
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarActionPerformed(evt);
+            }
+        });
+
+        btn_refrescar.setBackground(new java.awt.Color(28, 49, 68));
+        btn_refrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
+        btn_refrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refrescarActionPerformed(evt);
+            }
+        });
+
+        txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("Nombre de la categoria");
+
+        combo_ac.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        combo_ac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        combo_ac.setBorder(null);
+        combo_ac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_acActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setText("Estado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,27 +254,52 @@ public class categoriafrm extends javax.swing.JFrame {
                         .addComponent(btn_act)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ver)
-                        .addGap(39, 39, 39)
-                        .addComponent(btn_agregar)
-                        .addGap(33, 33, 33)
-                        .addComponent(btn_editar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_editar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_agregar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(combo_ac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn_editar)
-                        .addComponent(btn_ver)
-                        .addComponent(btn_agregar))
-                    .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_ac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_limpiar)
+                    .addComponent(btn_refrescar))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_ver)
+                            .addComponent(btn_agregar))
+                        .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btn_editar))
                 .addGap(25, 25, 25))
         );
 
@@ -274,6 +351,32 @@ public class categoriafrm extends javax.swing.JFrame {
         actualizarTabla();
     }//GEN-LAST:event_btn_actActionPerformed
 
+    private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
+        limpiarTabla();
+        limpiarFiltros();
+        mostrar();
+    }//GEN-LAST:event_btn_limpiarActionPerformed
+
+    private void btn_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refrescarActionPerformed
+        obtenerFiltros();
+        mostrar();
+    }//GEN-LAST:event_btn_refrescarActionPerformed
+
+    private void combo_acActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_acActionPerformed
+      String estadoSeleccionado = (String) combo_ac.getSelectedItem();
+      
+        Boolean estado = null;
+        if (estadoSeleccionado.equals("Activo")) {
+            estado = true;
+        } else if (estadoSeleccionado.equals("Inactivo")) {
+            estado = false;
+        }
+        
+        estaActivo = estado;
+        mostrar();
+    
+    }//GEN-LAST:event_combo_acActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,13 +416,19 @@ public class categoriafrm extends javax.swing.JFrame {
     private javax.swing.JButton btn_act;
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_limpiar;
+    private javax.swing.JButton btn_refrescar;
     private javax.swing.JButton btn_ver;
     private javax.swing.JButton btn_volver;
+    private javax.swing.JComboBox<String> combo_ac;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
+    private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }
 

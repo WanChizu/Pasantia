@@ -11,8 +11,10 @@ import entidades.Pagos;
 import errores.ErrorGeneral;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,8 @@ public class pagosfrm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         instanciaPrincipal = this;
         this.setResizable(false);
+        fecha_desde.setDateFormatString("dd/MM/yyyy");
+        fecha_hasta.setDateFormatString("dd/MM/yyyy");
         
         try {
             rellenarComboBoxes();
@@ -100,15 +104,17 @@ public class pagosfrm extends javax.swing.JFrame {
       
         tableModel.setRowCount(0);
     }
+    
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     for (Pagos pago : pagos) {
        
         String estado = pago.isEstadoPago() ? "Activo" : "Inactivo";
-
-       
+        String fechaFormateada = pago.getFecha().format(dateFormatter);
+        
         Object[] rowData = {
             pago.getIdPagos(),
-            pago.getFecha(),
+            fechaFormateada, 
             pago.getNombrePago(),
             pago.getMonto(),
             pago.getNombreArea(),
@@ -131,6 +137,8 @@ public class pagosfrm extends javax.swing.JFrame {
         return -1; 
     }
 }
+     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,6 +179,7 @@ public class pagosfrm extends javax.swing.JFrame {
         monto_desde = new javax.swing.JTextField();
         btn_volver = new javax.swing.JButton();
         btn_act = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -311,7 +320,7 @@ public class pagosfrm extends javax.swing.JFrame {
         monto_desde.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btn_volver.setBackground(new java.awt.Color(28, 49, 68));
-        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-volver-20.png"))); // NOI18N
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-volver-30 (1).png"))); // NOI18N
         btn_volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_volverActionPerformed(evt);
@@ -319,10 +328,20 @@ public class pagosfrm extends javax.swing.JFrame {
         });
 
         btn_act.setBackground(new java.awt.Color(28, 49, 68));
-        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-refrescar-20.png"))); // NOI18N
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-refrescar-30 (1).png"))); // NOI18N
         btn_act.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(28, 49, 68));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Forma de Pago");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -379,12 +398,14 @@ public class pagosfrm extends javax.swing.JFrame {
                         .addComponent(btn_volver)
                         .addGap(18, 18, 18)
                         .addComponent(btn_act)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnagregar2)
                         .addGap(18, 18, 18)
-                        .addComponent(btnagregar1)
+                        .addComponent(btnagregar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnagregar))
+                        .addComponent(btnagregar1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -419,21 +440,27 @@ public class pagosfrm extends javax.swing.JFrame {
                             .addComponent(combo_f, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combo_fp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_limpiar)
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_refrescar))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnagregar1)
-                            .addComponent(btnagregar2)
-                            .addComponent(btnagregar)
-                            .addComponent(btn_volver)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_limpiar)
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_refrescar))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnagregar1)
+                                    .addComponent(btnagregar2)
+                                    .addComponent(btn_volver)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addComponent(btn_act))
                 .addContainerGap())
         );
@@ -508,6 +535,13 @@ public class pagosfrm extends javax.swing.JFrame {
         actualizarTabla();
     }//GEN-LAST:event_btn_actActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      forma_pagofrm p = new forma_pagofrm();
+        p.setVisible(true);
+        p.pack();
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -569,6 +603,7 @@ public class pagosfrm extends javax.swing.JFrame {
      private void obtenerFiltros() throws SQLException {
     fechaInicio = fecha_desde.getDate() != null ? fecha_desde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
     fechaFin = fecha_hasta.getDate() != null ? fecha_hasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
+    
     idFactura = obtenerIdSeleccionado(combo_f, DatabaseManager.obtenerCategorias());
     idFormaPago = obtenerIdSeleccionado(combo_fp, DatabaseManager.obtenerProveedores());
     idArea = obtenerIdSeleccionado(combo_a, DatabaseManager.obtenerAreas());
@@ -663,6 +698,7 @@ public class pagosfrm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_fp;
     private com.toedter.calendar.JDateChooser fecha_desde;
     private com.toedter.calendar.JDateChooser fecha_hasta;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

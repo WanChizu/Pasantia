@@ -5,8 +5,8 @@
  */
 package pasantia_proyect;
 
-import static Controladores.Area.AreaIndex.indexArea;
-import entidades.Area;
+import static Controladores.Pagos.Formas.IndexFormaPago.indexFP;
+import entidades.FormaPago;
 import errores.ErrorGeneral;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,18 +18,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author A19B59953
  */
-public class areafrm extends javax.swing.JFrame {
+public class forma_pagofrm extends javax.swing.JFrame {
     
-    private static areafrm instanciaPrincipal;
-    private Integer idArea = 0; 
-    private String nombre = null; 
+     
+    private static forma_pagofrm instanciaPrincipal;
+    private Integer idFormaPago = 0; 
+    private String nombreFormaPago = null; 
     private ArrayList<ErrorGeneral> errores = new ArrayList<>(); 
-    
 
     /**
-     * Creates new form areafrm
+     * Creates new form forma_pagofrm
      */
-    public areafrm() {
+    public forma_pagofrm() {
         initComponents();
         mostrar();
         instanciaPrincipal = this;
@@ -37,24 +37,22 @@ public class areafrm extends javax.swing.JFrame {
         this.setResizable(false);
     }
     
-    
-    
-     public static areafrm obtenerInstanciaPrincipal() {
+    public static forma_pagofrm obtenerInstanciaPrincipal() {
         return instanciaPrincipal;
     }
-     
+    
      public void actualizarTabla() {
      mostrar();
 }
      private DefaultTableModel tableModel;
     
     public void mostrar() {
-    List<Area> areas = indexArea(idArea, nombre, errores);
+    List<FormaPago> fp = indexFP(idFormaPago, nombreFormaPago, errores);
 
     if (tableModel == null) {
         tableModel = new DefaultTableModel();
-        tableModel.addColumn("ID Área");
-        tableModel.addColumn("Nombre Área");
+        tableModel.addColumn("ID Forma de Pago");
+        tableModel.addColumn("Nombre de la forma de pago");
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setMinWidth(0);
         table.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -62,19 +60,14 @@ public class areafrm extends javax.swing.JFrame {
         tableModel.setRowCount(0);
     }
 
-    for (Area area : areas) {
+     for (FormaPago formaPago : fp) {
         Object[] rowData = {
-            area.getIdArea(),
-            area.getNombreArea()
-        };
+            formaPago.getIdFormaPago(),
+            formaPago.getNombreFormaPago() };
         tableModel.addRow(rowData);
     }
-}
-
-  
-
-    
-     public int obtenerIdAreaSeleccionada() {
+    }
+     public int obtenerIdFpSeleccionada() {
     int filaSeleccionada = table.getSelectedRow();
     if (filaSeleccionada != -1) {
         return Integer.parseInt(table.getValueAt(filaSeleccionada, 0).toString()); 
@@ -83,8 +76,9 @@ public class areafrm extends javax.swing.JFrame {
     }
 }
      
+      
      private void obtenerFiltros() {
-    nombre = txt_nombre.getText().trim();
+    nombreFormaPago = txt_nombre.getText().trim();
 }
      
      private void limpiarTabla() {
@@ -93,10 +87,8 @@ public class areafrm extends javax.swing.JFrame {
 }
      private void limpiarFiltros() {
         txt_nombre.setText("");
-        nombre = null;
+        nombreFormaPago = null;
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,29 +99,49 @@ public class areafrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        ver_btn = new javax.swing.JButton();
-        btn_añadir = new javax.swing.JButton();
-        btn_editar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
         btn_volver = new javax.swing.JButton();
+        btn_editar = new javax.swing.JButton();
         btn_act = new javax.swing.JButton();
+        ver_btn = new javax.swing.JButton();
+        btn_añadir = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         btn_refrescar = new javax.swing.JButton();
         btn_limpiar = new javax.swing.JButton();
 
-        jCheckBox1.setText("jCheckBox1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(600, 500));
+
+        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
+        jPanel2.setPreferredSize(new java.awt.Dimension(356, 55));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("FORMA DE PAGO");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addContainerGap(437, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20))
+        );
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,6 +155,30 @@ public class areafrm extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(table);
+
+        btn_volver.setBackground(new java.awt.Color(28, 49, 68));
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-volver-30 (1).png"))); // NOI18N
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
+        btn_editar.setBackground(new java.awt.Color(28, 49, 68));
+        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
+
+        btn_act.setBackground(new java.awt.Color(28, 49, 68));
+        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-refrescar-30 (1).png"))); // NOI18N
+        btn_act.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actActionPerformed(evt);
+            }
+        });
 
         ver_btn.setBackground(new java.awt.Color(28, 49, 68));
         ver_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-ver-30.png"))); // NOI18N
@@ -160,56 +196,8 @@ public class areafrm extends javax.swing.JFrame {
             }
         });
 
-        btn_editar.setBackground(new java.awt.Color(28, 49, 68));
-        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-editar-30.png"))); // NOI18N
-        btn_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editarActionPerformed(evt);
-            }
-        });
-
-        jPanel2.setBackground(new java.awt.Color(89, 111, 98));
-        jPanel2.setPreferredSize(new java.awt.Dimension(356, 55));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("AREAS");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20))
-        );
-
-        btn_volver.setBackground(new java.awt.Color(28, 49, 68));
-        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-volver-30 (1).png"))); // NOI18N
-        btn_volver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_volverActionPerformed(evt);
-            }
-        });
-
-        btn_act.setBackground(new java.awt.Color(28, 49, 68));
-        btn_act.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main/icons/icons8-refrescar-30 (1).png"))); // NOI18N
-        btn_act.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_actActionPerformed(evt);
-            }
-        });
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setText("Nombre del área");
+        jLabel14.setText("Nombre de la forma de pago");
 
         txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -248,6 +236,7 @@ public class areafrm extends javax.swing.JFrame {
                                 .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_volver)
                                 .addGap(18, 18, 18)
@@ -257,8 +246,7 @@ public class areafrm extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_editar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btn_añadir))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                                .addComponent(btn_añadir)))
                         .addGap(25, 25, 25))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -268,58 +256,26 @@ public class areafrm extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_limpiar)
-                    .addComponent(btn_refrescar))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(btn_refrescar)
+                    .addComponent(btn_limpiar))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_editar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_añadir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ver_btn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btn_act, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_volver, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ver_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_btnActionPerformed
-     int idAreaSeleccionada = obtenerIdAreaSeleccionada();
-    if (idAreaSeleccionada != -1) {
-        try {
-            new AgregarEditarVerArea(AgregarEditarVerArea.VER, idAreaSeleccionada).setVisible(true);
-        } catch (SQLException e) {
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una area antes de ver sus datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
-    }//GEN-LAST:event_ver_btnActionPerformed
-
-    private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
-       try {
-        new AgregarEditarVerArea(AgregarEditarVerArea.AGREGAR, -1).setVisible(true);
-    } catch (SQLException e) {
-    }
-    }//GEN-LAST:event_btn_añadirActionPerformed
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-     int idAreaSeleccionada = obtenerIdAreaSeleccionada();
-    if (idAreaSeleccionada != -1) {
-        try {
-          
-            new AgregarEditarVerArea(AgregarEditarVerArea.EDITAR, idAreaSeleccionada).setVisible(true);
-        } catch (SQLException e) {
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una area antes de editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
-    }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
         mainfrm m = new mainfrm();
@@ -328,19 +284,51 @@ public class areafrm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_volverActionPerformed
 
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        int idFpSeleccionado = obtenerIdFpSeleccionada();
+        if (idFpSeleccionado != -1) {
+            try {
+
+                new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.EDITAR, idFpSeleccionado).setVisible(true);
+            } catch (SQLException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una forma de pago antes de editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_editarActionPerformed
+
     private void btn_actActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actActionPerformed
         actualizarTabla();
     }//GEN-LAST:event_btn_actActionPerformed
 
+    private void ver_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_btnActionPerformed
+        int idFpSeleccionado = obtenerIdFpSeleccionada();
+        if (idFpSeleccionado != -1) {
+            try {
+                new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.VER, idFpSeleccionado).setVisible(true);
+            } catch (SQLException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una forma de pago antes de ver sus datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_ver_btnActionPerformed
+
+    private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
+        try {
+            new AgregarEditarVerFormaPago(AgregarEditarVerFormaPago.AGREGAR, -1).setVisible(true);
+        } catch (SQLException e) {
+        }
+    }//GEN-LAST:event_btn_añadirActionPerformed
+
     private void btn_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refrescarActionPerformed
-     obtenerFiltros();
-       mostrar(); 
+        obtenerFiltros();
+        mostrar();
     }//GEN-LAST:event_btn_refrescarActionPerformed
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
-       limpiarTabla();
+        limpiarTabla();
         limpiarFiltros();
-        mostrar();        
+        mostrar();
     }//GEN-LAST:event_btn_limpiarActionPerformed
 
     /**
@@ -360,20 +348,20 @@ public class areafrm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(areafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(forma_pagofrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(areafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(forma_pagofrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(areafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(forma_pagofrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(areafrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(forma_pagofrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new areafrm().setVisible(true);
+                new forma_pagofrm().setVisible(true);
             }
         });
     }
@@ -385,7 +373,6 @@ public class areafrm extends javax.swing.JFrame {
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_refrescar;
     private javax.swing.JButton btn_volver;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JPanel jPanel1;

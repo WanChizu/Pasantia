@@ -50,7 +50,7 @@ public class mainfrm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(89, 111, 98));
 
-        lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("Centro Cardiorenal Del Cibao (CERCANCI)");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -193,7 +193,7 @@ public class mainfrm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 400));

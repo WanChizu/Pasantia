@@ -104,10 +104,10 @@ public class AgregarEditarVerArea extends javax.swing.JFrame {
         lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_titulo.setText("AGREGAR AREA");
         lbl_titulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbl_titulover(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
