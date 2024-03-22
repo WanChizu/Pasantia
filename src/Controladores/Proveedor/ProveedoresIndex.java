@@ -28,7 +28,7 @@ public class ProveedoresIndex {
      * @param args the command line arguments
      */
     
-public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nombreProveedor, String telefono, Boolean estaActivo, BigDecimal limiteDeCredito, ArrayList<ErrorGeneral> errores) {
+public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nombreProveedor, String telefono, Boolean estaActivo, BigDecimal limiteDeCredito1, BigDecimal limiteDeCredito2 ,ArrayList<ErrorGeneral> errores) {
     List<Proveedor> proveedores = new ArrayList<>();
     Connection conexion = null;
     PreparedStatement ps = null;
@@ -36,7 +36,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
 
     try {
         conexion = MyConnection.getConnection();
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Proveedor WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT proveedor_id, nombre, telefono, esta_activo, limite_credito FROM Proveedor WHERE 1 = 1");
         List<Object> parameters = new ArrayList<>();
 
         if (codigoProveedor != null && codigoProveedor != 0) {
@@ -59,9 +59,14 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
             parameters.add(estaActivo);
         }
 
-        if (limiteDeCredito != null) {
-            queryBuilder.append(" AND limite_credito = ?");
-            parameters.add(limiteDeCredito);
+        if (limiteDeCredito1 != null) {
+            queryBuilder.append(" AND limite_credito >= ?");
+            parameters.add(limiteDeCredito1);
+        }
+        
+        if (limiteDeCredito2 != null) {
+            queryBuilder.append(" AND limite_credito <= ?");
+            parameters.add(limiteDeCredito2);
         }
         
         ps = conexion.prepareStatement(queryBuilder.toString());
@@ -74,14 +79,7 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
          rs = ps.executeQuery();
             
             while (rs.next()) {
-                int proveedorId = rs.getInt("proveedor_id");
-                String nombre = rs.getString("nombre");
-                String telefonoProveedor = rs.getString("telefono");
-                boolean proveedorActivo = rs.getBoolean("esta_activo");
-                BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
-                
-                Proveedor proveedor = new Proveedor(proveedorId, nombre, telefonoProveedor, proveedorActivo, limiteCredito);
-                proveedores.add(proveedor);
+                agregarUnProveedorDesdeResultSet(rs, proveedores);
             }
             
             if (proveedores.isEmpty()) {
@@ -100,6 +98,17 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
     return proveedores;
 }
 
+    private static void agregarUnProveedorDesdeResultSet(ResultSet rs, List<Proveedor> proveedores) throws SQLException {
+        int proveedorId = rs.getInt("proveedor_id");
+        String nombre = rs.getString("nombre");
+        String telefonoProveedor = rs.getString("telefono");
+        boolean proveedorActivo = rs.getBoolean("esta_activo");
+        BigDecimal limiteCredito = rs.getBigDecimal("limite_credito");
+
+        Proveedor proveedor = new Proveedor(proveedorId, nombre, telefonoProveedor, proveedorActivo, limiteCredito);
+        proveedores.add(proveedor);
+    }
+
 
     
     public static void main(String[] args) throws SQLException {
@@ -110,9 +119,10 @@ public static List<Proveedor> IndexProveedor(Integer codigoProveedor, String nom
         String nombreProveedor = "Lavanderia Rosario1";
         String telefono = "849-986-0987";
         boolean estaActivo = true;
-        BigDecimal limiteCredito = new BigDecimal("500");
+        BigDecimal limiteCredito1 = new BigDecimal("500");
+        BigDecimal limiteCredito2 = new BigDecimal("5000");
 
-        List<Proveedor> proveedoresEncontrados = IndexProveedor(0, "", telefono, true, null, errores);
+        List<Proveedor> proveedoresEncontrados = IndexProveedor(0, "", telefono, true, limiteCredito1, limiteCredito2,errores);
         if (!errores.isEmpty()) {
             for (errores.ErrorGeneral error : errores) {
                 System.out.println("Error: " + error.getMensajeError());
